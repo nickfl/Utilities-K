@@ -1,16 +1,11 @@
 package com.brightkey.nickfl.helpers
 
 import android.content.Context
-import android.content.res.AssetManager
-
 import com.brightkey.nickfl.entities.ConfigEntity
 import com.brightkey.nickfl.entities.LoadUtility
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
 import java.io.IOException
-import java.io.InputStream
-import java.lang.reflect.Type
 
 object JsonUtility {
 

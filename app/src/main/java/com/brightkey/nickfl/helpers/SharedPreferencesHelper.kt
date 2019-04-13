@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 
-//import static com.bootyapp.booty.helpers.Timestamp.utcStringToLongDate;
-
 /**
  * @author Nick Floussov
  * @version 1.0.1

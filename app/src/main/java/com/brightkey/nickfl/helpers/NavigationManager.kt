@@ -1,16 +1,11 @@
 package com.brightkey.nickfl.helpers
 
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-
 import com.brightkey.nickfl.fragments.BaseFragment
 import com.brightkey.nickfl.fragments.FragmentScreen
-
-import java.util.ArrayList
-import java.util.HashMap
-
 import timber.log.Timber
+import java.util.*
 
 /**
  * @author Nick Floussov

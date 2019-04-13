@@ -1,13 +1,10 @@
 package com.brightkey.nickfl.models
 
-import android.os.Bundle
-
 import com.brightkey.nickfl.entities.ConfigEntity
 import com.brightkey.nickfl.helpers.Constants
 import com.brightkey.nickfl.helpers.ObjectBoxHelper
 import com.brightkey.nickfl.myutilities.R
-
-import java.util.ArrayList
+import java.util.*
 
 class DashboardModel internal constructor(var utilityIcon: String       // hydro_bill
                                           , var utilityType: String       // Hydro

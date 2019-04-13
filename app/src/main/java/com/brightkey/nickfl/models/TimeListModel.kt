@@ -1,13 +1,11 @@
 package com.brightkey.nickfl.models
 
 import com.brightkey.nickfl.entities.BaseUtility
-import com.brightkey.nickfl.entities.ConfigEntity
 import com.brightkey.nickfl.fragments.FragmentScreen
 import com.brightkey.nickfl.helpers.Constants
 import com.brightkey.nickfl.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
-
-import java.util.ArrayList
+import java.util.*
 
 class TimeListModel internal constructor(var utilityIcon: String  // hydro_bill
                                          , var utilityColor: String // #5F8233
