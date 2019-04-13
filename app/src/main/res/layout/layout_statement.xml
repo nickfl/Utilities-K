@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutStatement"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/includeSDate"
+        layout="@layout/layout_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <include
+        android:id="@+id/includePrice"
+        layout="@layout/layout_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/includeSDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <include
+        android:id="@+id/includeDDate"
+        layout="@layout/layout_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/includePrice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>

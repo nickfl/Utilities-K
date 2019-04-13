@@ -1,0 +1,4 @@
+<resources>
+    <integer name="slide_duration">600</integer>
+
+</resources>

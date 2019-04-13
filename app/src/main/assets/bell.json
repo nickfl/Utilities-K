@@ -1,0 +1,152 @@
+[
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Jan 08, 2018",
+        "dueDate": "Jan 29, 2018",
+        "datePaid": "Jan 19, 2018",
+        "amountDue": 206.05,
+        "amountType0": 64.95,
+        "amountType1": 77.45,
+        "amountType2": 39.55
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Feb 08, 2018",
+        "dueDate": "Feb 26, 2018",
+        "datePaid": "Feb 19, 2018",
+        "amountDue": 206.05,
+        "amountType0": 64.95,
+        "amountType1": 77.45,
+        "amountType2": 39.55
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Mar 08, 2018",
+        "dueDate": "Mar 26, 2018",
+        "datePaid": "Mar 19, 2018",
+        "amountDue": 206.05,
+        "amountType0": 64.95,
+        "amountType1": 77.45,
+        "amountType2": 39.55
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Apr 08, 2018",
+        "dueDate": "Apr 24, 2018",
+        "datePaid": "Apr 19, 2018",
+        "amountDue": 206.05,
+        "amountType0": 64.95,
+        "amountType1": 77.45,
+        "amountType2": 39.55
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "May 08, 2018",
+        "dueDate": "May 24, 2018",
+        "datePaid": "May 19, 2018",
+        "amountDue": 211.70,
+        "amountType0": 64.95,
+        "amountType1": 82.45,
+        "amountType2": 39.55
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Jun 08, 2018",
+        "dueDate": "Jun 25, 2018",
+        "datePaid": "Jun 19, 2018",
+        "amountDue": 190.01,
+        "amountType0": 54.95,
+        "amountType1": 84.45,
+        "amountType2": 28.74
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Jul 08, 2018",
+        "dueDate": "Jul 24, 2018",
+        "datePaid": "Jul 19, 2018",
+        "amountDue": 179.48,
+        "amountType0": 54.95,
+        "amountType1": 77.92,
+        "amountType2": 25.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Aug 08, 2018",
+        "dueDate": "Aug 24, 2018",
+        "datePaid": "Aug 19, 2018",
+        "amountDue": 182.90,
+        "amountType0": 54.95,
+        "amountType1": 80.95,
+        "amountType2": 25.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Sep 08, 2018",
+        "dueDate": "Sep 24, 2018",
+        "datePaid": "Sep 18, 2018",
+        "amountDue": 182.90,
+        "amountType0": 54.95,
+        "amountType1": 80.95,
+        "amountType2": 25.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Oct 08, 2018",
+        "dueDate": "Oct 24, 2018",
+        "datePaid": "Oct 19, 2018",
+        "amountDue": 187.41,
+        "amountType0": 57.95,
+        "amountType1": 80.95,
+        "amountType2": 26.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Nov 08, 2018",
+        "dueDate": "Nov 26, 2018",
+        "datePaid": "Nov 12, 2018",
+        "amountDue": 187.41,
+        "amountType0": 57.95,
+        "amountType1": 80.95,
+        "amountType2": 26.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Dec 08, 2018",
+        "dueDate": "Dec 24, 2018",
+        "datePaid": "Dec 14, 2018",
+        "amountDue": 187.41,
+        "amountType0": 57.95,
+        "amountType1": 80.95,
+        "amountType2": 26.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Jan 08, 2019",
+        "dueDate": "Jan 24, 2019",
+        "datePaid": "Jan 14, 2019",
+        "amountDue": 187.41,
+        "amountType0": 57.95,
+        "amountType1": 80.95,
+        "amountType2": 26.95
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Feb 08, 2019",
+        "dueDate": "Feb 25, 2019",
+        "datePaid": "Mar 01, 2019",
+        "amountDue": 187.39,
+        "amountType0": 57.95,
+        "amountType1": 80.95,
+        "amountType2": 26.93
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Mar 08, 2019",
+        "dueDate": "Mar 25, 2019",
+        "datePaid": "Mar 19, 2019",
+        "amountDue": 187.40,
+        "amountType0": 57.95,
+        "amountType1": 80.95,
+        "amountType2": 26.94
+    }
+]

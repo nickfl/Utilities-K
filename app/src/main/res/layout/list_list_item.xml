@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/listTimeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/nav_header_vertical_spacing_10"
+        android:layout_marginLeft="@dimen/nav_header_vertical_spacing_10"
+        android:layout_marginRight="@dimen/nav_header_vertical_spacing_10"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@android:color/background_light"
+        app:cardCornerRadius="@dimen/nav_header_vertical_spacing_10"
+        app:cardElevation="@dimen/nav_header_vertical_spacing_5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTotalPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:layout_centerVertical="true"
+                android:text="@string/utility_price"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewDataPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="15dp"
+                android:text="Paid: Jan 01, 2018"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textViewAmountPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewDataPaid"
+                android:layout_below="@+id/textViewDataPaid"
+                android:layout_marginTop="14dp"
+                android:text="Amount: $328.09"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageViewMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:layout_centerVertical="true"
+                android:tint="@android:color/holo_red_dark"
+                app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

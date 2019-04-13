@@ -1,0 +1,44 @@
+[
+    {
+        "utilityIcon": "hydro_bill",
+        "utilityType": "Hydro",
+        "utilityVendorName": "alectra",
+        "vendorNameColor": "#F58233",
+        "accountNumber": "1586905506",
+        "unitType": "kWh",
+        "unitPrice0": 0.132, // On-Peak
+        "unitPrice1": 0.094, // Mid
+        "unitPrice2": 0.065  // Off-Peak
+    },
+    {
+        "utilityIcon": "heat_bill",
+        "utilityType": "Heat",
+        "utilityVendorName": "ENBRIDGE",
+        "vendorNameColor": "#00A1E4",
+        "accountNumber": "12 21 56 07272 3",
+        "unitType": "m3",
+        "unitPrice0": 0.092346
+    },
+    {
+        "utilityIcon": "water_bill",
+        "utilityType": "Water & Severs",
+        "utilityVendorName": "Region of Peel",
+        "vendorNameColor": "#71A3D4",
+        "accountNumber": "4846-7200-00",
+        "unitType": "m3",
+        "unitPrice0": 1.44902,   // Water
+        "unitPrice1": 1.02099,   // Waste
+        "unitPrice2": 0.2849315  // Storm
+    },
+    {
+        "utilityIcon": "phone_bill",
+        "utilityType": "Phone",
+        "utilityVendorName": "BELL",
+        "vendorNameColor": "#7F007F",
+        "accountNumber": "16621989ZZZ804",
+        "unitType": "",
+        "unitPrice0": 0.0,  // TV
+        "unitPrice1": 0.0,  // Internet
+        "unitPrice2": 0.0   // Phone
+    }
+]

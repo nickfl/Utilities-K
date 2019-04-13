@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">UtilitiesK</string>
+    <string name="title_myutility">UtilitiesK</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">UtilitiesK</string>
+    <string name="nav_header_subtitle">household utilities manager</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_total">Total: $</string>
+    <string name="action_settings">Period</string>
+
+    <string name="drawer_settings">Settings</string>
+    <string name="drawer_statistics">Statistics</string>
+    <string name="drawer_payments">Payments</string>
+    <string name="drawer_records">Records</string>
+    <string name="drawer_export">Export Records</string>
+    <string name="drawer_import">Import Records</string>
+    <string name="drawer_rec_payments">Recurring payments</string>
+    <string name="drawer_reports">Reports</string>
+    <string name="export_google">Google Drive backup</string>
+    <string name="export_drop">Dropbox backup</string>
+    <string name="export_device">Device backup</string>
+    <string name="export_backup">BACKUP</string>
+    <string name="export_where">WHERE</string>
+    <string name="import_google">From Google Drive</string>
+    <string name="import_drop">From Dropbox</string>
+    <string name="import_device">From Device</string>
+    <string name="import_default">Default</string>
+    <string name="import_restore">RESTORE</string>
+    <string name="drawer_clean">Clean Records</string>
+
+    <string name="utility_hydro">Hydro</string>
+    <string name="utility_hydro_details">Details</string>
+    <string name="utility_statement_date">Statement Date:</string>
+    <string name="utility_amount_due">Amount Due ($):</string>
+    <string name="utility_due_date">Due Date:</string>
+    <string name="utility_price">$289.39</string>
+    <string name="electra">Electra</string>
+    <string name="_12910920_11">12910920-11</string>
+    <string name="_111">111</string>
+    <string name="_1234_00">1234.00</string>
+    <string name="date">Jul 19, 2018</string>
+    <string name="date_month">July, 2018</string>
+    <string name="add_date">date</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="utilities">Utilities</string>
+    <string name="close">CLOSE</string>
+    <string name="title_hydro">Hydro</string>
+    <string name="title_heat">Heat</string>
+    <string name="title_water">Water \u0026 Severs</string>
+    <string name="title_phone">Phone</string>
+    <string name="hydro_details">DETAILS:</string>
+    <string name="hydro_add_payment">ADD PAYMENT</string>
+    <string name="hydro_update_payment">UPDATE PAYMENT</string>
+    <string name="hydro_on_peak_pay">On-Peak ($):</string>
+    <string name="hydro_on_mid_pay">On-Mid ($):</string>
+    <string name="hydro_off_peak_pay">Off-Peak ($):</string>
+    <string name="hydro_zero_used">(kWh) 0.00</string>
+    <string name="water_water_pay">Water ($):</string>
+    <string name="water_waste_pay">Waste ($):</string>
+    <string name="water_storm_pay">Storm ($):</string>
+    <string name="water_zero_used">(m3) 0.00</string>
+    <string name="heat_gas_pay">Gas ($):</string>
+    <string name="bell_tv_pay">TV ($):</string>
+    <string name="bell_internet_pay">Internet ($):</string>
+    <string name="bell_line_pay">Home phone ($):</string>
+    <string name="ContentDescription">content description</string>
+    <string name="oops">OOPS</string>
+    <string name="Done">DONE</string>
+    <string name="not_valid_fields">Some fields are empty!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

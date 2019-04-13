@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutHeader"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@drawable/side_nav_bar"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/imageHeaderView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/nav_header_desc"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textHeaderViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageHeaderView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/nav_header_vertical_spacing_10"
+        android:text="@string/nav_header_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textHeaderViewDescr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textHeaderViewName"
+        android:layout_marginTop="@dimen/nav_header_vertical_spacing_5"
+        android:text="@string/nav_header_subtitle"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textHeaderViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textHeaderViewDescr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/nav_header_vertical_spacing_5"
+        android:text="@string/date_month"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewTotalNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textHeaderViewDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/nav_header_vertical_spacing_10"
+        android:text="@string/nav_header_total" />
+
+</RelativeLayout>

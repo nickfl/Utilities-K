@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/dashCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/nav_header_vertical_spacing_10"
+        android:layout_marginRight="@dimen/nav_header_vertical_spacing_10"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        android:visibility="visible"
+        app:cardBackgroundColor="@android:color/background_light"
+        app:cardCornerRadius="@dimen/nav_header_vertical_spacing_10"
+        app:cardElevation="@dimen/nav_header_vertical_spacing_5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:contentDescription="@string/ContentDescription"
+                app:srcCompat="@drawable/hydro_bill" />
+
+            <TextView
+                android:id="@+id/textViewDashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imageViewIcon"
+                android:contentDescription="@string/ContentDescription"
+                android:text="@string/utility_hydro"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewVendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewDashboard"
+                android:layout_below="@+id/textViewDashboard"
+                android:layout_marginTop="10dp"
+                android:text="@string/electra"
+                android:contentDescription="@string/ContentDescription"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewDashboard"
+                android:layout_below="@+id/textViewVendor"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/ContentDescription"
+                android:text="@string/_12910920_11"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewTotalUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewDashboard"
+                android:layout_below="@+id/textViewAccount"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/ContentDescription"
+                android:text="@string/_111"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewTotalPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewDashboard"
+                android:layout_below="@+id/textViewTotalUnits"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/ContentDescription"
+                android:text="@string/_1234_00"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

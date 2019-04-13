@@ -1,0 +1,67 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:7365923353334725093",
+      "lastPropertyId": "13:3508901824951524934",
+      "name": "BaseUtility",
+      "properties": [
+        {
+          "id": "1:4296133442264357079",
+          "name": "id"
+        },
+        {
+          "id": "4:4735838735568793081",
+          "name": "datePaid"
+        },
+        {
+          "id": "7:7823010918858479283",
+          "name": "utilityType"
+        },
+        {
+          "id": "8:1353186232877533963",
+          "name": "billDate"
+        },
+        {
+          "id": "9:4514364334017326570",
+          "name": "dueDate"
+        },
+        {
+          "id": "10:1053234506758212663",
+          "name": "amountDue"
+        },
+        {
+          "id": "11:9138766075839801042",
+          "name": "amountType0"
+        },
+        {
+          "id": "12:5957551453394848768",
+          "name": "amountType1"
+        },
+        {
+          "id": "13:3508901824951524934",
+          "name": "amountType2"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:7365923353334725093",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    3565093424334657551,
+    6860977015882518617,
+    1476643766413101239,
+    895039799055382053
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

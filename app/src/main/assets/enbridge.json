@@ -1,0 +1,152 @@
+[
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Jan 22, 2018",
+        "dueDate": "Feb 12, 2018",
+        "datePaid": "Feb 05, 2018",
+        "amountDue": 152.08,
+        "amountType0": 28.84,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Feb 21, 2018",
+        "dueDate": "Mar 13, 2018",
+        "datePaid": "Mar 05, 2018",
+        "amountDue": 158.72,
+        "amountType0": 30.18,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Mar 21, 2018",
+        "dueDate": "Apr 10, 2018",
+        "datePaid": "Apr 02, 2018",
+        "amountDue": 139.30,
+        "amountType0": 24.23,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Apr 20, 2018",
+        "dueDate": "May 10, 2018",
+        "datePaid": "Apr 26, 2018",
+        "amountDue": 120.80,
+        "amountType0": 18.62,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "May 28, 2018",
+        "dueDate": "Jun 07, 2018",
+        "datePaid": "May 28, 2018",
+        "amountDue": 104.50,
+        "amountType0": 13.22,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Jun 21, 2018",
+        "dueDate": "Jul 11, 2018",
+        "datePaid": "Jul 03, 2018",
+        "amountDue": 76.39,
+        "amountType0": 4.72,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Jul 20, 2018",
+        "dueDate": "Aug 09, 2018",
+        "datePaid": "Jul 24, 2018",
+        "amountDue": 76.08,
+        "amountType0": 4.63,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Aug 22, 2018",
+        "dueDate": "Sep 11, 2018",
+        "datePaid": "Sep 10, 2018",
+        "amountDue": 73.86,
+        "amountType0": 3.97,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Sep 21, 2018",
+        "dueDate": "Oct 11, 2018",
+        "datePaid": "Sep 27, 2018",
+        "amountDue": 74.50,
+        "amountType0": 4.16,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Oct 22, 2018",
+        "dueDate": "Nov 12, 2018",
+        "datePaid": "Oct 26, 2018",
+        "amountDue": 91.12,
+        "amountType0": 7.90,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Nov 21, 2018",
+        "dueDate": "Dec 11, 2018",
+        "datePaid": "Dec 01, 2018",
+        "amountDue": 100.17,
+        "amountType0": 13.07,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Dec 20, 2018",
+        "dueDate": "Jan 09, 2019",
+        "datePaid": "Dec 26, 2018",
+        "amountDue": 141.67,
+        "amountType0": 27.54,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Jan 22, 2019",
+        "dueDate": "Feb 11, 2019",
+        "datePaid": "Jan 26, 2019",
+        "amountDue": 139.95,
+        "amountType0": 28.98,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Feb 21, 2019",
+        "dueDate": "Mar 13, 2019",
+        "datePaid": "Mar 01, 2019",
+        "amountDue": 186.66,
+        "amountType0": 48.38,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Mar 21, 2019",
+        "dueDate": "Apr 10, 2019",
+        "datePaid": "Mar 30, 2019",
+        "amountDue": 147.99,
+        "amountType0": 48.38,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    }
+]

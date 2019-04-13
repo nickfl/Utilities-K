@@ -1,0 +1,52 @@
+[
+    {
+        "utilityType": "water_bill",
+        "billDate": "Feb 02, 2018",
+        "dueDate": "Feb 16, 2018",
+        "datePaid": "Feb 10, 2018",
+        "amountDue": 107.18,
+        "amountType0": 49.54,
+        "amountType1": 31.47,
+        "amountType2": 26.17
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "May 03, 2018",
+        "dueDate": "May 24, 2018",
+        "datePaid": "May 15, 2018",
+        "amountDue": 113.71,
+        "amountType0": 54.19,
+        "amountType1": 33.88,
+        "amountType2": 25.64
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "Aug 03, 2018",
+        "dueDate": "Aug 24, 2018",
+        "datePaid": "Aug 11, 2018",
+        "amountDue": 181.44,
+        "amountType0": 97.08,
+        "amountType1": 58.15,
+        "amountType2": 26.21
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "Nov 01, 2018",
+        "dueDate": "Nov 22, 2018",
+        "datePaid": "Nov 06, 2018",
+        "amountDue": 127.59,
+        "amountType0": 63.76,
+        "amountType1": 38.19,
+        "amountType2": 25.64
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "Feb 04, 2019",
+        "dueDate": "Feb 25, 2019",
+        "datePaid": "Feb 09, 2019",
+        "amountDue": 117.43,
+        "amountType0": 56.51,
+        "amountType1": 33.85,
+        "amountType2": 27.07
+    }
+]

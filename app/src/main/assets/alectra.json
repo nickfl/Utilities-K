@@ -1,0 +1,122 @@
+[
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Jan 18, 2018",
+        "dueDate": "Feb 06, 2018",
+        "datePaid": "Jan 29, 2018",
+        "amountDue": 182.02,
+        "amountType0": 25.48,
+        "amountType1": 13.97,
+        "amountType2": 58.57
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Mar 19, 2018",
+        "dueDate": "Apr 09, 2018",
+        "datePaid": "Mar 29, 2018",
+        "amountDue": 156.57,
+        "amountType0": 26.74,
+        "amountType1": 11.02,
+        "amountType2": 44.79
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "May 16, 2018",
+        "dueDate": "Jun 04, 2018",
+        "datePaid": "May 29, 2018",
+        "amountDue": 161.58,
+        "amountType0": 22.17,
+        "amountType1": 15.07,
+        "amountType2": 46.10
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Jul 19, 2018",
+        "dueDate": "Aug 07, 2018",
+        "datePaid": "Jul 29, 2018",
+        "amountDue": 289.39,
+        "amountType0": 16.12,
+        "amountType1": 21.42,
+        "amountType2": 132.38
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Aug 21, 2018",
+        "dueDate": "Sep 10, 2018",
+        "datePaid": "Aug 29, 2018",
+        "amountDue": 177.88,
+        "amountType0": 18.51,
+        "amountType1": 15.16,
+        "amountType2": 76.59
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Sep 21, 2018",
+        "dueDate": "Oct 10, 2018",
+        "datePaid": "Sep 28, 2018",
+        "amountDue": 160.64,
+        "amountType0": 9.79,
+        "amountType1": 13.17,
+        "amountType2": 74.09
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Oct 19, 2018",
+        "dueDate": "Nov 07, 2018",
+        "datePaid": "Nov 03, 2018",
+        "amountDue": 85.40,
+        "amountType0": 6.32,
+        "amountType1": 7.81,
+        "amountType2": 29.65
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Nov 20, 2018",
+        "dueDate": "Dec 10, 2018",
+        "datePaid": "Dec 01, 2018",
+        "amountDue": 76.38,
+        "amountType0": 10.84,
+        "amountType1": 7.23,
+        "amountType2": 19.94
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Dec 20, 2018",
+        "dueDate": "Jan 08, 2019",
+        "datePaid": "Dec 26, 2018",
+        "amountDue": 77.32,
+        "amountType0": 12.61,
+        "amountType1": 5.92,
+        "amountType2": 20.25
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Jan 22, 2019",
+        "dueDate": "Feb 11, 2019",
+        "datePaid": "Feb 04, 2019",
+        "amountDue": 91.36,
+        "amountType0": 11.88,
+        "amountType1": 7.78,
+        "amountType2": 29.01
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Feb 22, 2019",
+        "dueDate": "Mar 13, 2019",
+        "datePaid": "Mar 01, 2019",
+        "amountDue": 82.02,
+        "amountType0": 12.89,
+        "amountType1": 6.10,
+        "amountType2": 22.88
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Mar 22, 2019",
+        "dueDate": "Apr 10, 2019",
+        "datePaid": "Apr 02, 2019",
+        "amountDue": 79.64,
+        "amountType0": 11.84,
+        "amountType1": 5.35,
+        "amountType2": 22.44
+    }
+]
