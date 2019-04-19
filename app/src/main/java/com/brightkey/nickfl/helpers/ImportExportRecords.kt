@@ -46,7 +46,7 @@ class ImportExportRecords {
 
         private fun readRecords(folder: File, filename: String): Boolean {
             val file = File(folder, filename)
-            if (file == null || !file.exists()) {
+            if (!file.exists()) {
                 return false
             }
             try {
@@ -77,11 +77,10 @@ class ImportExportRecords {
 
             val folder = ImportExportRecords.getPublicDownloadsStorageDir(Constants.folderRecordsName)
                     ?: return false
-            val file = File(folder, Constants.fileRecordsName) ?: return false
+            val file = File(folder, Constants.fileRecordsName)
 //export as json
             val gson = GsonBuilder().setPrettyPrinting().create()
             val listType = object : TypeToken<List<BaseUtility>>() {
-
             }.type
             val list = ObjectBoxHelper.shared().allBills()
             val jsonContent = gson.toJson(list, listType)

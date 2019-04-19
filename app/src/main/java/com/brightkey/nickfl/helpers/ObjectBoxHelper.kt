@@ -65,7 +65,7 @@ class ObjectBoxHelper private constructor() {
                 INSTANCE = ObjectBoxHelper()
                 val mContext = MyUtilitiesApplication.context
                 boxStore = MyObjectBox.builder().androidContext(mContext!!).build()
-                INSTANCE!!.utilityBox = boxStore!!.boxFor(BaseUtility::class.java!!)
+                INSTANCE!!.utilityBox = boxStore!!.boxFor(BaseUtility::class.java)
             }
             return INSTANCE!!
         }

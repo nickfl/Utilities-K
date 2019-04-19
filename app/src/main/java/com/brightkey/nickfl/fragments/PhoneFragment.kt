@@ -100,7 +100,7 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
             utility?.amountType0 = super.amountFrom(paidAmount0!!)
             utility?.amountType1 = super.amountFrom(paidAmount1!!)
             utility?.amountType2 = super.amountFrom(paidAmount2!!)
-            utilityBox?.put(utility)
+            utilityBox?.put(utility!!)
             exitListener?.onFragmentExit()
             return
         }

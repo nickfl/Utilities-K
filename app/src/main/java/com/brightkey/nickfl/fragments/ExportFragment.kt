@@ -44,15 +44,15 @@ class ExportFragment : BaseFragment() {
     }
 
     fun exportRecord() {
-        val activity = activity
+        val activity = activity as Activity
 
         //check permission first
-        if (!PermissionHelper.haveWritePermissions(activity!!)) {
-            PermissionHelper.requestWritePermissions(activity!!)
+        if (!PermissionHelper.haveWritePermissions(activity)) {
+            PermissionHelper.requestWritePermissions(activity)
             return
         }
 
-        if (ImportExportRecords.exportRecords(activity!!)) {
+        if (ImportExportRecords.exportRecords(activity)) {
             Toast.makeText(activity, "Export Success!", Toast.LENGTH_LONG).show()
             exitListener?.onFragmentExit()
         } else {
@@ -75,7 +75,7 @@ class ExportFragment : BaseFragment() {
             }
         }
         group = view.findViewById(R.id.radioGroup)
-        group?.setOnCheckedChangeListener { radioGroup, i -> selected = i }
+        group?.setOnCheckedChangeListener { _, i -> selected = i }
     }
 
     companion object {

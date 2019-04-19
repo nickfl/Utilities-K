@@ -55,13 +55,13 @@ class NavigationManager(activity: AppCompatActivity, private val containerId: In
         Timber.w("[" + line + "] addFragment(" + fragment!!.javaClass.getSimpleName() + ")")
 
         val transaction = mManager!!.beginTransaction()
-        //        if (!ValidationUtils.isNull(screenAnimation)) {
-        //            int enter = screenAnimation.getResIdEnter();
-        //            int exit = screenAnimation.getResIdExit();
-        //            int popEnter = screenAnimation.getResIdPopEnter();
-        //            int popExit = screenAnimation.getResIdPopExit();
-        //            transaction.setCustomAnimations(enter, exit, popEnter, popExit);
-        //        }
+//        if (!ValidationUtils.isNull(screenAnimation)) {
+//            int enter = screenAnimation.getResIdEnter();
+//            int exit = screenAnimation.getResIdExit();
+//            int popEnter = screenAnimation.getResIdPopEnter();
+//            int popExit = screenAnimation.getResIdPopExit();
+//            transaction.setCustomAnimations(enter, exit, popEnter, popExit);
+//        }
 
         fragmentStack.add(fragment)
         transaction.add(this.containerId, fragment)

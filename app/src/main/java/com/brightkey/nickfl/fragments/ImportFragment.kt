@@ -48,7 +48,7 @@ class ImportFragment : BaseFragment() {
 
         //check permission first
         if (activity != null && !PermissionHelper.haveReadPermissions(activity)) {
-            PermissionHelper.requestReadPermissions(activity!!, REQUEST_READ_PERMISSIONS)
+            PermissionHelper.requestReadPermissions(activity, REQUEST_READ_PERMISSIONS)
             return
         }
 

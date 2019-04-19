@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if (menu != null && menu.hasVisibleItems() &&
-                menu?.getItem(0)?.itemId == R.id.action_period) {
+                menu.getItem(0)?.itemId == R.id.action_period) {
             menu.getItem(1).title = currentPeriod
         }
         return super.onPrepareOptionsMenu(menu)
