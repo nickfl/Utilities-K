@@ -10,7 +10,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.menu.MenuBuilder
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuInflater
@@ -31,16 +30,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var nManager: NavigationManager? = null
 
     private var buttonsGap = 0.0f
-    private var fab_main: FloatingActionButton? = null
-    private var fab_water: FloatingActionButton? = null
-    private var fab_heat: FloatingActionButton? = null
-    private var fab_hydro: FloatingActionButton? = null
-    private var fab_phone: FloatingActionButton? = null
+    private var fabMain: FloatingActionButton? = null
+    private var fabWater: FloatingActionButton? = null
+    private var fabHeat: FloatingActionButton? = null
+    private var fabHydro: FloatingActionButton? = null
+    private var fabPhone: FloatingActionButton? = null
     private var timeListFragment: TimeDetailsFragment? = null
     private var dashFragment: DashboardFragment? = null
     private var exportFragment: ExportFragment? = null
     private var importFragment: ImportFragment? = null
     private var periodFragment: PeriodFragment? = null
+    private var currentPeriod = getString(R.string.zero_period)
 
     // all buttons are the same
     private var originY = -1.0f
@@ -74,11 +74,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onBackPressed()
     }
 
-    var currentPeriod = "All Years"
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if (menu != null && menu.hasVisibleItems() &&
                 menu?.getItem(0)?.itemId == R.id.action_period) {
-            menu.getItem(1).setTitle(currentPeriod)
+            menu.getItem(1).title = currentPeriod
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -139,11 +138,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //region Helpers
     private fun toggleFABs(hide: Boolean?) {
         val alpha: Float = if (hide != null && hide) 0.0f else 1.0f
-        fab_main?.alpha = alpha
-        fab_water?.alpha = alpha
-        fab_heat?.alpha = alpha
-        fab_hydro?.alpha = alpha
-        fab_phone?.alpha = alpha
+        fabMain?.alpha = alpha
+        fabWater?.alpha = alpha
+        fabHeat?.alpha = alpha
+        fabHydro?.alpha = alpha
+        fabPhone?.alpha = alpha
     }
 
     private fun returnToDashboard() {
@@ -211,43 +210,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupFABs() {
-        fab_water = findViewById<View>(R.id.fab_water) as FloatingActionButton
-        fab_water?.setOnClickListener {
+        fabWater = findViewById<View>(R.id.fab_water) as FloatingActionButton
+        fabWater?.setOnClickListener {
             //replace fragment
             fabAction()
             setTitle(R.string.title_water)
             showFragmentFromRight(WATER_FRAGMENT)
         }
-        fab_heat = findViewById<View>(R.id.fab_heat) as FloatingActionButton
-        fab_heat?.setOnClickListener {
+        fabHeat = findViewById<View>(R.id.fab_heat) as FloatingActionButton
+        fabHeat?.setOnClickListener {
             fabAction()
             //replace fragment
             setTitle(R.string.title_heat)
             showFragmentFromRight(HEAT_FRAGMENT)
         }
-        fab_hydro = findViewById<View>(R.id.fab_hydro) as FloatingActionButton
-        fab_hydro?.setOnClickListener {
+        fabHydro = findViewById<View>(R.id.fab_hydro) as FloatingActionButton
+        fabHydro?.setOnClickListener {
             fabAction()
             //replace fragment
             setTitle(R.string.title_hydro)
             showFragmentFromRight(HYDRO_FRAGMENT)
         }
-        fab_phone = findViewById<View>(R.id.fab_phone) as FloatingActionButton
-        fab_phone?.setOnClickListener {
+        fabPhone = findViewById<View>(R.id.fab_phone) as FloatingActionButton
+        fabPhone?.setOnClickListener {
             fabAction()
             //replace fragment
             setTitle(R.string.title_phone)
             showFragmentFromRight(PHONE_FRAGMENT)
         }
 
-        fab_main = findViewById<View>(R.id.fab) as FloatingActionButton
-        fab_main?.setOnClickListener { fabAction() }
+        fabMain = findViewById<View>(R.id.fab) as FloatingActionButton
+        fabMain?.setOnClickListener { fabAction() }
     }
 
     private fun fabAction() {
         if (this.originY < 0.0f) {
-            this.originY = this.fab_water!!.y
-            val originHeight = this.fab_water!!.height.toFloat()
+            this.originY = this.fabWater!!.y
+            val originHeight = this.fabWater!!.height.toFloat()
             this.buttonsGap = 1.5f * originHeight
         }
         var phoneY = originY
@@ -261,10 +260,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             hydroY = originY - 4 * buttonsGap
         }
         buttonsVisible = !buttonsVisible
-        Geometry.moveButtonToY(fab_water!!, waterY, null)
-        Geometry.moveButtonToY(fab_heat!!, heatY, null)
-        Geometry.moveButtonToY(fab_hydro!!, hydroY, null)
-        Geometry.moveButtonToY(fab_phone!!, phoneY, null)
+        Geometry.moveButtonToY(fabWater!!, waterY, null)
+        Geometry.moveButtonToY(fabHeat!!, heatY, null)
+        Geometry.moveButtonToY(fabHydro!!, hydroY, null)
+        Geometry.moveButtonToY(fabPhone!!, phoneY, null)
     }
 
     fun setCustomOptions(rMenu: Int) {
@@ -286,6 +285,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun editFragment(screen: FragmentScreen, index: Int) {
         nManager?.editScreen(screen, ScreenAnimation.ENTER_FROM_RIGHT, index)
+    }
+
+    fun changePeriod(period: String) {
+        currentPeriod = period
+        //TOD: select data
     }
 
     // OnDashboardInteractionListener

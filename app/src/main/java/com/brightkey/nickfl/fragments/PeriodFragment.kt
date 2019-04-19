@@ -39,7 +39,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     private fun setup(view: View) {
         spinner = view.findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
-            spinner?.setOnItemSelectedListener(this)
+            spinner?.onItemSelectedListener = this
             val aAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, periodNames)
             aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner?.adapter = aAdapter
@@ -48,7 +48,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     // OnItemSelectedListener
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (activity as MainActivity).currentPeriod = periodNames[position]
+        (activity as MainActivity).changePeriod(periodNames[position])
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

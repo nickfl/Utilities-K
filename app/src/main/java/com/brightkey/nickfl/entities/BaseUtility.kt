@@ -11,7 +11,7 @@ import io.objectbox.annotation.Id
 class BaseUtility {
     @Id
     var id: Long = 0
-    var utilityType: String? = null // Hydro, Water, Gas
+    var utilityType: String? = null // Hydro, Water, Gas, Bell
     var billDate: Date? = null
     var dueDate: Date? = null
     var datePaid: Date? = null
@@ -19,10 +19,6 @@ class BaseUtility {
     var amountType0: Double = 0.toDouble()
     var amountType1: Double = 0.toDouble()
     var amountType2: Double = 0.toDouble()
-    val paidDate: String
-        get() = if (datePaid != null) {
-            DateFormatters.dateStringFromDate(datePaid!!)
-        } else ""
 
     fun getAmountDue(): String {
         return if (amountDue > 0.0) {
@@ -59,4 +55,9 @@ class BaseUtility {
             DateFormatters.dateStringFromDate(dueDate!!)
         } else ""
     }
+
+    val paidDate: String
+        get() = if (datePaid != null) {
+            DateFormatters.dateStringFromDate(datePaid!!)
+        } else ""
 }

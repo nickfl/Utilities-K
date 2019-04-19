@@ -19,6 +19,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp"
-        android:text="Update Period" />
+        android:text="@string/button_period" />
 
 </RelativeLayout>
