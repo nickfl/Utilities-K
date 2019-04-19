@@ -11,7 +11,7 @@ enum class FragmentScreen {
 
     //MainActivity's fragments
     DASHBOARD_FRAGMENT,
-    EXPORT_FRAGMENT, IMPORT_FRAGMENT,
+    EXPORT_FRAGMENT, IMPORT_FRAGMENT, PERIOD_FRAGMENT,
 
     //Profile fragments
     WATER_FRAGMENT,

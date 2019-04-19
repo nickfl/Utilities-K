@@ -10,8 +10,10 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.view.menu.MenuBuilder
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.DatePicker
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var dashFragment: DashboardFragment? = null
     private var exportFragment: ExportFragment? = null
     private var importFragment: ImportFragment? = null
+    private var periodFragment: PeriodFragment? = null
 
     // all buttons are the same
     private var originY = -1.0f
@@ -71,9 +74,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onBackPressed()
     }
 
+    var currentPeriod = "All Years"
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (menu != null && menu.hasVisibleItems() &&
+                menu?.getItem(0)?.itemId == R.id.action_period) {
+            menu.getItem(1).setTitle(currentPeriod)
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(menuId, menu)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(menuId, menu)
         return true
     }
 
@@ -83,9 +96,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
-
-        if (id == R.id.action_settings) {
-            //Period clicked
+        if (id == R.id.action_period) {
+            setTitle(R.string.title_period)
+            showFragmentFromRight(PERIOD_FRAGMENT)
             return true
         }
         if (id == R.id.action_close) {
@@ -190,6 +203,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nManager?.storeFragment(exportFragment!!, EXPORT_FRAGMENT)
         importFragment = ImportFragment.newInstance()
         nManager?.storeFragment(importFragment!!, IMPORT_FRAGMENT)
+        periodFragment = PeriodFragment.newInstance()
+        nManager?.storeFragment(periodFragment!!, PERIOD_FRAGMENT)
 
         // Create a first Fragment to be placed in the activity layout
         nManager?.addScreen(DASHBOARD_FRAGMENT, null)

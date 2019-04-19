@@ -1,7 +1,6 @@
 package com.brightkey.nickfl.fragments
 
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -10,15 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.Toast
-
 import com.brightkey.nickfl.activities.MainActivity
+import com.brightkey.nickfl.helpers.Constants.REQUEST_READ_PERMISSIONS
 import com.brightkey.nickfl.helpers.ImportExportRecords
 import com.brightkey.nickfl.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.R
-
 import timber.log.Timber
-
-import com.brightkey.nickfl.helpers.Constants.REQUEST_READ_PERMISSIONS
 
 /**
  * A simple [Fragment] subclass.
@@ -51,12 +47,12 @@ class ImportFragment : BaseFragment() {
         val activity = activity
 
         //check permission first
-        if (!PermissionHelper.haveReadPermissions(activity!!)) {
+        if (activity != null && !PermissionHelper.haveReadPermissions(activity)) {
             PermissionHelper.requestReadPermissions(activity!!, REQUEST_READ_PERMISSIONS)
             return
         }
 
-        if (ImportExportRecords.importRecords(activity!!)) {
+        if (activity != null && ImportExportRecords.importRecords(activity)) {
             Toast.makeText(activity, "Import Success!", Toast.LENGTH_LONG).show()
             exitListener?.onFragmentExit()
         } else {
@@ -86,7 +82,7 @@ class ImportFragment : BaseFragment() {
                 Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
             }
         }
-        group.setOnCheckedChangeListener { radioGroup, i -> selected = i }
+        group.setOnCheckedChangeListener { _, i -> selected = i }
     }
 
     companion object {

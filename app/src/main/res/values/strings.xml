@@ -7,7 +7,7 @@
     <string name="nav_header_subtitle">household utilities manager</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_header_total">Total: $</string>
-    <string name="action_settings">Period</string>
+    <string name="action_period">Change Period</string>
 
     <string name="drawer_settings">Settings</string>
     <string name="drawer_statistics">Statistics</string>
@@ -49,6 +49,7 @@
     <string name="title_heat">Heat</string>
     <string name="title_water">Water \u0026 Severs</string>
     <string name="title_phone">Phone</string>
+    <string name="title_period">Change Period</string>
     <string name="hydro_details">DETAILS:</string>
     <string name="hydro_add_payment">ADD PAYMENT</string>
     <string name="hydro_update_payment">UPDATE PAYMENT</string>
