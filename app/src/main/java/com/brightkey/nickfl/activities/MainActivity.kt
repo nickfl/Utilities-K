@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var exportFragment: ExportFragment? = null
     private var importFragment: ImportFragment? = null
     private var periodFragment: PeriodFragment? = null
-    private var currentPeriod = getString(R.string.zero_period)
+    private var currentPeriod: String = ""
 
     // all buttons are the same
     private var originY = -1.0f
@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        currentPeriod = resources.getString(R.string.zero_period)
 
         setupFABs()
         setupNavigation()
@@ -93,15 +95,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-        if (id == R.id.action_period) {
-            setTitle(R.string.title_period)
-            showFragmentFromRight(PERIOD_FRAGMENT)
-            return true
-        }
-        if (id == R.id.action_close) {
-            returnToDashboard()
+        when (item.itemId) {
+            R.id.action_period -> {
+                setTitle(R.string.title_period)
+                showFragmentFromRight(PERIOD_FRAGMENT)
+                return true
+            }
+            R.id.action_close -> {
+                returnToDashboard()
+            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -109,25 +111,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        val id = item.itemId
-
-        if (id == R.id.nav_statistics) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_export) {
-            setTitle(R.string.drawer_export)
-            nManager?.replaceScreenTo(EXPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
-
-        } else if (id == R.id.nav_import) {
-            setTitle(R.string.drawer_import)
-            nManager?.replaceScreenTo(IMPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
-
-        } else if (id == R.id.nav_clean) {
-            ObjectBoxHelper.shared().cleanUtilityBox()
-            // back to the dashboard
-            returnToDashboard()
-            dashFragment?.reloadView()
+        when (item.itemId) {
+            R.id.nav_statistics, R.id.nav_manage -> {
+                //TODO: maybe later
+            }
+            R.id.nav_export -> {
+                setTitle(R.string.drawer_export)
+                nManager?.replaceScreenTo(EXPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
+            }
+            R.id.nav_import -> {
+                setTitle(R.string.drawer_import)
+                nManager?.replaceScreenTo(IMPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
+            }
+            R.id.nav_clean -> {
+                ObjectBoxHelper.shared().cleanUtilityBox()
+                // back to the dashboard
+                returnToDashboard()
+                dashFragment?.reloadView()
+            }
         }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -171,7 +172,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         date.text = DateFormatters.dateStringFromCalendar(cal)
         val total = header.findViewById<TextView>(R.id.textViewTotalNow)
         val totalPay = ObjectBoxHelper.shared().totalPayment()
-        total.setText(String.format(getString(R.string.nav_header_total) + "%.2f", totalPay))
+        total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
     }
 
     private fun updateHeader() {
@@ -179,7 +180,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header = navigationView.getHeaderView(0)
         val total = header.findViewById<TextView>(R.id.textViewTotalNow)
         val totalPay = ObjectBoxHelper.shared().totalPayment()
-        total.setText(String.format(getString(R.string.nav_header_total) + "%.2f", totalPay))
+        total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
     }
 
     private fun setupNavigation() {
@@ -289,7 +290,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun changePeriod(period: String) {
         currentPeriod = period
-        //TOD: select data
+        //TODO: select data
     }
 
     // OnDashboardInteractionListener
