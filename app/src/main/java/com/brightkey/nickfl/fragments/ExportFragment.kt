@@ -19,7 +19,6 @@ import timber.log.Timber
 class ExportFragment : BaseFragment() {
 
     private var group: RadioGroup? = null
-    private var backup: Button? = null
     private var selected = R.id.radioButtonDevice
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +65,7 @@ class ExportFragment : BaseFragment() {
     }
 
     private fun setup(view: View) {
-        backup = view.findViewById(R.id.buttonBackup)
+        val backup = view.findViewById<Button>(R.id.buttonBackup)
         backup?.setOnClickListener {
             if (selected == R.id.radioButtonDevice) {
                 exportRecord()

@@ -46,12 +46,12 @@ class DashboardModel internal constructor(var utilityIcon: String       // hydro
             val model = ArrayList<DashboardModel>()
             for (item in config) {
                 val bundle = ObjectBoxHelper.shared().unitsForUtility(item)
-                if (item.timeStamp == period) {
+//                if (item.timeStamp == period) {
                     val one = DashboardModel(item.utilityIcon!!, item.utilityType!!, item.utilityVendorName!!,
                             item.vendorNameColor!!, item.accountNumber!!, item.unitType!!,
                             bundle.getLong("units"), bundle.getDouble("total"))
                     model.add(one)
-                }
+//                }
             }
             return model
         }

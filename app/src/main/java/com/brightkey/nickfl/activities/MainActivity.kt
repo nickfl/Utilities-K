@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_statistics, R.id.nav_manage -> {
-                //TODO: maybe later
+                TODO("maybe later")
             }
             R.id.nav_export -> {
                 setTitle(R.string.drawer_export)
@@ -290,7 +290,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun changePeriod(period: String) {
         currentPeriod = period
-        //TODO: select data
+//        TODO("select data")
     }
 
     // OnDashboardInteractionListener

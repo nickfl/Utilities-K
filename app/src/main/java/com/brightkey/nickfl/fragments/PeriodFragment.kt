@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
 import com.brightkey.nickfl.activities.MainActivity
 import com.brightkey.nickfl.myutilities.R
 import timber.log.Timber
@@ -14,6 +12,7 @@ import timber.log.Timber
 class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private var spinner: Spinner? = null
+    private var selectedPeriod = 0
     private val periodNames = arrayOf("All Years", "2019", "2018")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +43,17 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner?.adapter = aAdapter
         }
+        // Update button
+        val updateBtn = view.findViewById<Button>(R.id.button_update)
+        updateBtn?.setOnClickListener() {
+            (activity as MainActivity).changePeriod(periodNames[selectedPeriod])
+            exitListener?.onFragmentExit()
+        }
     }
 
     // OnItemSelectedListener
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (activity as MainActivity).changePeriod(periodNames[position])
+        selectedPeriod = position
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
