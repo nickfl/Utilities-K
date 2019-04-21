@@ -1,5 +1,7 @@
 package com.brightkey.nickfl.entities
 
+import java.util.*
+
 class ConfigEntity {
 
     var utilityIcon: String? = null       // hydro_bill
@@ -11,7 +13,6 @@ class ConfigEntity {
     var unitPrice0: Double = 0.toDouble()        // $20.0
     var unitPrice1: Double = 0.toDouble()        // $20.0
     var unitPrice2: Double = 0.toDouble()        // $20.0
-    var timeStamp: String = ""            // $20.0
 
     override fun toString(): String {
         return "{utilityIcon:" + utilityIcon + ", utilityType:" + utilityType +

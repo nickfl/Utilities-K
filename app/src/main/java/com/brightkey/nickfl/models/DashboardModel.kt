@@ -1,13 +1,11 @@
 package com.brightkey.nickfl.models
 
-import android.provider.Settings.Global.getString
 import com.brightkey.nickfl.entities.ConfigEntity
 import com.brightkey.nickfl.helpers.Constants
 import com.brightkey.nickfl.helpers.ObjectBoxHelper
 import com.brightkey.nickfl.myutilities.R
-import java.util.*
 
-class DashboardModel internal constructor(var utilityIcon: String       // hydro_bill
+class DashboardModel internal constructor(var utilityIcon: String         // hydro_bill
                                           , var utilityType: String       // Hydro
                                           , var utilityVendor: String     // ENBRIDGE
                                           , var vendorColor: String       // #F58233
@@ -30,9 +28,10 @@ class DashboardModel internal constructor(var utilityIcon: String       // hydro
         if (iconStr.contains(Constants.WaterType)) {
             return R.drawable.water_bill
         }
-        return if (iconStr.contains(Constants.PhoneType)) {
-            R.drawable.phone_bill
-        } else R.drawable.heat_bill
+        if (iconStr.contains(Constants.PhoneType)) {
+            return R.drawable.phone_bill
+        }
+        return R.drawable.heat_bill
     }
 
     fun resetData() {
@@ -42,18 +41,42 @@ class DashboardModel internal constructor(var utilityIcon: String       // hydro
 
     companion object {
 
-        fun convertToDash(config: List<ConfigEntity>, period: String = "All Years"): List<DashboardModel> {
+        // returns array of DashboardModel, i.s. Hydro, Gas, Bell...
+        fun convertToDash(config: List<ConfigEntity>/*, periodStart: Date? = null, periodEnd: Date? = null*/): List<DashboardModel> {
+//            var start = periodStart
+//            if (start == null) {
+//                start = setOldDate()
+//            }
+//            var end = periodEnd
+//            if (end == null) {
+//                end = setNewDate()
+//            }
             val model = ArrayList<DashboardModel>()
             for (item in config) {
                 val bundle = ObjectBoxHelper.shared().unitsForUtility(item)
-//                if (item.timeStamp == period) {
-                    val one = DashboardModel(item.utilityIcon!!, item.utilityType!!, item.utilityVendorName!!,
-                            item.vendorNameColor!!, item.accountNumber!!, item.unitType!!,
-                            bundle.getLong("units"), bundle.getDouble("total"))
-                    model.add(one)
+//                val billDate = item.billDate
+//                if (billDate == null
+//                        || billDate.before(start)
+//                        || billDate.after(end)) {
+//                    continue
 //                }
+                val one = DashboardModel(item.utilityIcon!!, item.utilityType!!, item.utilityVendorName!!,
+                        item.vendorNameColor!!, item.accountNumber!!, item.unitType!!,
+                        bundle.getLong("units"), bundle.getDouble("total"))
+                model.add(one)
             }
             return model
         }
+
+//        private fun setOldDate(): Date {
+//            val old = Calendar.getInstance()
+//            old.set(1970, 1, 1)
+//            return old.time
+//        }
+//        private fun setNewDate(): Date {
+//            val cal = Calendar.getInstance()
+//            cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) + 1)
+//            return cal.time
+//        }
     }
 }

@@ -27,6 +27,7 @@ class ObjectBoxHelper private constructor() {
         return utilityBox!!.query().build().find()
     }
 
+    // calculate all totals!: units and amount paid
     fun unitsForUtility(item: ConfigEntity): Bundle {
         val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, item.utilityIcon!!).build().find()
         var units: Long = 0

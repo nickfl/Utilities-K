@@ -3,9 +3,7 @@ package com.brightkey.nickfl.entities
 import com.brightkey.nickfl.helpers.DateFormatters
 import com.brightkey.nickfl.helpers.ObjectBoxHelper
 
-import io.objectbox.Box
-
-class LoadUtility internal constructor(var utilityType: String, // Hydro, Water, Gas
+class LoadUtility internal constructor(var utilityType: String, // Hydro, Water, Gas, Bell
                                        var billDate: String, var dueDate: String, var datePaid: String, var amountDue: Double,
                                        var amountType0: Double, var amountType1: Double, var amountType2: Double) {
 

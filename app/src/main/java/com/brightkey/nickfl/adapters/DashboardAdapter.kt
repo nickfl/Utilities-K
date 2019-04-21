@@ -90,7 +90,7 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
         val totalPaid: TextView
 
         init {
-            cardView = itemView.findViewById<View>(R.id.dashCardView) as CardView
+            this.cardView = itemView.findViewById<View>(R.id.dashCardView) as CardView
             this.utilityIcon = itemView.findViewById<View>(R.id.imageViewIcon) as ImageView
             this.utilityType = itemView.findViewById<View>(R.id.textViewDashboard) as TextView
             this.utilityVendor = itemView.findViewById<View>(R.id.textViewVendor) as TextView

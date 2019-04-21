@@ -33,7 +33,7 @@ class MyUtilitiesApplication : Application() {
             val line = Exception().stackTrace[0].lineNumber + 1
             Timber.d("[" + line + "] config: " + config!!.toString())
 
-            //            downloadAssets();
+//            downloadAssets();
         }
     }
 
