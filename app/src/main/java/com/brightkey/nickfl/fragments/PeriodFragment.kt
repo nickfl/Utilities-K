@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import com.brightkey.nickfl.activities.MainActivity
+import com.brightkey.nickfl.helpers.PeriodManager
 import com.brightkey.nickfl.myutilities.R
 import timber.log.Timber
 
@@ -47,6 +51,11 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         val updateBtn = view.findViewById<Button>(R.id.button_update)
         updateBtn?.setOnClickListener() {
             (activity as MainActivity).changePeriod(periodNames[selectedPeriod])
+            when (selectedPeriod) {
+                0 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.veryNewDate()) // all years
+                1 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.dateYear(2019))
+                2 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.dateYear(2018))
+            }
             exitListener?.onFragmentExit()
         }
     }

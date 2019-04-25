@@ -1,6 +1,5 @@
 package com.brightkey.nickfl.fragments
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -74,12 +73,10 @@ class ImportFragment : BaseFragment() {
         group.check(R.id.radioButtonDevice)
         val load = view.findViewById<Button>(R.id.buttonBackup)
         load.setOnClickListener {
-            if (selected == R.id.radioButtonDevice) {
-                importRecord()
-            } else if (selected == R.id.radioButtonDefault) {
-                importDefaults()
-            } else {
-                Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
+            when (selected) {
+                R.id.radioButtonDevice -> importRecord()
+                R.id.radioButtonDefault -> importDefaults()
+                else -> Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
             }
         }
         group.setOnCheckedChangeListener { _, i -> selected = i }

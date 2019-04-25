@@ -290,7 +290,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun changePeriod(period: String) {
         currentPeriod = period
-//        TODO("select data")
+        TODO("reload data with new period")
     }
 
     // OnDashboardInteractionListener

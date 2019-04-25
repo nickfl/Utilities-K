@@ -4,8 +4,22 @@ import java.util.*
 
 object PeriodManager {
 
-    private var periodStart: Date = Date()
-    private var periodEnd: Date = Date()
+    private var periodStart: Date = veryOldDate()
+    private var periodEnd: Date = veryNewDate()
+
+    fun veryOldDate(): Date {
+        return dateYear(1970)
+    }
+    fun veryNewDate(): Date {
+        val cal = Calendar.getInstance()
+        cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) + 1)
+        return cal.time
+    }
+    fun dateYear(year: Int): Date {
+        val cal = Calendar.getInstance()
+        cal.set(Calendar.YEAR, year + 1)
+        return cal.time
+    }
 
     private fun periodDateFrom(timeStamp: String?): Date {
         if (timeStamp != null)

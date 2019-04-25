@@ -67,10 +67,9 @@ class ExportFragment : BaseFragment() {
     private fun setup(view: View) {
         val backup = view.findViewById<Button>(R.id.buttonBackup)
         backup?.setOnClickListener {
-            if (selected == R.id.radioButtonDevice) {
-                exportRecord()
-            } else {
-                Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
+            when (selected) {
+                R.id.radioButtonDevice -> exportRecord()
+                else -> Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
             }
         }
         group = view.findViewById(R.id.radioGroup)

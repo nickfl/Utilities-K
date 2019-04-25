@@ -57,11 +57,11 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
         dashHolder.accountNumber.text = "Account: " + this.utilityList[index].accountNumber
         if (this.utilityList[index].totalUnits > 0) {
             dashHolder.totalUnits.visibility = View.VISIBLE
-            dashHolder.totalUnits.text = "Used this year: " + this.utilityList[index].totalUnits + " " + this.utilityList[index].unitType
+            dashHolder.totalUnits.text = "Used this period: " + this.utilityList[index].totalUnits + " " + this.utilityList[index].unitType
         } else {
             dashHolder.totalUnits.visibility = View.GONE
         }
-        dashHolder.totalPaid.setText(String.format("Paid this year: $%.2f", this.utilityList[index].totalPaid))
+        dashHolder.totalPaid.setText(String.format("Paid this period: $%.2f", this.utilityList[index].totalPaid))
         dashHolder.cardView.setOnClickListener {
             if (utilityList[index].totalPaid > 0.0) {
                 mListener.utilityPressed(utilityList[index].utilityIcon)
