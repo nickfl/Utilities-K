@@ -145,8 +145,18 @@
         "dueDate": "Apr 10, 2019",
         "datePaid": "Mar 30, 2019",
         "amountDue": 147.99,
-        "amountType0": 48.38,
+        "amountType0": 33.21,
         "amountType1": 0.00,
         "amountType2": 0.00
-    }
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Apr 22, 2019",
+        "dueDate": "May 13, 2019",
+        "datePaid": "Apr 28, 2019",
+        "amountDue": 123.87,
+        "amountType0": 22.99,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    }	
 ]
