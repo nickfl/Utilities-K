@@ -43,23 +43,9 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
 
         // returns array of DashboardModel, i.s. Hydro, Gas, Bell...
         fun convertToDash(config: List<ConfigEntity>/*, periodStart: Date? = null, periodEnd: Date? = null*/): List<DashboardModel> {
-//            var start = periodStart
-//            if (start == null) {
-//                start = setOldDate()
-//            }
-//            var end = periodEnd
-//            if (end == null) {
-//                end = setNewDate()
-//            }
             val model = ArrayList<DashboardModel>()
             for (item in config) {
                 val bundle = ObjectBoxHelper.shared().unitsForUtility(item)
-//                val billDate = item.billDate
-//                if (billDate == null
-//                        || billDate.before(start)
-//                        || billDate.after(end)) {
-//                    continue
-//                }
                 val one = DashboardModel(item.utilityIcon!!, item.utilityType!!, item.utilityVendorName!!,
                         item.vendorNameColor!!, item.accountNumber!!, item.unitType!!,
                         bundle.getLong("units"), bundle.getDouble("total"))
@@ -67,16 +53,5 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
             }
             return model
         }
-
-//        private fun setOldDate(): Date {
-//            val old = Calendar.getInstance()
-//            old.set(1970, 1, 1)
-//            return old.time
-//        }
-//        private fun setNewDate(): Date {
-//            val cal = Calendar.getInstance()
-//            cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) + 1)
-//            return cal.time
-//        }
     }
 }

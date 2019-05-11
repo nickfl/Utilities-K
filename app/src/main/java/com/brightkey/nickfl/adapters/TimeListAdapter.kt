@@ -12,12 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import com.brightkey.nickfl.activities.MainActivity
-import com.brightkey.nickfl.fragments.FragmentScreen
 import com.brightkey.nickfl.models.TimeListModel
 import com.brightkey.nickfl.myutilities.R
-
 import timber.log.Timber
 
 class TimeListAdapter(private val mActivity: Activity, private val paidList: List<TimeListModel>/*, TimeListAdapter.AdapterDashboardInterface rowListener*/) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

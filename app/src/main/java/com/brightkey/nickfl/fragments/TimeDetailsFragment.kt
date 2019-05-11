@@ -13,6 +13,7 @@ import com.brightkey.nickfl.adapters.TimeListAdapter
 import com.brightkey.nickfl.entities.BaseUtility
 import com.brightkey.nickfl.entities.BaseUtility_
 import com.brightkey.nickfl.helpers.Constants
+import com.brightkey.nickfl.helpers.PeriodManager
 import com.brightkey.nickfl.models.TimeListModel
 import com.brightkey.nickfl.myutilities.R
 
@@ -70,6 +71,7 @@ class TimeDetailsFragment : BaseFragment() {
     //region Helpers
     private fun setupRecycler(view: View) {
         val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, detailsType).build().find()
+                                        .filter{ PeriodManager.isDateInPeriod(it.billDate) }
         val models = TimeListModel.convertToTimeList(utils, detailsType)
         val rv = view.findViewById<View>(R.id.recyclerTimeDetails) as RecyclerView
         rv.setHasFixedSize(true)

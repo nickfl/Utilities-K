@@ -8,16 +8,18 @@ object PeriodManager {
     private var periodEnd: Date = veryNewDate()
 
     fun veryOldDate(): Date {
-        return dateYear(1970)
+        return dateYear(1970, true)
     }
     fun veryNewDate(): Date {
         val cal = Calendar.getInstance()
         cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) + 1)
         return cal.time
     }
-    fun dateYear(year: Int): Date {
+    fun dateYear(year: Int, start: Boolean): Date {
         val cal = Calendar.getInstance()
-        cal.set(Calendar.YEAR, year + 1)
+        val month: Int = if (start) 1 else 12
+        val day: Int = if (start) 1 else 31
+        cal.set(year, month, day)
         return cal.time
     }
 
