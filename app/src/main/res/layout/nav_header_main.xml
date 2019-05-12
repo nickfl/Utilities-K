@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutHeader"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
+    android:layout_height="wrap_content"
     android:background="@drawable/side_nav_bar"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -32,8 +32,8 @@
         android:id="@+id/textHeaderViewDescr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/textHeaderViewName"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing_5"
         android:text="@string/nav_header_subtitle"
         android:textStyle="italic" />
@@ -56,6 +56,7 @@
         android:layout_below="@+id/textHeaderViewDate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing_10"
+        android:layout_marginBottom="@dimen/nav_header_vertical_spacing_20"
         android:text="@string/nav_header_total" />
 
 </RelativeLayout>
