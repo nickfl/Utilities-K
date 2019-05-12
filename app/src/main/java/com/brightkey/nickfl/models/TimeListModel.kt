@@ -7,7 +7,7 @@ import com.brightkey.nickfl.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import java.util.*
 
-class TimeListModel internal constructor(var utilityIcon: String  // hydro_bill
+class TimeListModel internal constructor(var utilityIcon: String    // hydro_bill
                                          , var utilityColor: String // #5F8233
                                          , var duePaid: String      // due date to pay
                                          , var nowPaid: Double      // paid this month

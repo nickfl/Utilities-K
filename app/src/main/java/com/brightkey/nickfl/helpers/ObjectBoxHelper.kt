@@ -30,7 +30,7 @@ class ObjectBoxHelper private constructor() {
     // calculate all totals!: units and amount paid
     fun unitsForUtility(item: ConfigEntity): Bundle {
         val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, item.utilityIcon!!).build().find()
-                                .filter { PeriodManager.isDateInPeriod(it.billDate) == true }
+                                .filter { PeriodManager.isDateInPeriod(it.billDate) }
         var units: Long = 0
         var total = 0.0
         for (one in utils) {

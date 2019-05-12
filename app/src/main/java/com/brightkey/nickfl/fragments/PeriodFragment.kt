@@ -53,8 +53,8 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             (activity as MainActivity).changePeriod(periodNames[selectedPeriod])
             when (selectedPeriod) {
                 0 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.veryNewDate()) // all years
-                1 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.dateYear(2019))
-                2 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.dateYear(2018))
+                1 -> PeriodManager.updatePeriodFull(PeriodManager.dateYear(2019, true), PeriodManager.dateYear(2019, false))
+                2 -> PeriodManager.updatePeriodFull(PeriodManager.dateYear(2018, true), PeriodManager.dateYear(2018, false))
             }
             exitListener?.onFragmentExit()
         }
