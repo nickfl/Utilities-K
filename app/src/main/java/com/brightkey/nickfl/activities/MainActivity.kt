@@ -163,24 +163,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
     }
 
+    private fun updateDate(header: View) {
+        val date = header.findViewById<TextView>(R.id.textHeaderViewDate)
+        when (PeriodManager.shared.period) {
+            Periods.All -> {
+                val cal = GregorianCalendar()
+                date.text = DateFormatters.dateStringFromCalendar(cal)
+            }
+            Periods.Year2019 -> { date.text = "Year 2019" }
+            Periods.Year2018 -> { date.text = "Year 2018" }
+        }
+    }
+    private fun updateTotal(header: View) {
+        val total = header.findViewById<TextView>(R.id.textViewTotalNow)
+        val totalPay = ObjectBoxHelper.shared().totalPayment()
+        total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
+    }
     private fun setupHeader() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val header = navigationView.getHeaderView(0)
-        val date = header.findViewById<TextView>(R.id.textHeaderViewDate)
-        val cal = GregorianCalendar()
-        date.text = DateFormatters.dateStringFromCalendar(cal)
-        val total = header.findViewById<TextView>(R.id.textViewTotalNow)
-        val totalPay = ObjectBoxHelper.shared().totalPayment()
-        total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
+        updateDate(header)
+        updateTotal(header)
     }
 
     private fun updateHeader() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val header = navigationView.getHeaderView(0)
-        val total = header.findViewById<TextView>(R.id.textViewTotalNow)
-        val totalPay = ObjectBoxHelper.shared().totalPayment()
-        total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
+        updateDate(header)
+        updateTotal(header)
     }
 
     private fun setupNavigation() {
