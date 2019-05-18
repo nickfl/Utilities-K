@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Spinner
 import com.brightkey.nickfl.activities.MainActivity
 import com.brightkey.nickfl.helpers.PeriodManager
+import com.brightkey.nickfl.helpers.Periods
 import com.brightkey.nickfl.myutilities.R
 import timber.log.Timber
 
@@ -52,9 +53,12 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         updateBtn?.setOnClickListener() {
             (activity as MainActivity).changePeriod(periodNames[selectedPeriod])
             when (selectedPeriod) {
-                0 -> PeriodManager.updatePeriodFull(PeriodManager.veryOldDate(), PeriodManager.veryNewDate()) // all years
-                1 -> PeriodManager.updatePeriodFull(PeriodManager.dateYear(2019, true), PeriodManager.dateYear(2019, false))
-                2 -> PeriodManager.updatePeriodFull(PeriodManager.dateYear(2018, true), PeriodManager.dateYear(2018, false))
+                0 -> {PeriodManager.shared.updatePeriodForToday()
+                      PeriodManager.shared.setCurrentPeriod(Periods.All)}
+                1 -> {PeriodManager.shared.updatePeriodForYear(2019)
+                      PeriodManager.shared.setCurrentPeriod(Periods.Year2019)}
+                2 -> {PeriodManager.shared.updatePeriodForYear(2018)
+                      PeriodManager.shared.setCurrentPeriod(Periods.Year2018)}
             }
             exitListener?.onFragmentExit()
         }
