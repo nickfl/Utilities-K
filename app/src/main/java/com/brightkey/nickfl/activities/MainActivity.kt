@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var exportFragment: ExportFragment? = null
     private var importFragment: ImportFragment? = null
     private var periodFragment: PeriodFragment? = null
+    private var chartFragment: ChartFragment? = null
     private var currentPeriod: String = ""
 
     // all buttons are the same
@@ -113,7 +114,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_statistics, R.id.nav_manage -> {
-                TODO("maybe later")
+                setTitle(R.string.drawer_charts)
+                nManager?.replaceScreenTo(CHART_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
             }
             R.id.nav_export -> {
                 setTitle(R.string.drawer_export)
@@ -216,6 +218,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nManager?.storeFragment(importFragment!!, IMPORT_FRAGMENT)
         periodFragment = PeriodFragment.newInstance()
         nManager?.storeFragment(periodFragment!!, PERIOD_FRAGMENT)
+        chartFragment = ChartFragment.newInstance()
+        nManager?.storeFragment(chartFragment!!, CHART_FRAGMENT)
 
         // Create a first Fragment to be placed in the activity layout
         nManager?.addScreen(DASHBOARD_FRAGMENT, null)

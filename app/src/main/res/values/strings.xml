@@ -17,6 +17,7 @@
     <string name="drawer_import">Import Records</string>
     <string name="drawer_rec_payments">Recurring payments</string>
     <string name="drawer_reports">Reports</string>
+    <string name="drawer_charts">Charts</string>
     <string name="export_google">Google Drive backup</string>
     <string name="export_drop">Dropbox backup</string>
     <string name="export_device">Device backup</string>
