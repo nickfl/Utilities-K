@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ class ChartFragment : BaseFragment() {
     private var chart: HorizontalBarChart? = null
     private val values: FloatArray = floatArrayOf(10f, 20f, 50f, 10f, 60f, 20f, 50f,
             50f, 70f, 0f, 40f, 90f, 30f)
+    private val color = Color.parseColor("#F58233") // use this.utilityList[index].vendorColor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +67,10 @@ class ChartFragment : BaseFragment() {
         chart?.setDrawValueAboveBar(true)
         chart?.getDescription()?.isEnabled = false
 
-        // if more than 60 entries are displayed in the chart, no values will be
+        // if more than 12 entries are displayed in the chart, no values will be
         // drawn
         chart?.setMaxVisibleValueCount(12)
+        // months
         chart?.xAxis?.valueFormatter = YAxisFormatter()
 
         // scaling can now only be done on x- and y-axis separately
@@ -80,7 +83,6 @@ class ChartFragment : BaseFragment() {
 //        xl?.typeface = setTypeface(tfLight)
         xl?.setDrawAxisLine(true)
         xl?.setDrawGridLines(false)
-//        xl?.granularity = 1f
 
         val yl = chart?.getAxisLeft()
 //        yl?.typeface = tfLight
@@ -95,7 +97,7 @@ class ChartFragment : BaseFragment() {
         yr?.axisMinimum = 0f // this replaces setStartAtZero(true)
 
         chart?.setFitBars(true)
-        chart?.animateY(2500)
+        chart?.animateY(1500)
     }
 
     private fun setData(months: Int, values: FloatArray) {
@@ -118,6 +120,7 @@ class ChartFragment : BaseFragment() {
         } else {
             set1 = BarDataSet(entries, "DataSet")
             set1.setDrawIcons(false)
+            set1.setColor(color)
 
             val dataSets = ArrayList<IBarDataSet>()
             dataSets.add(set1)
