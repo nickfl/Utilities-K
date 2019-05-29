@@ -26,7 +26,7 @@ class PeriodManager {
     }
     private fun dateYear(year: Int, start: Boolean): Date {
         val cal = Calendar.getInstance()
-        val month: Int = if (start) 1 else 12
+        val month: Int = if (start) 0 else 11
         val day: Int = if (start) 1 else 31
         cal.set(year, month, day)
         return cal.time
