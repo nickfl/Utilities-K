@@ -71,7 +71,7 @@ class TimeDetailsFragment : BaseFragment() {
     //region Helpers
     private fun setupRecycler(view: View) {
         val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, detailsType).build().find()
-                                        .filter{ PeriodManager.shared.isDateInPeriod(it.billDate) }
+                                        .filter{ PeriodManager.shared.isDateInPeriod(it.datePaid) }
         val models = TimeListModel.convertToTimeList(utils, detailsType)
         val rv = view.findViewById<View>(R.id.recyclerTimeDetails) as RecyclerView
         rv.setHasFixedSize(true)
