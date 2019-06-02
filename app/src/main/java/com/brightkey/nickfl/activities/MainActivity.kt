@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private var menuId = R.menu.main
 
+    //region Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -152,6 +153,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+    // endregion
 
     //region Helpers
     private fun toggleFABs(hide: Boolean?) {
@@ -306,6 +308,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     //endregion
 
+    //region Show Fragment
     private fun showFragmentFrom(right: Boolean, screen: FragmentScreen) {
         if (screen != DASHBOARD_FRAGMENT) {
             toggleFABs(true)
@@ -324,7 +327,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun showFragmentFromLeft(screen: FragmentScreen) {
         showFragmentFrom(false, screen)
     }
+    // endregion
 
+    //region Fragments methods
     fun backToCharts(chart: Int) {
         var charType = ""
         when (chart) {
@@ -355,10 +360,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         currentPeriod = period
         dashFragment?.adapter?.notifyDataSetChanged()
     }
+    // endregion
 
     private fun setChartTitle(model: DashboardModel?) {
         val type = currentModelItem?.utilityType ?: Constants.HydroType
-        val title: String = type + " " + resources.getString(R.string.drawer_charts)
+        val total = currentModelItem?.totalPaid ?: 0.0
+        val title: String = type + String.format(" ( $%.2f )", total)
         setTitle(title)
     }
     private fun findModelItem(forUtility: String): DashboardModel? {
@@ -398,6 +405,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         updateHeader()
     }
 
+    //region Override 2
     override fun onDrawerClosed(drawerView: View) {}
     override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
     override fun onDrawerStateChanged(newState: Int) {}
@@ -416,4 +424,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return
         }
     }
+    // endregion
 }
