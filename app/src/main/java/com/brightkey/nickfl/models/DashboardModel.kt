@@ -42,7 +42,7 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
     companion object {
 
         // returns array of DashboardModel, i.s. Hydro, Gas, Bell...
-        fun convertToDash(config: List<ConfigEntity>/*, periodStart: Date? = null, periodEnd: Date? = null*/): List<DashboardModel> {
+        fun convertToDash(config: List<ConfigEntity>): List<DashboardModel> {
             val model = ArrayList<DashboardModel>()
             for (item in config) {
                 val bundle = ObjectBoxHelper.shared().unitsForUtility(item)

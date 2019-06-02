@@ -42,6 +42,7 @@ class ImportFragment : BaseFragment() {
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
     }
 
+    // will be used in MainActivity
     fun importRecord() {
         val activity = activity
 
@@ -91,4 +92,4 @@ class ImportFragment : BaseFragment() {
         }
     }
     //endregion
-}// Required empty public constructor
+}

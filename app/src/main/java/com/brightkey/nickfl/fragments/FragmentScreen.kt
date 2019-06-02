@@ -18,7 +18,10 @@ enum class FragmentScreen {
     HYDRO_FRAGMENT, HEAT_FRAGMENT, PHONE_FRAGMENT,
 
     //Time Line Details
-    TIMEDETAILS_FRAGMENT, CHART_FRAGMENT;
+    TIMEDETAILS_FRAGMENT,
+
+    // Charts related screens
+    CHART_FRAGMENT, UTILITY_FRAGMENT;
 
 
     companion object {

@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brightkey.nickfl.fragments.UtilityFragment">
+
+    <RadioGroup
+        android:id="@+id/radioGroupUtilities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonHydro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="@string/title_hydro"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonGas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:paddingLeft="10dp"
+            android:text="@string/title_heat"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:paddingLeft="10dp"
+            android:text="@string/title_water"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="@string/title_phone"
+            android:textSize="24sp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupUtilities"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/import_select" />
+
+</RelativeLayout>
