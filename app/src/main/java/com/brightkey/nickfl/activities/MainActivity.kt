@@ -20,6 +20,7 @@ import android.widget.TextView
 import com.brightkey.nickfl.fragments.*
 import com.brightkey.nickfl.fragments.FragmentScreen.*
 import com.brightkey.nickfl.helpers.*
+import com.brightkey.nickfl.models.DashboardModel
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import timber.log.Timber
@@ -28,6 +29,8 @@ import java.util.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, DashboardFragment.OnDashboardInteractionListener, DatePickerDialog.OnDateSetListener, BaseFragment.ExitFragmentListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private var nManager: NavigationManager? = null
+    private var model: List<DashboardModel>? = null
+    private var currentModelItem: DashboardModel? = null
 
     private var buttonsGap = 0.0f
     private var fabMain: FloatingActionButton? = null
@@ -41,7 +44,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var importFragment: ImportFragment? = null
     private var periodFragment: PeriodFragment? = null
     private var chartFragment: ChartFragment? = null
-    private var currentPeriod: String = ""
+    private var utilityFragment: UtilityFragment? = null
+    private var currentPeriod: String = ""  // default - All Years
 
     // all buttons are the same
     private var originY = -1.0f
@@ -49,6 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private var menuId = R.menu.main
 
+    //region Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -62,6 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupNavigation()
         setupDrawer(toolbar)
         setupHeader()
+        model = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
+        currentModelItem = findModelItem(Constants.HydroType)
     }
 
     override fun onBackPressed() {
@@ -78,9 +85,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (menu != null && menu.hasVisibleItems() &&
-                menu.getItem(0)?.itemId == R.id.action_period) {
-            menu.getItem(1).title = currentPeriod
+        if (menu != null && menu.hasVisibleItems()) {
+            if (menu.getItem(0)?.itemId == R.id.action_period) {
+                menu.getItem(1).title = currentPeriod
+            }
+            if (menu.getItem(0)?.itemId == R.id.chart_choice) {
+                menu.getItem(1).title = currentModelItem?.utilityType ?: resources.getString(R.string.title_hydro)
+            }
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -105,6 +116,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.action_close -> {
                 returnToDashboard()
             }
+            R.id.chart_choice -> {
+                setTitle(R.string.title_utility_chart)
+                showFragmentFromRight(UTILITY_FRAGMENT)
+            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -114,8 +129,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_statistics, R.id.nav_manage -> {
-                setTitle(R.string.drawer_charts)
-                nManager?.replaceScreenTo(CHART_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
+                setChartTitle(currentModelItem)
+                showFragmentFromRight(CHART_FRAGMENT)
+                chartFragment?.configureChart(currentModelItem)
             }
             R.id.nav_export -> {
                 setTitle(R.string.drawer_export)
@@ -137,6 +153,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+    // endregion
 
     //region Helpers
     private fun toggleFABs(hide: Boolean?) {
@@ -220,6 +237,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nManager?.storeFragment(periodFragment!!, PERIOD_FRAGMENT)
         chartFragment = ChartFragment.newInstance()
         nManager?.storeFragment(chartFragment!!, CHART_FRAGMENT)
+        utilityFragment = UtilityFragment.newInstance()
+        nManager?.storeFragment(utilityFragment!!, UTILITY_FRAGMENT)
 
         // Create a first Fragment to be placed in the activity layout
         nManager?.addScreen(DASHBOARD_FRAGMENT, null)
@@ -289,14 +308,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     //endregion
 
-    private fun showFragmentFromRight(screen: FragmentScreen) {
+    //region Show Fragment
+    private fun showFragmentFrom(right: Boolean, screen: FragmentScreen) {
         if (screen != DASHBOARD_FRAGMENT) {
             toggleFABs(true)
             if (buttonsVisible) {
                 fabAction()
             }
         }
-        nManager?.replaceScreenTo(screen, ScreenAnimation.ENTER_FROM_RIGHT)
+        val direction = if (right) ScreenAnimation.ENTER_FROM_RIGHT else ScreenAnimation.ENTER_FROM_LEFT
+        nManager?.replaceScreenTo(screen, direction)
+    }
+
+    private fun showFragmentFromRight(screen: FragmentScreen) {
+        showFragmentFrom(true, screen)
+    }
+
+    private fun showFragmentFromLeft(screen: FragmentScreen) {
+        showFragmentFrom(false, screen)
+    }
+    // endregion
+
+    //region Fragments methods
+    fun backToCharts(chart: Int) {
+        var charType = ""
+        when (chart) {
+            R.id.radioButtonHydro -> {
+                charType = Constants.HydroType
+            }
+            R.id.radioButtonGas -> {
+                charType = Constants.HeatType
+            }
+            R.id.radioButtonWater -> {
+                charType = Constants.WaterType
+            }
+            R.id.radioButtonPhone -> {
+                charType = Constants.PhoneType
+            }
+        }
+        currentModelItem = findModelItem(charType)
+        setChartTitle(currentModelItem)
+        showFragmentFromLeft(CHART_FRAGMENT)
+        chartFragment?.configureChart(currentModelItem)
     }
 
     fun editFragment(screen: FragmentScreen, index: Int) {
@@ -306,6 +359,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun changePeriod(period: String) {
         currentPeriod = period
         dashFragment?.adapter?.notifyDataSetChanged()
+    }
+    // endregion
+
+    private fun setChartTitle(model: DashboardModel?) {
+        val type = currentModelItem?.utilityType ?: Constants.HydroType
+        val total = currentModelItem?.totalPaid ?: 0.0
+        val title: String = type + String.format(" ( $%.2f )", total)
+        setTitle(title)
+    }
+    private fun findModelItem(forUtility: String): DashboardModel? {
+        if (model != null) {
+            for (one in model!!) {
+                if (one.utilityIcon == forUtility) {
+                    return one
+                }
+            }
+        }
+        return null
     }
 
     // OnDashboardInteractionListener
@@ -334,6 +405,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         updateHeader()
     }
 
+    //region Override 2
     override fun onDrawerClosed(drawerView: View) {}
     override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
     override fun onDrawerStateChanged(newState: Int) {}
@@ -352,4 +424,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return
         }
     }
+    // endregion
 }

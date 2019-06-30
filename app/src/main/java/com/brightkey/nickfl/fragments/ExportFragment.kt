@@ -42,6 +42,7 @@ class ExportFragment : BaseFragment() {
         cleanup()
     }
 
+    // will be used in MainActivity
     fun exportRecord() {
         val activity = activity as Activity
 

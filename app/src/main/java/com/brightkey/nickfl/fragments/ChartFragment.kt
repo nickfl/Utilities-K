@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brightkey.nickfl.activities.MainActivity
+import com.brightkey.nickfl.entities.BaseUtility_
+import com.brightkey.nickfl.helpers.Constants
+import com.brightkey.nickfl.helpers.PeriodManager
+import com.brightkey.nickfl.models.DashboardModel
 import com.brightkey.nickfl.myutilities.R
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.components.AxisBase
@@ -16,6 +20,7 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import timber.log.Timber
+import java.lang.Math.min
 import java.util.*
 
 class ChartFragment : BaseFragment() {
@@ -23,9 +28,10 @@ class ChartFragment : BaseFragment() {
 //    protected var tfLight: Typeface? = null
 
     private var chart: HorizontalBarChart? = null
-    private val values: FloatArray = floatArrayOf(10f, 20f, 50f, 10f, 60f, 20f, 50f,
-            50f, 70f, 0f, 40f, 90f, 30f)
-    private val color = Color.parseColor("#F58233") // use this.utilityList[index].vendorColor
+
+    private var chartValues: FloatArray = FloatArray(10)
+    private var chartColor: Int = Color.GREEN// use this.utilityList[index].vendorColor
+    private var chartType: String = Constants.HydroType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,7 @@ class ChartFragment : BaseFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_chart, container, false)
         setup(view)
+        loadData()
         return view
     }
 
@@ -45,12 +52,17 @@ class ChartFragment : BaseFragment() {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
         activity?.invalidateOptionsMenu()
-        (activity as MainActivity).setCustomOptions(R.menu.fragment)
+        (activity as MainActivity).setCustomOptions(R.menu.charts)
         cleanup()
 
-        setData(8, values)
+        setData(chartValues)
         chart?.setFitBars(true)
         chart?.invalidate()
+    }
+
+    fun configureChart(model: DashboardModel?) {
+        chartType = model?.utilityIcon ?: Constants.HydroType
+        chartColor = Color.parseColor(model?.vendorColor ?: "#F58233")
     }
 
     //region start Helpers
@@ -100,12 +112,22 @@ class ChartFragment : BaseFragment() {
         chart?.animateY(1500)
     }
 
-    private fun setData(months: Int, values: FloatArray) {
+    private fun loadData() {
+        val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, chartType).build().find()
+                .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
+        chartValues = FloatArray(utils.size)
+        for ((index,one) in utils.withIndex()) {
+            chartValues[index] = one.amountDue.toFloat()
+        }
+    }
+
+    private fun setData(values: FloatArray) {
 
         val barWidth = 0.85f
         val entries = ArrayList<BarEntry>()
 
-        for (index in 0 until months) {
+        val count = min(12, values.size)
+        for (index in 0 until count) {
             entries.add(BarEntry(index*1f, values[index]))
         }
 
@@ -118,9 +140,9 @@ class ChartFragment : BaseFragment() {
             data.notifyDataChanged()
             chart?.notifyDataSetChanged()
         } else {
-            set1 = BarDataSet(entries, "DataSet")
+            set1 = BarDataSet(entries, chartType)
             set1.setDrawIcons(false)
-            set1.setColor(color)
+            set1.setColor(chartColor)
 
             val dataSets = ArrayList<IBarDataSet>()
             dataSets.add(set1)
@@ -130,6 +152,7 @@ class ChartFragment : BaseFragment() {
 //            data.setValueTypeface(tfLight)
             data.barWidth = barWidth
             chart?.setData(data)
+            chart?.getLegend()?.setEnabled(false)
         }
     }
 

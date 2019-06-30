@@ -3,9 +3,7 @@ package com.brightkey.nickfl.helpers
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 object DateFormatters {
     fun dateStringFromCalendar(cal: Calendar): String {
@@ -33,7 +31,6 @@ object DateFormatters {
         } catch (e: ParseException) {
             e.printStackTrace()
         }
-
         return convertedDate
     }
 }

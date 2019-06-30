@@ -50,7 +50,7 @@ class NavigationManager(activity: AppCompatActivity, private val containerId: In
         addFragment(fr, screenAnimation)
     }
 
-    fun addFragment(fragment: BaseFragment?, screenAnimation: ScreenAnimation?) {
+    private fun addFragment(fragment: BaseFragment?, screenAnimation: ScreenAnimation?) {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[" + line + "] addFragment(" + fragment!!.javaClass.getSimpleName() + ")")
 
