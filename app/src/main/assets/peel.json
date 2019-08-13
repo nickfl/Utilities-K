@@ -58,5 +58,15 @@
         "amountType0": 55.32,
         "amountType1": 34.02,
         "amountType2": 25.24
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "Aug 02, 2019",
+        "dueDate": "Aug 23, 2019",
+        "datePaid": "Aug 12, 2019",
+        "amountDue": 128.81,
+        "amountType0": 61.85,
+        "amountType1": 40.58,
+        "amountType2": 26.38
     }
 ]
