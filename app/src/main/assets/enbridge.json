@@ -198,5 +198,15 @@
         "amountType0": 5.40,
         "amountType1": 0.00,
         "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Sep 23, 2019",
+        "dueDate": "Oct 15, 2019",
+        "datePaid": "Sep 28, 2019",
+        "amountDue": 73.13,
+        "amountType0": 3.01,
+        "amountType1": 0.00,
+        "amountType2": 0.00
     }
 ]
