@@ -201,11 +201,21 @@
     },
     {
         "utilityType": "heat_bill",
-        "billDate": "Sep 23, 2019",
-        "dueDate": "Oct 15, 2019",
-        "datePaid": "Sep 28, 2019",
-        "amountDue": 73.13,
-        "amountType0": 3.01,
+        "billDate": "Oct 22, 2019",
+        "dueDate": "Nov 12, 2019",
+        "datePaid": "Nov 02, 2019",
+        "amountDue": 78.00,
+        "amountType0": 4.32,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Nov 21, 2019",
+        "dueDate": "Dec 11, 2019",
+        "datePaid": "Dec 04, 2019",
+        "amountDue": 101.80,
+        "amountType0": 10.86,
         "amountType1": 0.00,
         "amountType2": 0.00
     }
