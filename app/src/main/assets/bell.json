@@ -193,10 +193,40 @@
         "utilityType": "phone_bill",
         "billDate": "Aug 08, 2019",
         "dueDate": "Aug 26, 2019",
+        "datePaid": "Aug 12, 2019",
+        "amountDue": 204.94,
+        "amountType0": 71.45,
+        "amountType1": 80.95,
+        "amountType2": 28.96
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Sep 08, 2019",
+        "dueDate": "Sep 24, 2019",
         "datePaid": "Aug 18, 2019",
         "amountDue": 204.94,
         "amountType0": 71.45,
         "amountType1": 80.95,
         "amountType2": 28.96
-    }
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Oct 08, 2019",
+        "dueDate": "Oct 24, 2019",
+        "datePaid": "Oct 12, 2019",
+        "amountDue": 204.94,
+        "amountType0": 71.45,
+        "amountType1": 80.95,
+        "amountType2": 28.96
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Nov 08, 2019",
+        "dueDate": "Nov 25, 2019",
+        "datePaid": "Nov 11, 2019",
+        "amountDue": 204.94,
+        "amountType0": 71.45,
+        "amountType1": 80.95,
+        "amountType2": 28.96
+    }	
 ]
