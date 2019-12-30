@@ -61,7 +61,7 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
         } else {
             dashHolder.totalUnits.visibility = View.GONE
         }
-        dashHolder.totalPaid.setText(String.format("Paid this period: $%.2f", this.utilityList[index].totalPaid))
+        dashHolder.totalPaid.text = String.format("Paid this period: $%.2f", this.utilityList[index].totalPaid)
         dashHolder.cardView.setOnClickListener {
             if (utilityList[index].totalPaid > 0.0) {
                 mListener.utilityPressed(utilityList[index].utilityIcon)

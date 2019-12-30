@@ -50,12 +50,12 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
 
     //region Helpers
     private fun setupRecycler(view: View) {
-        val model = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
+        val models = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
         val rv = view.findViewById<View>(R.id.recyclerDashboard) as RecyclerView
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(activity)
         rv.layoutManager = llm
-        adapter = DashboardAdapter(activity!!, model, this)
+        adapter = DashboardAdapter(activity!!, models, this)
         rv.adapter = adapter
     }
     //endregion

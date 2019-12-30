@@ -29,8 +29,8 @@ import java.util.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, DashboardFragment.OnDashboardInteractionListener, DatePickerDialog.OnDateSetListener, BaseFragment.ExitFragmentListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private var nManager: NavigationManager? = null
-    private var model: List<DashboardModel>? = null
     private var currentModelItem: DashboardModel? = null
+    private var currentChartType: String = ""
 
     private var buttonsGap = 0.0f
     private var fabMain: FloatingActionButton? = null
@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupNavigation()
         setupDrawer(toolbar)
         setupHeader()
-        model = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
-        currentModelItem = findModelItem(Constants.HydroType)
+        currentChartType = Constants.HydroType
+        currentModelItem = findModelItem(currentChartType)
     }
 
     override fun onBackPressed() {
@@ -129,9 +129,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_statistics, R.id.nav_manage -> {
-                setChartTitle(currentModelItem)
-                showFragmentFromRight(CHART_FRAGMENT)
-                chartFragment?.configureChart(currentModelItem)
+                setCurrentChart()
             }
             R.id.nav_export -> {
                 setTitle(R.string.drawer_export)
@@ -156,6 +154,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // endregion
 
     //region Helpers
+    private fun setCurrentChart() {
+        currentModelItem = findModelItem(currentChartType)
+        setChartTitle(currentModelItem)
+        showFragmentFromRight(CHART_FRAGMENT)
+        chartFragment?.configureChart(currentModelItem)
+    }
+
     private fun toggleFABs(hide: Boolean?) {
         val alpha: Float = if (hide != null && hide) 0.0f else 1.0f
         fabMain?.alpha = alpha
@@ -189,6 +194,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val cal = GregorianCalendar()
                 date.text = DateFormatters.dateStringFromCalendar(cal)
             }
+            Periods.Year2020 -> { date.text = "Year 2020" }
             Periods.Year2019 -> { date.text = "Year 2019" }
             Periods.Year2018 -> { date.text = "Year 2018" }
         }
@@ -331,25 +337,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //region Fragments methods
     fun backToCharts(chart: Int) {
-        var charType = ""
         when (chart) {
             R.id.radioButtonHydro -> {
-                charType = Constants.HydroType
+                currentChartType = Constants.HydroType
             }
             R.id.radioButtonGas -> {
-                charType = Constants.HeatType
+                currentChartType = Constants.HeatType
             }
             R.id.radioButtonWater -> {
-                charType = Constants.WaterType
+                currentChartType = Constants.WaterType
             }
             R.id.radioButtonPhone -> {
-                charType = Constants.PhoneType
+                currentChartType = Constants.PhoneType
             }
         }
-        currentModelItem = findModelItem(charType)
-        setChartTitle(currentModelItem)
-        showFragmentFromLeft(CHART_FRAGMENT)
-        chartFragment?.configureChart(currentModelItem)
+        setCurrentChart()
     }
 
     fun editFragment(screen: FragmentScreen, index: Int) {
@@ -363,14 +365,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // endregion
 
     private fun setChartTitle(model: DashboardModel?) {
-        val type = currentModelItem?.utilityType ?: Constants.HydroType
-        val total = currentModelItem?.totalPaid ?: 0.0
+        val type = model?.utilityType ?: Constants.HydroType
+        val total = model?.totalPaid ?: 0.0
         val title: String = type + String.format(" ( $%.2f )", total)
         setTitle(title)
     }
     private fun findModelItem(forUtility: String): DashboardModel? {
-        if (model != null) {
-            for (one in model!!) {
+        val models = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
+        if (models != null) {
+            for (one in models!!) {
                 if (one.utilityIcon == forUtility) {
                     return one
                 }

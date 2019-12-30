@@ -4,6 +4,7 @@ import java.util.*
 
 enum class Periods {
     All,
+    Year2020,
     Year2019,
     Year2018
 }
