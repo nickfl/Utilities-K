@@ -161,6 +161,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         chartFragment?.configureChart(currentModelItem)
     }
 
+    private fun setChartTitle(model: DashboardModel?) {
+        var type = model?.utilityType ?: Constants.HydroType
+        if (PeriodManager.shared.period == Periods.All) {
+            type = "All $type"
+        }
+        val total = model?.totalPaid ?: 0.0
+        val title: String = type + String.format(" ( $%.2f )", total)
+        setTitle(title)
+    }
+
+    private fun findModelItem(forUtility: String): DashboardModel? {
+        val models = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
+        if (models != null) {
+            for (one in models!!) {
+                if (one.utilityIcon == forUtility) {
+                    return one
+                }
+            }
+        }
+        return null
+    }
+
     private fun toggleFABs(hide: Boolean?) {
         val alpha: Float = if (hide != null && hide) 0.0f else 1.0f
         fabMain?.alpha = alpha
@@ -363,24 +385,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         dashFragment?.adapter?.notifyDataSetChanged()
     }
     // endregion
-
-    private fun setChartTitle(model: DashboardModel?) {
-        val type = model?.utilityType ?: Constants.HydroType
-        val total = model?.totalPaid ?: 0.0
-        val title: String = type + String.format(" ( $%.2f )", total)
-        setTitle(title)
-    }
-    private fun findModelItem(forUtility: String): DashboardModel? {
-        val models = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
-        if (models != null) {
-            for (one in models!!) {
-                if (one.utilityIcon == forUtility) {
-                    return one
-                }
-            }
-        }
-        return null
-    }
 
     // OnDashboardInteractionListener
     override fun onDashboardInteraction(itemId: String) {
