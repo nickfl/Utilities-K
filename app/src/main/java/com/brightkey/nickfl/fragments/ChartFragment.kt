@@ -20,13 +20,13 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import timber.log.Timber
-import java.lang.Math.min
 import java.util.*
 
 class ChartFragment : BaseFragment() {
 
 //    protected var tfLight: Typeface? = null
 
+    private val maxBars = 12
     private var chart: HorizontalBarChart? = null
 
     private var chartValues: FloatArray = FloatArray(10)
@@ -77,11 +77,11 @@ class ChartFragment : BaseFragment() {
 
         chart?.setDrawBarShadow(false)
         chart?.setDrawValueAboveBar(true)
-        chart?.getDescription()?.isEnabled = false
+        chart?.description?.isEnabled = false
 
         // if more than 12 entries are displayed in the chart, no values will be
         // drawn
-        chart?.setMaxVisibleValueCount(12)
+        chart?.setMaxVisibleValueCount(maxBars+1)
         // months
         chart?.xAxis?.valueFormatter = YAxisFormatter()
 
@@ -90,19 +90,19 @@ class ChartFragment : BaseFragment() {
 
         chart?.setDrawGridBackground(false)
 
-        val xl = chart?.getXAxis()
+        val xl = chart?.xAxis
         xl?.position = XAxis.XAxisPosition.BOTTOM
 //        xl?.typeface = setTypeface(tfLight)
         xl?.setDrawAxisLine(true)
         xl?.setDrawGridLines(false)
 
-        val yl = chart?.getAxisLeft()
+        val yl = chart?.axisLeft
 //        yl?.typeface = tfLight
         yl?.setDrawAxisLine(true)
         yl?.setDrawGridLines(true)
         yl?.axisMinimum = 0f // this replaces setStartAtZero(true)
 
-        val yr = chart?.getAxisRight()
+        val yr = chart?.axisRight
 //        yr?.typeface = tfLight
         yr?.setDrawAxisLine(true)
         yr?.setDrawGridLines(false)
@@ -123,26 +123,27 @@ class ChartFragment : BaseFragment() {
 
     private fun setData(values: FloatArray) {
 
+        // bar thickness
         val barWidth = 0.85f
         val entries = ArrayList<BarEntry>()
 
-        val count = min(12, values.size)
+        val count = minOf(maxBars, values.size)
         for (index in 0 until count) {
             entries.add(BarEntry(index*1f, values[index]))
         }
 
         val set1: BarDataSet
 
-        val data = chart?.getData()
-        if (data != null && data.dataSetCount > 0) {
-            set1 = chart?.getData()?.getDataSetByIndex(0) as BarDataSet
+        val chartData = chart?.data
+        if (chartData != null && chartData.dataSetCount > 0) {
+            set1 = chartData.getDataSetByIndex(0) as BarDataSet
             set1.values = entries
-            data.notifyDataChanged()
+            chartData.notifyDataChanged()
             chart?.notifyDataSetChanged()
         } else {
             set1 = BarDataSet(entries, chartType)
             set1.setDrawIcons(false)
-            set1.setColor(chartColor)
+            set1.color = chartColor
 
             val dataSets = ArrayList<IBarDataSet>()
             dataSets.add(set1)
@@ -151,8 +152,8 @@ class ChartFragment : BaseFragment() {
             data.setValueTextSize(10f)
 //            data.setValueTypeface(tfLight)
             data.barWidth = barWidth
-            chart?.setData(data)
-            chart?.getLegend()?.setEnabled(false)
+            chart?.data = data
+            chart?.legend?.isEnabled = false
         }
     }
 
