@@ -14,6 +14,7 @@ import com.brightkey.nickfl.entities.BaseUtility_
 import com.brightkey.nickfl.entities.ConfigEntity
 import com.brightkey.nickfl.helpers.DateFormatters
 import com.brightkey.nickfl.helpers.ObjectBoxHelper
+import com.brightkey.nickfl.helpers.PeriodManager
 import com.brightkey.nickfl.myutilities.R
 import io.objectbox.Box
 import timber.log.Timber
@@ -73,7 +74,9 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun billForUtility(item: ConfigEntity, index: Int): BaseUtility {
-        val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, item.utilityIcon!!).build().find()
+        val utils = utilityBox!!.query()
+                .equal(BaseUtility_.utilityType, item.utilityIcon!!).build().find()
+                .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
         val utility = utils[index]
         fillInStatement(utility)
         return utility

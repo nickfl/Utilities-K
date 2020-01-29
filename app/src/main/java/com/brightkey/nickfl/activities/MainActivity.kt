@@ -163,8 +163,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setChartTitle(model: DashboardModel?) {
         var type = model?.utilityType ?: Constants.HydroType
-        if (PeriodManager.shared.period == Periods.All) {
-            type = "All $type"
+        if (PeriodManager.shared.period == Periods.Current) {
+            type = "Current $type"
         }
         val total = model?.totalPaid ?: 0.0
         val title: String = type + String.format(" ( $%.2f )", total)
@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun updateDate(header: View) {
         val date = header.findViewById<TextView>(R.id.textHeaderViewDate)
         when (PeriodManager.shared.period) {
-            Periods.All -> {
+            Periods.Current -> {
                 val cal = GregorianCalendar()
                 date.text = DateFormatters.dateStringFromCalendar(cal)
             }

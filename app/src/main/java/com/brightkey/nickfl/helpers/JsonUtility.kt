@@ -19,18 +19,13 @@ object JsonUtility {
         return String(formArray)
     }
 
-    private fun loadJsonFile(fileName: String, context: Context): String? {
-        try {
-            return JsonUtility.assetJSONFile(fileName, context)
-        } catch (ex: IOException) {
-            return null
-        }
-
+    private fun loadJsonFile(fileName: String, context: Context): String {
+        return assetJSONFile(fileName, context)
     }
 
     // Load Config
     fun loadConfigFromAsset(fileName: String, context: Context): List<ConfigEntity>? {
-        val jsonStr = JsonUtility.loadJsonFile(fileName, context) ?: return null
+        val jsonStr = loadJsonFile(fileName, context)
 
         val gson = Gson()
         val listType = object : TypeToken<List<ConfigEntity>>() {
@@ -41,7 +36,7 @@ object JsonUtility {
 
     // Load Records
     private fun loadJSONFromUtility(fileName: String, context: Context): List<LoadUtility>? {
-        val jsonStr = JsonUtility.loadJsonFile(fileName, context) ?: return null
+        val jsonStr = loadJsonFile(fileName, context)
         val gson = Gson()
         val listType = object : TypeToken<List<LoadUtility>>() {
 
@@ -50,7 +45,7 @@ object JsonUtility {
     }
 
     fun loadUtilityFromFile(fileName: String, context: Context) {
-        val utility = JsonUtility.loadJSONFromUtility(fileName, context)
+        val utility = loadJSONFromUtility(fileName, context)
         if (utility != null) {
             for (item in utility) {
                 item.saveToBox()

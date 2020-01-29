@@ -168,9 +168,9 @@ class ChartFragment : BaseFragment() {
     //endregion
 
     class YAxisFormatter: ValueFormatter() {
-        private val months = arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+        private val allMonths = arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-            return months.getOrNull(value.toInt()) ?: value.toString()
+            return allMonths.getOrNull(value.toInt()) ?: value.toString()
         }
     }
 }

@@ -1,9 +1,10 @@
 package com.brightkey.nickfl.helpers
 
+import java.time.Year
 import java.util.*
 
 enum class Periods {
-    All,
+    Current,
     Year2020,
     Year2019,
     Year2018
@@ -13,7 +14,11 @@ class PeriodManager {
 
     private var periodStart: Date = veryOldDate()
     private var periodEnd: Date = veryNewDate()
-    var period: Periods = Periods.All
+    var period: Periods = Periods.Current
+
+    init {
+        updatePeriodForToday()
+    }
 
     fun setCurrentPeriod(period: Periods) {
         this.period = period
@@ -28,7 +33,7 @@ class PeriodManager {
     private fun dateYear(year: Int, start: Boolean): Date {
         val cal = Calendar.getInstance()
         val month: Int = if (start) 0 else 11
-        val day: Int = if (start) 1 else 31
+        val day: Int = if (start) 1 else 31 // even for 30 days mnth and February
         cal.set(year, month, day)
         return cal.time
     }
@@ -49,8 +54,9 @@ class PeriodManager {
     }
 
     fun updatePeriodForToday() {
-        periodStart = veryOldDate()
-        periodEnd = veryNewDate()
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        updatePeriodForYear(year)
     }
 
 //    fun updatePeriodFull(start: Date?, end: Date?) {

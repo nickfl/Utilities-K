@@ -39,8 +39,7 @@ class ImportExportRecords {
             // remove old recode first
             ObjectBoxHelper.shared().cleanUtilityBox()
 
-            val folder = ImportExportRecords.getPublicDownloadsStorageDir(Constants.folderRecordsName)
-                    ?: return false
+            val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             return readRecords(folder, Constants.fileRecordsName)
         }
 
@@ -75,8 +74,7 @@ class ImportExportRecords {
         //region Export records to Device
         fun exportRecords(activity: Activity): Boolean {
 
-            val folder = ImportExportRecords.getPublicDownloadsStorageDir(Constants.folderRecordsName)
-                    ?: return false
+            val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             val file = File(folder, Constants.fileRecordsName)
 //export as json
             val gson = GsonBuilder().setPrettyPrinting().create()
