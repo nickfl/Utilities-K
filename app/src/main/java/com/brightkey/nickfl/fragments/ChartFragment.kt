@@ -25,11 +25,12 @@ import java.util.*
 class ChartFragment : BaseFragment() {
 
 //    protected var tfLight: Typeface? = null
+    private val allMonths = arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
 
     private val maxBars = 12
     private var chart: HorizontalBarChart? = null
 
-    private var chartValues: FloatArray = FloatArray(10)
+    private var chartValues: FloatArray = FloatArray(12)
     private var chartColor: Int = Color.GREEN// use this.utilityList[index].vendorColor
     private var chartType: String = Constants.HydroType
 
@@ -42,8 +43,9 @@ class ChartFragment : BaseFragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_chart, container, false)
-        setup(view)
+        cleanup()
         loadData()
+        setup(view)
         return view
     }
 
@@ -79,10 +81,8 @@ class ChartFragment : BaseFragment() {
         chart?.setDrawValueAboveBar(true)
         chart?.description?.isEnabled = false
 
-        // if more than 12 entries are displayed in the chart, no values will be
-        // drawn
-        chart?.setMaxVisibleValueCount(maxBars+1)
         // months
+        chart?.setMaxVisibleValueCount(maxBars + 1)
         chart?.xAxis?.valueFormatter = YAxisFormatter()
 
         // scaling can now only be done on x- and y-axis separately
@@ -113,12 +113,23 @@ class ChartFragment : BaseFragment() {
     }
 
     private fun loadData() {
-        val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, chartType).build().find()
+        val utils = utilityBox!!.query()
+                .equal(BaseUtility_.utilityType, chartType).build().find()
                 .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
-        chartValues = FloatArray(utils.size)
-        for ((index,one) in utils.withIndex()) {
-            chartValues[index] = one.amountDue.toFloat()
+        chartValues = FloatArray(12)
+        for (one in utils) {
+            val mnth = getMonthFor(one.datePaid)
+            val mnthIndex = allMonths.indexOf(mnth)
+            val value = one.amountDue.toFloat() + chartValues[mnthIndex]
+            chartValues[mnthIndex] = value
         }
+    }
+
+    private fun getMonthFor(date: Date?): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = date ?: Date()
+        val index = calendar.get(Calendar.MONTH)
+        return allMonths[index]
     }
 
     private fun setData(values: FloatArray) {
@@ -168,9 +179,9 @@ class ChartFragment : BaseFragment() {
     //endregion
 
     class YAxisFormatter: ValueFormatter() {
-        private val allMonths = arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+        private val months: MutableList<String> = arrayListOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-            return allMonths.getOrNull(value.toInt()) ?: value.toString()
+            return months.getOrNull(value.toInt()) ?: value.toString()
         }
     }
 }
