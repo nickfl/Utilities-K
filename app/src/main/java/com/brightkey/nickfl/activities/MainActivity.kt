@@ -216,7 +216,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val cal = GregorianCalendar()
                 date.text = DateFormatters.dateStringFromCalendar(cal)
             }
-            Periods.Year2020 -> { date.text = "Year 2020" }
             Periods.Year2019 -> { date.text = "Year 2019" }
             Periods.Year2018 -> { date.text = "Year 2018" }
         }

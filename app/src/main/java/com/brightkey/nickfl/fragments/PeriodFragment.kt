@@ -18,7 +18,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private var spinner: Spinner? = null
     private var selectedPeriod = 0
-    private val periodNames = arrayOf("Current", "2020", "2019", "2018")
+    private val periodNames = arrayOf("Current", "2019", "2018")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +55,9 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             when (selectedPeriod) {
                 0 -> {PeriodManager.shared.updatePeriodForToday()
                       PeriodManager.shared.setCurrentPeriod(Periods.Current)}
-                1 -> {PeriodManager.shared.updatePeriodForYear(2020)
-                    PeriodManager.shared.setCurrentPeriod(Periods.Year2020)}
-                2 -> {PeriodManager.shared.updatePeriodForYear(2019)
+                1 -> {PeriodManager.shared.updatePeriodForYear(2019)
                       PeriodManager.shared.setCurrentPeriod(Periods.Year2019)}
-                3 -> {PeriodManager.shared.updatePeriodForYear(2018)
+                2 -> {PeriodManager.shared.updatePeriodForYear(2018)
                       PeriodManager.shared.setCurrentPeriod(Periods.Year2018)}
             }
             exitListener?.onFragmentExit()
