@@ -1,12 +1,12 @@
 package com.brightkey.nickfl.fragments
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.adapters.DashboardAdapter
 import com.brightkey.nickfl.models.DashboardModel
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
@@ -29,12 +29,12 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
         return view
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is OnDashboardInteractionListener) {
-            mListener = context
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        if (activity is OnDashboardInteractionListener) {
+            mListener = activity
         } else {
-            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(activity!!.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 

@@ -3,7 +3,6 @@ package com.brightkey.nickfl.adapters
 import android.app.Activity
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.activities.MainActivity
 import com.brightkey.nickfl.models.TimeListModel
 import com.brightkey.nickfl.myutilities.R

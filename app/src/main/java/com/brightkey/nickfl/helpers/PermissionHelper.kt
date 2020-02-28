@@ -3,7 +3,7 @@ package com.brightkey.nickfl.helpers
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 
 /**
  * Created by paulfloussov on 2015-11-03.

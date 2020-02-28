@@ -1,7 +1,7 @@
 package com.brightkey.nickfl.helpers
 
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.brightkey.nickfl.fragments.BaseFragment
 import com.brightkey.nickfl.fragments.FragmentScreen
 import timber.log.Timber

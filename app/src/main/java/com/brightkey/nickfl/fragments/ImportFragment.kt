@@ -1,13 +1,13 @@
 package com.brightkey.nickfl.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.activities.MainActivity
 import com.brightkey.nickfl.helpers.Constants.REQUEST_READ_PERMISSIONS
 import com.brightkey.nickfl.helpers.ImportExportRecords

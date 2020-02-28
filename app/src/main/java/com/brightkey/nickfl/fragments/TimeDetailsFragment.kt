@@ -1,22 +1,19 @@
 package com.brightkey.nickfl.fragments
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.activities.MainActivity
 import com.brightkey.nickfl.adapters.TimeListAdapter
-import com.brightkey.nickfl.entities.BaseUtility
 import com.brightkey.nickfl.entities.BaseUtility_
 import com.brightkey.nickfl.helpers.Constants
 import com.brightkey.nickfl.helpers.PeriodManager
 import com.brightkey.nickfl.models.TimeListModel
 import com.brightkey.nickfl.myutilities.R
-
 import timber.log.Timber
 
 class TimeDetailsFragment : BaseFragment() {
@@ -49,8 +46,8 @@ class TimeDetailsFragment : BaseFragment() {
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onAttach()")
 //        if (context instanceof OnDashboardInteractionListener) {

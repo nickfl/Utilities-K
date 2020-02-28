@@ -1,14 +1,14 @@
 package com.brightkey.nickfl.fragments
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.view.ContextThemeWrapper
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.entities.BaseUtility
 import com.brightkey.nickfl.entities.BaseUtility_
 import com.brightkey.nickfl.entities.ConfigEntity
@@ -64,12 +64,12 @@ abstract class BaseFragment : Fragment() {
         Timber.w("[$line] onCreate()")
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is BaseFragment.ExitFragmentListener) {
-            exitListener = context
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        if (activity is BaseFragment.ExitFragmentListener) {
+            exitListener = activity
         } else {
-            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(activity!!.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 

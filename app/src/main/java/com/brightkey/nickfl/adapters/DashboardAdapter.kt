@@ -2,18 +2,16 @@ package com.brightkey.nickfl.adapters
 
 import android.app.Activity
 import android.graphics.Color
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.models.DashboardModel
 import com.brightkey.nickfl.myutilities.R
-
 import timber.log.Timber
 
 class DashboardAdapter(private val mActivity: Activity, private val utilityList: List<DashboardModel>, rowListener: DashboardAdapter.AdapterDashboardInterface) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
