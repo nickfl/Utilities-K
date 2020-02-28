@@ -34,7 +34,7 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
         if (activity is OnDashboardInteractionListener) {
             mListener = activity
         } else {
-            throw RuntimeException(activity!!.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 

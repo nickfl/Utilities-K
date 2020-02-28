@@ -69,7 +69,7 @@ abstract class BaseFragment : Fragment() {
         if (activity is BaseFragment.ExitFragmentListener) {
             exitListener = activity
         } else {
-            throw RuntimeException(activity!!.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 
