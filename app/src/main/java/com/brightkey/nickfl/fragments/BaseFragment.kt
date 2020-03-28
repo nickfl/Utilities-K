@@ -1,6 +1,7 @@
 package com.brightkey.nickfl.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -64,12 +65,12 @@ abstract class BaseFragment : Fragment() {
         Timber.w("[$line] onCreate()")
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        if (activity is BaseFragment.ExitFragmentListener) {
-            exitListener = activity
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is BaseFragment.ExitFragmentListener) {
+            exitListener = context
         } else {
-            throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 
