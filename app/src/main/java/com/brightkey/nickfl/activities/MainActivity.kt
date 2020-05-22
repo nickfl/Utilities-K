@@ -300,7 +300,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         fabMain = findViewById<View>(R.id.fab) as FloatingActionButton
-        fabMain?.setOnClickListener { fabAction() }
+        fabMain?.setOnClickListener {
+            fabAction()
+            val res = if (buttonsVisible) R.drawable.ic_remove_black_24dp
+                        else R.drawable.ic_add_black_24dp
+            (it as FloatingActionButton).setImageResource(res)
+        }
     }
 
     private fun fabAction() {
