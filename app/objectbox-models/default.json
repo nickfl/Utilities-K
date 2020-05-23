@@ -10,39 +10,53 @@
       "properties": [
         {
           "id": "1:4296133442264357079",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "4:4735838735568793081",
-          "name": "datePaid"
+          "name": "datePaid",
+          "type": 10
         },
         {
           "id": "7:7823010918858479283",
-          "name": "utilityType"
+          "name": "utilityType",
+          "type": 9
         },
         {
           "id": "8:1353186232877533963",
-          "name": "billDate"
+          "name": "billDate",
+          "type": 10
         },
         {
           "id": "9:4514364334017326570",
-          "name": "dueDate"
+          "name": "dueDate",
+          "type": 10
         },
         {
           "id": "10:1053234506758212663",
-          "name": "amountDue"
+          "name": "amountDue",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "11:9138766075839801042",
-          "name": "amountType0"
+          "name": "amountType0",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "12:5957551453394848768",
-          "name": "amountType1"
+          "name": "amountType1",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "13:3508901824951524934",
-          "name": "amountType2"
+          "name": "amountType2",
+          "type": 8,
+          "flags": 4
         }
       ],
       "relations": []
@@ -52,8 +66,8 @@
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [

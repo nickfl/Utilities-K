@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brightkey.nickfl.fragments.HeatFragment">
+    tools:context="com.brightkey.nickfl.entities.fragments.HeatFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
