@@ -71,18 +71,8 @@ abstract class BaseFragment : Fragment() {
     fun billForUtility(item: ConfigEntity, index: Int): UtilityBillModel {
         val utils = RealmHelper.utilitiesForType(item.utilityIcon!!)
         val utility = utils[index]
-        var editUtil = UtilityBillModel()
-        editUtil.id = utility.id
-        editUtil.utilityType = utility.utilityType
-        editUtil.billDate = utility.billDate
-        editUtil.dueDate = utility.dueDate
-        editUtil.datePaid = utility.datePaid
-        editUtil.amountDue = utility.amountDue
-        editUtil.amountType0 = utility.amountType0
-        editUtil.amountType1 = utility.amountType1
-        editUtil.amountType2 = utility.amountType2
         fillInStatement(utility)
-        return editUtil
+        return utility.copy()
     }
 
     fun setupMainStatement(view: View, listener: View.OnClickListener) {

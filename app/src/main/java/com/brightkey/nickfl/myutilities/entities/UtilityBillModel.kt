@@ -18,6 +18,19 @@ open class UtilityBillModel(
         var amountType2: Double = 0.0
 ) : RealmObject() {
 
+    fun copy(): UtilityBillModel {
+        var dest = UtilityBillModel()
+        dest.id = this.id
+        dest.utilityType = this.utilityType
+        dest.billDate = this.billDate
+        dest.dueDate = this.dueDate
+        dest.datePaid = this.datePaid
+        dest.amountDue = this.amountDue
+        dest.amountType0 = this.amountType0
+        dest.amountType1 = this.amountType1
+        dest.amountType2 = this.amountType2
+        return dest
+    }
 
     fun getAmountDue(): String {
         return if (amountDue > 0.0) {
