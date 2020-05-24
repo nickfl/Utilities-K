@@ -44,7 +44,7 @@ class RealmHelper private constructor() {
         val res = realm.where<UtilityBillModel>().findAll()
         var list: ArrayList<UtilityBillModel> = ArrayList()
         for (item in res) {
-            list.add(item)
+            list.add(item.copy())
         }
         return  list
     }

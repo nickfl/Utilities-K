@@ -3,9 +3,6 @@ package com.brightkey.nickfl.myutilities.helpers
 import android.app.Activity
 import android.os.Environment
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
-import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -64,13 +61,8 @@ class RealmStorageRecords {
 
             val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             val file = File1(folder, Constants.fileRecordsName)
-//export as json
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val listType = object : TypeToken<List<UtilityBillModel>>() {
-            }.type
             val list = RealmHelper.shared().fetchAllUtilityBills()
-            val jsonContent = gson.toJson(list, listType)
-print("OK")
+            val jsonContent = JsonUtility.convertToJson(list)
             try {
                 val out = FileOutputStream(file)
                 out.write(jsonContent.toByteArray())

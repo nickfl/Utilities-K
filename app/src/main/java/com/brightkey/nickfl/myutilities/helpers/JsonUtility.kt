@@ -3,7 +3,9 @@ package com.brightkey.nickfl.myutilities.helpers
 import android.content.Context
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
+import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import timber.log.Timber
 import java.io.IOException
@@ -33,6 +35,15 @@ object JsonUtility {
 
         }.type
         return gson.fromJson<List<ConfigEntity>>(jsonStr, listType)
+    }
+
+    // Prepare to store Bills in file
+    fun convertToJson(list: List<UtilityBillModel>): String {
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val listType = object : TypeToken<List<UtilityBillModel>>() {
+        }.type
+        val jsonContent = gson.toJson(list, listType)
+        return jsonContent
     }
 
     // Load Records
