@@ -9,16 +9,16 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
-import com.brightkey.nickfl.myutilities.entities.BaseUtility
+import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import timber.log.Timber
 import java.util.*
 
 class PhoneFragment : BaseFragment(), View.OnClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -92,7 +92,7 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
                 super.showError()
                 return
             }
-            val utility = if (doEdit!!) editUtility else BaseUtility()
+            val utility = if (doEdit!!) editUtility else UtilityBillModel()
             if (!doEdit!!) {
                 super.saveMainStatement(utility!!, Constants.PhoneType)
             }
@@ -100,7 +100,8 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
             utility?.amountType0 = super.amountFrom(paidAmount0!!)
             utility?.amountType1 = super.amountFrom(paidAmount1!!)
             utility?.amountType2 = super.amountFrom(paidAmount2!!)
-            utilityBox?.put(utility!!)
+// TODO: FIX
+//            utilityBox?.put(utility!!)
             exitListener?.onFragmentExit()
             return
         }

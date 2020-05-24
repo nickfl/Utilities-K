@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 nManager?.replaceScreenTo(FragmentScreen.IMPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
             }
             R.id.nav_clean -> {
-                ObjectBoxHelper.shared().cleanUtilityBox()
+                RealmHelper.shared().cleanAllUtilityBills()
                 // back to the dashboard
                 returnToDashboard()
                 dashFragment?.reloadView()
@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     private fun updateTotal(header: View) {
         val total = header.findViewById<TextView>(R.id.textViewTotalNow)
-        val totalPay = ObjectBoxHelper.shared().totalPayment()
+        val totalPay = RealmHelper.shared().totalPayment()
         total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
     }
     private fun setupHeader() {
@@ -424,7 +424,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return
         }
         if (requestCode == Constants.REQUEST_READ_PERMISSIONS) {
-            importFragment?.importRecord()
+            importFragment?.importRecordsFromDevice()
             return
         }
         if (requestCode == Constants.REQUEST_WRITE_PERMISSIONS) {

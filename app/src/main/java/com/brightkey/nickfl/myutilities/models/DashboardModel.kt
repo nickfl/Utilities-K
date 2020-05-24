@@ -3,8 +3,11 @@ package com.brightkey.nickfl.myutilities.models
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.helpers.ObjectBoxHelper
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import java.util.*
+import kotlin.collections.ArrayList
 
+// Model to present Accounts on the DashBoard
 class DashboardModel internal constructor(var utilityIcon: String         // hydro_bill
                                           , var utilityType: String       // Hydro
                                           , var utilityVendor: String     // ENBRIDGE
@@ -21,7 +24,7 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
     }
 
     fun iconResource(): Int {
-        val iconStr = this.utilityIcon.toLowerCase()
+        val iconStr = utilityIcon.toLowerCase(Locale.ROOT)
         if (iconStr.contains(Constants.HydroType)) {
             return R.drawable.hydro_bill
         }
@@ -35,8 +38,8 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
     }
 
     fun resetData() {
-        this.totalUnits = 0
-        this.totalPaid = 0.0
+        totalUnits = 0
+        totalPaid = 0.0
     }
 
     companion object {
@@ -45,7 +48,7 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
         fun convertToDash(config: List<ConfigEntity>): List<DashboardModel> {
             val model = ArrayList<DashboardModel>()
             for (item in config) {
-                val bundle = ObjectBoxHelper.shared().unitsForUtility(item)
+                val bundle = RealmHelper.shared().unitsForUtility(item)
                 val one = DashboardModel(item.utilityIcon!!, item.utilityType!!, item.utilityVendorName!!,
                         item.vendorNameColor!!, item.accountNumber!!, item.unitType!!,
                         bundle.getLong("units"), bundle.getDouble("total"))

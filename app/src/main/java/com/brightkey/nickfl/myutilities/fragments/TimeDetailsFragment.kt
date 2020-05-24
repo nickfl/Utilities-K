@@ -10,15 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.TimeListAdapter
-import com.brightkey.nickfl.myutilities.entities.BaseUtility_
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.helpers.PeriodManager
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.TimeListModel
 import timber.log.Timber
 
 class TimeDetailsFragment : BaseFragment() {
 
-    //    private OnDashboardInteractionListener mListener;
+//    private OnDashboardInteractionListener mListener;
 
     private var detailsType = Constants.HydroType
 
@@ -26,9 +25,9 @@ class TimeDetailsFragment : BaseFragment() {
         detailsType = type
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -62,13 +61,12 @@ class TimeDetailsFragment : BaseFragment() {
         super.onDetach()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onDetach()")
-        //        mListener = null;
+//        mListener = null;
     }
 
     //region Helpers
     private fun setupRecycler(view: View) {
-        val utils = utilityBox!!.query().equal(BaseUtility_.utilityType, detailsType).build().find()
-                                        .filter{ PeriodManager.shared.isDateInPeriod(it.datePaid) }
+        val utils = RealmHelper.utilitiesForType(detailsType)
         val models = TimeListModel.convertToTimeList(utils, detailsType)
         val rv = view.findViewById<View>(R.id.recyclerTimeDetails) as RecyclerView
         rv.setHasFixedSize(true)

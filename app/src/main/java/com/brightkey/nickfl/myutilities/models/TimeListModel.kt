@@ -1,12 +1,13 @@
 package com.brightkey.nickfl.myutilities.models
 
 import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
-import com.brightkey.nickfl.myutilities.entities.BaseUtility
+import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.fragments.FragmentScreen
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import java.util.*
 
+// Model to present Bill data in the Timeline
 class TimeListModel internal constructor(var utilityIcon: String    // hydro_bill
                                          , var utilityColor: String // #5F8233
                                          , var duePaid: String      // due date to pay
@@ -15,11 +16,12 @@ class TimeListModel internal constructor(var utilityIcon: String    // hydro_bil
                                          , var whenPaid: String) {
 
     override fun toString(): String {
-        return "{utilityIcon:" + utilityIcon + ", nowPaid:" + nowPaid + ", totalPaid:" + totalPaid + "whenPaid:" + whenPaid + "}"
+        return "{utilityIcon:" + utilityIcon + ", nowPaid:" + nowPaid +
+                ", totalPaid:" + totalPaid + "whenPaid:" + whenPaid + "}"
     }
 
     fun screenType(): FragmentScreen {
-        val iconStr = this.utilityIcon.toLowerCase()
+        val iconStr = utilityIcon.toLowerCase(Locale.ROOT)
         if (iconStr.contains(Constants.HydroType)) {
             return FragmentScreen.HYDRO_FRAGMENT
         }
@@ -33,7 +35,7 @@ class TimeListModel internal constructor(var utilityIcon: String    // hydro_bil
 
     companion object {
 
-        fun convertToTimeList(utilities: List<BaseUtility>, itemType: String): List<TimeListModel> {
+        fun convertToTimeList(utilities: List<UtilityBillModel>, itemType: String): List<TimeListModel> {
             val entity = MyUtilitiesApplication.getConfigEntityForType(itemType)
             val models = ArrayList<TimeListModel>()
             var total = 0.0

@@ -2,10 +2,10 @@ package com.brightkey.nickfl.myutilities.application
 
 import android.app.Application
 import android.content.Context
-import android.content.res.Configuration
 import com.brightkey.nickfl.myutilities.BuildConfig
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.helpers.JsonUtility
+import io.realm.Realm
 import timber.log.Timber
 
 /**
@@ -19,6 +19,7 @@ class MyUtilitiesApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        Realm.init(this)
 
         //start Logger
         if (BuildConfig.DEBUG) {
@@ -33,14 +34,14 @@ class MyUtilitiesApplication : Application() {
     }
 
     // Overriding this method is totally optional!
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-    }
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//    }
 
     // Overriding this method is totally optional!
-    override fun onLowMemory() {
-        super.onLowMemory()
-    }
+//    override fun onLowMemory() {
+//        super.onLowMemory()
+//    }
 
     companion object {
 

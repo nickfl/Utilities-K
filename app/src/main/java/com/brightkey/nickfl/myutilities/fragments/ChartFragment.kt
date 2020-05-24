@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
-import com.brightkey.nickfl.myutilities.entities.BaseUtility_
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.helpers.PeriodManager
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.components.AxisBase
@@ -113,9 +112,7 @@ class ChartFragment : BaseFragment() {
     }
 
     private fun loadData() {
-        val utils = utilityBox!!.query()
-                .equal(BaseUtility_.utilityType, chartType).build().find()
-                .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
+        val utils = RealmHelper.utilitiesForType(chartType)
         chartValues = FloatArray(12)
         for (one in utils) {
             val mnth = getMonthFor(one.datePaid)

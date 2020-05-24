@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants.REQUEST_READ_PERMISSIONS
-import com.brightkey.nickfl.myutilities.helpers.ImportExportRecords
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
+import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
 import timber.log.Timber
 
 /**
@@ -43,7 +43,7 @@ class ImportFragment : BaseFragment() {
     }
 
     // will be used in MainActivity
-    fun importRecord() {
+    fun importRecordsFromDevice() {
         val activity = activity
 
         //check permission first
@@ -52,7 +52,7 @@ class ImportFragment : BaseFragment() {
             return
         }
 
-        if (activity != null && ImportExportRecords.importRecords(activity)) {
+        if (activity != null && RealmStorageRecords.importRecords(activity)) {
             Toast.makeText(activity, "Import Success!", Toast.LENGTH_LONG).show()
             exitListener?.onFragmentExit()
         } else {
@@ -60,10 +60,10 @@ class ImportFragment : BaseFragment() {
         }
     }
 
-    private fun importDefaults() {
+    private fun importFromDefaults() {
         val activity = activity
 
-        ImportExportRecords.loadDefaultAssets(activity!!)
+        RealmStorageRecords.loadDefaultAssets(activity!!)
         Toast.makeText(activity, "Import Defaults Success!", Toast.LENGTH_LONG).show()
         exitListener?.onFragmentExit()
     }
@@ -75,8 +75,8 @@ class ImportFragment : BaseFragment() {
         val load = view.findViewById<Button>(R.id.buttonBackup)
         load.setOnClickListener {
             when (selected) {
-                R.id.radioButtonDevice -> importRecord()
-                R.id.radioButtonDefault -> importDefaults()
+                R.id.radioButtonDevice -> importRecordsFromDevice()
+                R.id.radioButtonDefault -> importFromDefaults()
                 else -> Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
             }
         }

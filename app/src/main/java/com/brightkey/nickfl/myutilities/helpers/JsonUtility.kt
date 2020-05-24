@@ -5,6 +5,7 @@ import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import timber.log.Timber
 import java.io.IOException
 
 object JsonUtility {
@@ -44,12 +45,17 @@ object JsonUtility {
         return gson.fromJson<List<LoadUtility>>(jsonStr, listType)
     }
 
-    fun loadUtilityFromFile(fileName: String, context: Context) {
+    fun loadUtilityFromFileToRealm(fileName: String, context: Context) {
         val utility = loadJSONFromUtility(fileName, context)
         if (utility != null) {
             for (item in utility) {
-                item.saveToBox()
+                item.saveToRealm()
             }
+            var line = Exception().stackTrace[0].lineNumber + 1
+            Timber.d("Realm: [$line] $fileName")
+        } else {
+            var line = Exception().stackTrace[0].lineNumber + 1
+            Timber.d("Realm: [$line] $fileName NOT Found!")
         }
     }
 }

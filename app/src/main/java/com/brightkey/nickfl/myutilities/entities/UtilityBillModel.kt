@@ -1,23 +1,20 @@
 package com.brightkey.nickfl.myutilities.entities
 
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
-import java.util.Date
+import io.realm.RealmObject
+import java.util.*
 
-import io.objectbox.annotation.Entity
-import io.objectbox.annotation.Id
+open class UtilityBillModel(
+        var utilityType: String = "", // Hydro, Water, Gas, Bell
+        var billDate: Date? = null,
+        var dueDate: Date? = null,
+        var datePaid: Date? = null,
+        var amountDue: Double = 0.0,
+        var amountType0: Double = 0.0,
+        var amountType1: Double = 0.0,
+        var amountType2: Double = 0.0
+) : RealmObject() {
 
-@Entity
-class BaseUtility {
-    @Id
-    var id: Long = 0
-    var utilityType: String? = null // Hydro, Water, Gas, Bell
-    var billDate: Date? = null
-    var dueDate: Date? = null
-    var datePaid: Date? = null
-    var amountDue: Double = 0.toDouble()
-    var amountType0: Double = 0.toDouble()
-    var amountType1: Double = 0.toDouble()
-    var amountType2: Double = 0.toDouble()
 
     fun getAmountDue(): String {
         return if (amountDue > 0.0) {

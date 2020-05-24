@@ -10,8 +10,8 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
-import com.brightkey.nickfl.myutilities.helpers.ImportExportRecords
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
+import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
 import timber.log.Timber
 
 class ExportFragment : BaseFragment() {
@@ -50,7 +50,7 @@ class ExportFragment : BaseFragment() {
             return
         }
 
-        if (ImportExportRecords.exportRecords(activity)) {
+        if (RealmStorageRecords.exportRecords(activity)) {
             Toast.makeText(activity, "Export Success!", Toast.LENGTH_LONG).show()
             exitListener?.onFragmentExit()
         } else {

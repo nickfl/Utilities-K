@@ -2,65 +2,53 @@ package com.brightkey.nickfl.myutilities.helpers
 
 import android.app.Activity
 import android.os.Environment
-import com.brightkey.nickfl.myutilities.entities.BaseUtility
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
-import com.google.gson.Gson
+import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import timber.log.Timber
-import java.io.*
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.File as File1
 
-class ImportExportRecords {
-    //endregion
+class RealmStorageRecords {
 
     /* Checks if external storage is available for read and write */
     private val isExternalStorageWritable: Boolean
         get() {
             val state = Environment.getExternalStorageState()
-            return if (Environment.MEDIA_MOUNTED == state) {
-                true
-            } else false
+            return Environment.MEDIA_MOUNTED == state
         }
 
     /* Checks if external storage is available to at least read */
     private val isExternalStorageReadable: Boolean
         get() {
             val state = Environment.getExternalStorageState()
-            return if (Environment.MEDIA_MOUNTED == state || Environment.MEDIA_MOUNTED_READ_ONLY == state) {
-                true
-            } else false
+            return Environment.MEDIA_MOUNTED == state || Environment.MEDIA_MOUNTED_READ_ONLY == state
         }
 
     companion object {
 
-        //region Import records from Device
+        //region Import records from Device to Realm
         fun importRecords(activity: Activity): Boolean {
 
             // remove old recode first
-            ObjectBoxHelper.shared().cleanUtilityBox()
+            RealmHelper.shared().cleanAllUtilityBills()
 
             val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             return readRecords(folder, Constants.fileRecordsName)
         }
 
-        private fun readRecords(folder: File, filename: String): Boolean {
-            val file = File(folder, filename)
+        //read json file and store it in Realm records
+        private fun readRecords(folder: File1, filename: String): Boolean {
+            val file = File1(folder, filename)
             if (!file.exists()) {
                 return false
             }
             try {
                 val fis = FileInputStream(file)
-                val `in` = DataInputStream(fis)
-                val formArray = ByteArray(`in`.available())
-                `in`.read(formArray)
-                `in`.close()
-                val myData = String(formArray)
-                val gson = Gson()
-                val listType = object : TypeToken<List<BaseUtility>>() {
-
-                }.type
-                val records = gson.fromJson<List<BaseUtility>>(myData, listType)
-                LoadUtility.storeRecordsInBox(records)
+                LoadUtility.storeRecordsInRealm(fis)
             } catch (ex: FileNotFoundException) {
                 return false
             } catch (ex: IOException) {
@@ -71,17 +59,18 @@ class ImportExportRecords {
         }
         //endregion
 
-        //region Export records to Device
+        //region Export records to Device from Realm
         fun exportRecords(activity: Activity): Boolean {
 
             val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
-            val file = File(folder, Constants.fileRecordsName)
+            val file = File1(folder, Constants.fileRecordsName)
 //export as json
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val listType = object : TypeToken<List<BaseUtility>>() {
+            val listType = object : TypeToken<List<UtilityBillModel>>() {
             }.type
-            val list = ObjectBoxHelper.shared().allBills()
+            val list = RealmHelper.shared().fetchAllUtilityBills()
             val jsonContent = gson.toJson(list, listType)
+print("OK")
             try {
                 val out = FileOutputStream(file)
                 out.write(jsonContent.toByteArray())
@@ -93,9 +82,9 @@ class ImportExportRecords {
             return true
         }
 
-        private fun getPublicDownloadsStorageDir(folderName: String): File? {
+        private fun getPublicDownloadsStorageDir(folderName: String): File1? {
             // Get the directory for the user's public Downloads directory.
-            val folder = File(Environment.getExternalStoragePublicDirectory(
+            val folder = File1(Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOWNLOADS), folderName)
             return if (!folder.exists() && !folder.mkdirs()) {
                 null
@@ -107,20 +96,12 @@ class ImportExportRecords {
         fun loadDefaultAssets(activity: Activity) {
 
             // remove old recode first
-            ObjectBoxHelper.shared().cleanUtilityBox()
+            RealmHelper.shared().cleanAllUtilityBills()
 
-            JsonUtility.loadUtilityFromFile("alectra.json", activity)
-            var line = Exception().stackTrace[0].lineNumber + 1
-            Timber.d("[$line] alectra")
-            JsonUtility.loadUtilityFromFile("bell.json", activity)
-            line = Exception().stackTrace[0].lineNumber + 1
-            Timber.d("[$line] bell")
-            JsonUtility.loadUtilityFromFile("enbridge.json", activity)
-            line = Exception().stackTrace[0].lineNumber + 1
-            Timber.d("[$line] enbridge")
-            JsonUtility.loadUtilityFromFile("peel.json", activity)
-            line = Exception().stackTrace[0].lineNumber + 1
-            Timber.d("[$line] peel")
+            JsonUtility.loadUtilityFromFileToRealm("alectra.json", activity)
+            JsonUtility.loadUtilityFromFileToRealm("bell.json", activity)
+            JsonUtility.loadUtilityFromFileToRealm("enbridge.json", activity)
+            JsonUtility.loadUtilityFromFileToRealm("peel.json", activity)
         }
     }
 }

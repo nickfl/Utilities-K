@@ -10,13 +10,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
-import com.brightkey.nickfl.myutilities.entities.BaseUtility
-import com.brightkey.nickfl.myutilities.entities.BaseUtility_
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
+import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
-import com.brightkey.nickfl.myutilities.helpers.ObjectBoxHelper
-import com.brightkey.nickfl.myutilities.helpers.PeriodManager
-import io.objectbox.Box
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import timber.log.Timber
 import java.util.*
 
@@ -47,13 +44,11 @@ abstract class BaseFragment : Fragment() {
     var editIndex: Int = 0
 
     var entity: ConfigEntity? = null
-    var utilityBox: Box<BaseUtility>? = null
-    var editUtility: BaseUtility? = null
+    var editUtility: UtilityBillModel? = null
 
     var exitListener: ExitFragmentListener? = null
 
     init {
-        utilityBox = ObjectBoxHelper.shared().utilityBox
         doEdit = false
         editIndex = 0
     }
@@ -73,10 +68,8 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun billForUtility(item: ConfigEntity, index: Int): BaseUtility {
-        val utils = utilityBox!!.query()
-                .equal(BaseUtility_.utilityType, item.utilityIcon!!).build().find()
-                .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
+    fun billForUtility(item: ConfigEntity, index: Int): UtilityBillModel {
+        val utils = RealmHelper.utilitiesForType(item.utilityIcon!!)
         val utility = utils[index]
         fillInStatement(utility)
         return utility
@@ -103,7 +96,7 @@ abstract class BaseFragment : Fragment() {
         paymentTotal = price.findViewById(R.id.textPriceViewAmount)
     }
 
-    fun saveMainStatement(utility: BaseUtility, utilityType: String) {
+    fun saveMainStatement(utility: UtilityBillModel, utilityType: String) {
         val cal = GregorianCalendar()
         utility.utilityType = utilityType
         utility.datePaid = cal.time
@@ -133,7 +126,7 @@ abstract class BaseFragment : Fragment() {
         addDueDay?.visibility = visible
     }
 
-    private fun fillInStatement(utility: BaseUtility) {
+    private fun fillInStatement(utility: UtilityBillModel) {
         changeDateVisibility(false)
         addPayment?.setText(R.string.hydro_update_payment)
         billDate?.text = utility.getBillDate()
