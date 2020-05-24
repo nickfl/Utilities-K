@@ -13,6 +13,7 @@ import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import timber.log.Timber
 import java.util.*
 
@@ -114,8 +115,7 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
             utility.amountType1 = super.amountFrom(paidAmount1!!)
             utility.amountType2 = super.amountFrom(paidAmount2!!)
             //add or update payment
-// TODO: FIX
-//            utilityBox?.put(utility)
+            RealmHelper.updateBill(utility)
             exitListener?.onFragmentExit()
             return
         }

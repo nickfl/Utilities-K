@@ -14,6 +14,7 @@ import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import timber.log.Timber
 import java.util.*
 
@@ -88,8 +89,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
             }
             utility!!.amountDue = super.amountFrom(paymentTotal!!)
             utility.amountType0 = super.amountFrom(paidAmount0!!)
-// TODO: FIX
-//            utilityBox?.put(utility)
+            RealmHelper.updateBill(utility)
             exitListener?.onFragmentExit()
             return
         }

@@ -7,7 +7,6 @@ import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import io.realm.Realm
-import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import timber.log.Timber
 import java.io.FileInputStream
@@ -26,8 +25,9 @@ class RealmHelper private constructor() {
     }
 
     fun addUtilityBill(bill: LoadUtility) {
+        var id = realm.where<UtilityBillModel>().findAll().size
         realm.executeTransaction { realm ->
-            val rBill = realm.createObject<UtilityBillModel>()
+            val rBill = realm.createObject(UtilityBillModel::class.java, id)
             rBill.utilityType = bill.utilityType
             rBill.datePaid = DateFormatters.dateFromString(bill.datePaid)
             rBill.dueDate = DateFormatters.dateFromString(bill.dueDate)
@@ -36,6 +36,7 @@ class RealmHelper private constructor() {
             rBill.amountType0 = bill.amountType0
             rBill.amountType1 = bill.amountType1
             rBill.amountType2 = bill.amountType2
+            id++
         }
     }
 
@@ -117,5 +118,13 @@ class RealmHelper private constructor() {
             return utils
         }
 
+        fun updateBill(bill: UtilityBillModel) {
+            if (bill.id == -1L) {
+                bill.id = realm.where<UtilityBillModel>().findAll().size as Long
+            }
+            realm.executeTransaction { realm ->
+                realm.copyToRealmOrUpdate(bill)
+            }
+        }
     }
 }

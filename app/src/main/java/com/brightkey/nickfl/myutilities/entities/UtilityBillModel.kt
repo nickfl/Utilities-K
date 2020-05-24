@@ -2,9 +2,12 @@ package com.brightkey.nickfl.myutilities.entities
 
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import java.util.*
 
 open class UtilityBillModel(
+        @PrimaryKey
+        var id: Long = -1L,
         var utilityType: String = "", // Hydro, Water, Gas, Bell
         var billDate: Date? = null,
         var dueDate: Date? = null,
