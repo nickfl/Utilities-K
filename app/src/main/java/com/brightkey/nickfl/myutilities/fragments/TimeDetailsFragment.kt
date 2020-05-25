@@ -1,6 +1,6 @@
 package com.brightkey.nickfl.myutilities.fragments
 
-import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,8 +45,8 @@ class TimeDetailsFragment : BaseFragment() {
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onAttach()")
 //        if (context instanceof OnDashboardInteractionListener) {

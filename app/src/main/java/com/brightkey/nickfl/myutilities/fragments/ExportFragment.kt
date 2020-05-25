@@ -50,7 +50,7 @@ class ExportFragment : BaseFragment() {
             return
         }
 
-        if (RealmStorageRecords.exportRecords(activity)) {
+        if (RealmStorageRecords.exportRecords()) {
             Toast.makeText(activity, "Export Success!", Toast.LENGTH_LONG).show()
             exitListener?.onFragmentExit()
         } else {

@@ -28,7 +28,7 @@ class RealmStorageRecords {
     companion object {
 
         //region Import records from Device to Realm
-        fun importRecords(activity: Activity): Boolean {
+        fun importRecords(): Boolean {
 
             // remove old recode first
             RealmHelper.shared().cleanAllUtilityBills()
@@ -57,7 +57,7 @@ class RealmStorageRecords {
         //endregion
 
         //region Export records to Device from Realm
-        fun exportRecords(activity: Activity): Boolean {
+        fun exportRecords(): Boolean {
 
             val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             val file = File1(folder, Constants.fileRecordsName)

@@ -120,7 +120,7 @@ class RealmHelper private constructor() {
 
         fun updateBill(bill: UtilityBillModel) {
             if (bill.id == -1L) {
-                bill.id = realm.where<UtilityBillModel>().findAll().size as Long
+                bill.id = realm.where<UtilityBillModel>().findAll().size.toLong()
             }
             realm.executeTransaction { realm ->
                 realm.copyToRealmOrUpdate(bill)

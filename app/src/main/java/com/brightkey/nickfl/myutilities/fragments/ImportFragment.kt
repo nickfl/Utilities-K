@@ -52,7 +52,7 @@ class ImportFragment : BaseFragment() {
             return
         }
 
-        if (activity != null && RealmStorageRecords.importRecords(activity)) {
+        if (activity != null && RealmStorageRecords.importRecords()) {
             Toast.makeText(activity, "Import Success!", Toast.LENGTH_LONG).show()
             exitListener?.onFragmentExit()
         } else {

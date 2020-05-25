@@ -1,6 +1,6 @@
 package com.brightkey.nickfl.myutilities.fragments
 
-import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,10 +29,10 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
         return view
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        if (activity is OnDashboardInteractionListener) {
-            mListener = activity
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnDashboardInteractionListener) {
+            mListener = context
         } else {
             throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")
         }

@@ -27,7 +27,7 @@ object SharedPreferencesHelper {
     private val sharedPreferences: SharedPreferences
         get() {
             val context = MyUtilitiesApplication.context
-            return context!!.getSharedPreferences(PREFS_TAG, Context.MODE_PRIVATE)
+            return context.getSharedPreferences(PREFS_TAG, Context.MODE_PRIVATE)
         }
 
     fun getPrefForStringValue(prefName: String): String? {

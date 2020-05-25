@@ -49,7 +49,7 @@ class MyUtilitiesApplication : Application() {
          * Returns the application context
          * @return application context
          */
-        var context: Context? = null
+        lateinit var context: Context
             private set
         var config: List<ConfigEntity>? = null
             private set
