@@ -16,7 +16,7 @@ import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.brightkey.nickfl.myutilities.R
-import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
 import com.brightkey.nickfl.myutilities.models.DashboardModel

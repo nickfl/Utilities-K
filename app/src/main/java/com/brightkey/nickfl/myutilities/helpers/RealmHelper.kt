@@ -1,8 +1,8 @@
 package com.brightkey.nickfl.myutilities.helpers
 
 import android.os.Bundle
-import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
-import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication.Companion.context
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication.Companion.context
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel

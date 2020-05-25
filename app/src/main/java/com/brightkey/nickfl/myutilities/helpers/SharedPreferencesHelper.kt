@@ -2,7 +2,7 @@ package com.brightkey.nickfl.myutilities.helpers
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 
 /**
  * @author Nick Floussov

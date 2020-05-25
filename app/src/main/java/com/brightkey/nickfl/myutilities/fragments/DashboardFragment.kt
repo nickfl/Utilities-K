@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.DashboardAdapter
-import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 
 class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInterface {

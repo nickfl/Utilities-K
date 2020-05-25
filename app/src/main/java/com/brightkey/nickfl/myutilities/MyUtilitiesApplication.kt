@@ -1,8 +1,7 @@
-package com.brightkey.nickfl.myutilities.application
+package com.brightkey.nickfl.myutilities
 
 import android.app.Application
 import android.content.Context
-import com.brightkey.nickfl.myutilities.BuildConfig
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.helpers.JsonUtility
 import io.realm.Realm

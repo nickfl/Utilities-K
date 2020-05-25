@@ -1,6 +1,6 @@
 package com.brightkey.nickfl.myutilities.models
 
-import com.brightkey.nickfl.myutilities.application.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.fragments.FragmentScreen
 import com.brightkey.nickfl.myutilities.helpers.Constants
