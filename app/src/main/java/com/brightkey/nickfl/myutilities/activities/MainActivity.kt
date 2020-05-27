@@ -383,7 +383,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun changePeriod(period: String) {
         currentPeriod = period
-        dashFragment?.adapter?.notifyDataSetChanged()
+        dashFragment?.dataUpdated()
     }
     // endregion
 

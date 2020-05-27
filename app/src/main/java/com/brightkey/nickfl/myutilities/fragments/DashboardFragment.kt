@@ -15,11 +15,11 @@ import com.brightkey.nickfl.myutilities.models.DashboardModel
 class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInterface {
 
     private var mListener: OnDashboardInteractionListener? = null
-    internal var adapter: DashboardAdapter? = null
+    private lateinit var adapter: DashboardAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,9 +43,13 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
         mListener = null
     }
 
+    fun dataUpdated() {
+        adapter.notifyDataSetChanged()
+    }
+
     fun reloadView() {
-        adapter?.cleanUtilities()
-        adapter?.notifyDataSetChanged()
+        adapter.cleanUtilities()
+        adapter.notifyDataSetChanged()
     }
 
     //region Helpers
