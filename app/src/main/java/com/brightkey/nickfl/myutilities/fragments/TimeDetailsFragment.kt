@@ -72,7 +72,7 @@ class TimeDetailsFragment : BaseFragment() {
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(activity)
         rv.layoutManager = llm
-        val adapter = TimeListAdapter(activity!!, models)
+        val adapter = TimeListAdapter(requireActivity(), models)
         rv.adapter = adapter
     }
 

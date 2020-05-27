@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
@@ -107,7 +107,7 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
         val newFragment = DatePickerFragment()
-        newFragment.show(fragmentManager!!, "datePicker")
+        newFragment.show(requireFragmentManager(), "datePicker")
     }
 
     companion object {

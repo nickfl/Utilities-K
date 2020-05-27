@@ -95,7 +95,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
         val newFragment = DatePickerFragment()
-        newFragment.show(fragmentManager!!, "datePicker")
+        newFragment.show(requireFragmentManager(), "datePicker")
     }
 
     private inner class AmountTextWatcher : TextWatcher {

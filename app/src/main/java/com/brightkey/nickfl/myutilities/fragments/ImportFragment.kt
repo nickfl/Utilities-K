@@ -63,7 +63,7 @@ class ImportFragment : BaseFragment() {
     private fun importFromDefaults() {
         val activity = activity
 
-        RealmStorageRecords.loadDefaultAssets(activity!!)
+        RealmStorageRecords.loadDefaultAssets(requireActivity())
         Toast.makeText(activity, "Import Defaults Success!", Toast.LENGTH_LONG).show()
         exitListener?.onFragmentExit()
     }

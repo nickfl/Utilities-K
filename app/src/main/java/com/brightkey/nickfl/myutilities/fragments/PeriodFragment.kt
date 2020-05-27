@@ -44,7 +44,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         spinner = view.findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
             spinner?.onItemSelectedListener = this
-            val aAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, periodNames)
+            val aAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, periodNames)
             aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner?.adapter = aAdapter
         }
