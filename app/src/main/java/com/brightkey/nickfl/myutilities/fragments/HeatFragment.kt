@@ -6,12 +6,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
@@ -48,7 +47,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         val acc = view.findViewById<View>(R.id.textHeatAcc) as TextView
         acc.text = entity?.accountNumber
 
-        addPayment = view.findViewById<Button>(R.id.buttonAddHeatPayment)
+        addPayment = view.findViewById(R.id.buttonAddHeatPayment)
         addPayment?.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
@@ -94,8 +93,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
             return
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
-        val newFragment = DatePickerFragment()
-        newFragment.show(requireFragmentManager(), "datePicker")
+        DatePickerFragment(requireActivity()).showDatePicker()
     }
 
     private inner class AmountTextWatcher : TextWatcher {
@@ -107,7 +105,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
             var paid = if (editable.toString().isEmpty()) 0.0 else java.lang.Double.parseDouble(editable.toString())
             if (entity!!.unitPrice0 > 0.0) {
                 paid /= entity!!.unitPrice0
-                usedGas?.setText(String.format("(m3) %.3f", paid))
+                usedGas?.text = String.format("(m3) %.3f", paid)
             }
         }
     }

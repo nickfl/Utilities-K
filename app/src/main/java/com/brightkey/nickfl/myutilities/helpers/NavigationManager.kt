@@ -16,13 +16,9 @@ import java.util.*
 class NavigationManager(activity: AppCompatActivity, private val containerId: Int) {
 
     private var fragmentStack = ArrayList<BaseFragment>()
-    private var mManager: FragmentManager? = null
+    private var mManager: FragmentManager = activity.supportFragmentManager
     private var topFragment: BaseFragment? = null
     private var allFragments = HashMap<FragmentScreen, BaseFragment>()
-
-    init {
-        this.mManager = activity.supportFragmentManager
-    }
 
     fun topFragment(): BaseFragment? {
         return if (fragmentStack.isEmpty()) {
@@ -38,7 +34,7 @@ class NavigationManager(activity: AppCompatActivity, private val containerId: In
     //    }
 
     fun storeFragment(fragment: BaseFragment, key: FragmentScreen) {
-        this.allFragments.put(key, fragment)
+        this.allFragments[key] = fragment
     }
 
     //    public BaseFragment getScreen(FragmentScreen key) {
@@ -51,10 +47,11 @@ class NavigationManager(activity: AppCompatActivity, private val containerId: In
     }
 
     private fun addFragment(fragment: BaseFragment?, screenAnimation: ScreenAnimation?) {
+        if (fragment == null) { return }
         val line = Exception().stackTrace[0].lineNumber + 1
-        Timber.w("[" + line + "] addFragment(" + fragment!!.javaClass.getSimpleName() + ")")
+        Timber.w("[$line] addFragment($fragment.javaClass.getSimpleName())")
 
-        val transaction = mManager!!.beginTransaction()
+        val transaction = mManager.beginTransaction()
 //        if (!ValidationUtils.isNull(screenAnimation)) {
 //            int enter = screenAnimation.getResIdEnter();
 //            int exit = screenAnimation.getResIdExit();
@@ -82,11 +79,11 @@ class NavigationManager(activity: AppCompatActivity, private val containerId: In
         replaceFragment(fr, screenAnimation)
     }
 
-    fun replaceFragment(fragment: BaseFragment, screenAnimation: ScreenAnimation) {
+    private fun replaceFragment(fragment: BaseFragment, screenAnimation: ScreenAnimation) {
         val line = Exception().stackTrace[0].lineNumber + 1
-        Timber.w("[" + line + "] replaceFragment(" + fragment.javaClass.getSimpleName() + ")")
+        Timber.w("[$line] replaceFragment($fragment.javaClass.getSimpleName())")
 
-        val transaction = mManager!!.beginTransaction()
+        val transaction = mManager.beginTransaction()
         if (!ValidationUtils.isNull(screenAnimation)) {
             val enter = screenAnimation.resIdEnter
             val exit = screenAnimation.resIdExit

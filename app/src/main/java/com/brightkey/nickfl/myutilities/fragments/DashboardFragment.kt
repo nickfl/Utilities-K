@@ -59,7 +59,7 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(activity)
         rv.layoutManager = llm
-        adapter = DashboardAdapter(activity!!, models, this)
+        adapter = DashboardAdapter(requireActivity(), models, this)
         rv.adapter = adapter
     }
     //endregion

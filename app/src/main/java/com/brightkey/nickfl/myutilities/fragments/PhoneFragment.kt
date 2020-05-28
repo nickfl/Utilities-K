@@ -106,8 +106,7 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
             return
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
-        val newFragment = DatePickerFragment()
-        newFragment.show(requireFragmentManager(), "datePicker")
+        DatePickerFragment(requireActivity()).showDatePicker()
     }
 
     companion object {

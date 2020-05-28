@@ -120,8 +120,7 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
             return
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
-        val newFragment = DatePickerFragment()
-        newFragment.show(requireFragmentManager(), "datePicker")
+        DatePickerFragment(requireActivity()).showDatePicker()
     }
 
     private inner class AmountTextWatcher constructor(private val view: View) : TextWatcher {
@@ -133,15 +132,15 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
             when (view.id) {
                 paidOnPeakTag -> if (entity!!.unitPrice0 > 0.0) {
                     paid /= entity!!.unitPrice0
-                    usedOnPeak?.setText(String.format("(kWh) %.3f", paid))
+                    usedOnPeak?.text = String.format("(kWh) %.3f", paid)
                 }
                 paidOnMidTag -> if (entity!!.unitPrice1 > 0.0) {
                     paid /= entity!!.unitPrice1
-                    usedOnMid?.setText(String.format("(kWh) %.3f", paid))
+                    usedOnMid?.text = String.format("(kWh) %.3f", paid)
                 }
                 paidOffPeakTag -> if (entity!!.unitPrice2 > 0.0) {
                     paid /= entity!!.unitPrice2
-                    usedOffPeak?.setText(String.format("(kWh) %.3f", paid))
+                    usedOffPeak?.text = String.format("(kWh) %.3f", paid)
                 }
             }
         }
@@ -149,9 +148,9 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
 
-        internal val paidOnPeakTag = 111
-        internal val paidOnMidTag = 222
-        internal val paidOffPeakTag = 333
+        internal const val paidOnPeakTag = 111
+        internal const val paidOnMidTag = 222
+        internal const val paidOffPeakTag = 333
 
         fun newInstance(): HydroFragment {
             val fragment = HydroFragment()

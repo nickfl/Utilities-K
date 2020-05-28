@@ -118,8 +118,7 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
             return
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
-        val newFragment = DatePickerFragment()
-        newFragment.show(requireFragmentManager(), "datePicker")
+        DatePickerFragment(requireActivity()).showDatePicker()
     }
 
     private inner class AmountTextWatcher constructor(private val view: View) : TextWatcher {
@@ -131,18 +130,18 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
             when (view.id) {
                 paidWaterTag -> if (entity!!.unitPrice0 > 0.0) {
                     paid /= entity!!.unitPrice0
-                    usedWater?.setText(String.format("(m3) %.3f", paid))
+                    usedWater?.text = String.format("(m3) %.3f", paid)
                     val waste = paid * 0.85
-                    usedWaste?.setText(String.format("(m3) %.3f", waste))
+                    usedWaste?.text = String.format("(m3) %.3f", waste)
                     paidAmount1?.setText(String.format("%.2f", waste * entity!!.unitPrice1))
                 }
                 paidWasteTag -> if (entity!!.unitPrice1 > 0.0) {
                     paid /= entity!!.unitPrice1
-                    usedWaste?.setText(String.format("(m3) %.3f", paid))
+                    usedWaste?.text = String.format("(m3) %.3f", paid)
                 }
                 paidStormTag -> if (entity!!.unitPrice2 > 0.0) {
                     paid /= entity!!.unitPrice2
-                    usedStorm?.setText(String.format("(days) %.0f", paid))
+                    usedStorm?.text = String.format("(days) %.0f", paid)
                 }
             }
         }
@@ -150,9 +149,9 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
 
-        internal val paidWaterTag = 111
-        internal val paidWasteTag = 222
-        internal val paidStormTag = 333
+        internal const val paidWaterTag = 111
+        internal const val paidWasteTag = 222
+        internal const val paidStormTag = 333
 
         fun newInstance(): WaterFragment {
             val fragment = WaterFragment()
