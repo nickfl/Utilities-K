@@ -268,5 +268,15 @@
         "amountType0": 16.59,
         "amountType1": 0.00,
         "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "May 22, 2020",
+        "dueDate": "Jun 11, 2020",
+        "datePaid": "Jun 01, 2020",
+        "amountDue": 77.36,
+        "amountType0": 3.96,
+        "amountType1": 0.00,
+        "amountType2": 0.00
     }
 ]
