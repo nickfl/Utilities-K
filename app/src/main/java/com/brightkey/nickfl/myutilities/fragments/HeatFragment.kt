@@ -21,9 +21,11 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
 
     private var usedGas: TextView? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.HEAT_FRAGMENT
+        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HeatType)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -102,22 +104,18 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun afterTextChanged(editable: Editable) {
-            var paid = if (editable.toString().isEmpty()) 0.0 else java.lang.Double.parseDouble(editable.toString())
-            if (entity!!.unitPrice0 > 0.0) {
-                paid /= entity!!.unitPrice0
-                usedGas?.text = String.format("(m3) %.3f", paid)
+            var paid = 0.0
+            entity?.let {
+                if (it.unitPrice0 > 0.0) {
+                    val value = editable.toString()
+                    if (value.isNotEmpty()) {
+                        paid = java.lang.Double.parseDouble(value) / it.unitPrice0
+                    }
+                }
             }
-        }
-    }
-
-    companion object {
-
-        fun newInstance(): HeatFragment {
-            val fragment = HeatFragment()
-            fragment.mTag = FragmentScreen.HEAT_FRAGMENT
-            fragment.entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HeatType)
-            return fragment
+            usedGas?.text = String.format("(m3) %.3f", paid)
         }
     }
     //endregion
+
 }// Required empty public constructor

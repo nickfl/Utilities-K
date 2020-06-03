@@ -17,9 +17,11 @@ import java.util.*
 
 class PhoneFragment : BaseFragment(), View.OnClickListener {
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.PHONE_FRAGMENT
+        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.PhoneType)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -108,15 +110,6 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
         currentDateView = if (v === addStatementDay) billDate else dueDate
         DatePickerFragment(requireActivity()).showDatePicker()
     }
-
-    companion object {
-
-        fun newInstance(): PhoneFragment {
-            val fragment = PhoneFragment()
-            fragment.mTag = FragmentScreen.PHONE_FRAGMENT
-            fragment.entity = MyUtilitiesApplication.getConfigEntityForType(Constants.PhoneType)
-            return fragment
-        }
-    }
     //endregion
+
 }// Required empty public constructor

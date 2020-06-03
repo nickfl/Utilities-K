@@ -19,13 +19,19 @@ import java.util.*
 
 class HydroFragment : BaseFragment(), View.OnClickListener {
 
+    internal val paidOnPeakTag = 111
+    internal val paidOnMidTag = 222
+    internal val paidOffPeakTag = 333
+
     private var usedOnPeak: TextView? = null
     private var usedOnMid: TextView? = null
     private var usedOffPeak: TextView? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.HYDRO_FRAGMENT
+        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HydroType)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -128,35 +134,37 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun afterTextChanged(editable: Editable) {
-            var paid = if (editable.toString().isEmpty()) 0.0 else java.lang.Double.parseDouble(editable.toString())
+            val value = editable.toString()
+            var paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
             when (view.id) {
-                paidOnPeakTag -> if (entity!!.unitPrice0 > 0.0) {
-                    paid /= entity!!.unitPrice0
-                    usedOnPeak?.text = String.format("(kWh) %.3f", paid)
+                paidOnPeakTag -> {
+                    usedOnPeak?.text = getString(R.string.EmptyKWh)
+                    entity?.let {
+                        if (it.unitPrice0 > 0.0) {
+                            paid /= it.unitPrice0
+                            usedOnPeak?.text = String.format("(kWh) %.3f", paid)
+                        }
+                    }
                 }
-                paidOnMidTag -> if (entity!!.unitPrice1 > 0.0) {
-                    paid /= entity!!.unitPrice1
-                    usedOnMid?.text = String.format("(kWh) %.3f", paid)
+                paidOnMidTag -> {
+                    usedOnMid?.text = getString(R.string.EmptyKWh)
+                    entity?.let {
+                        if (it.unitPrice1 > 0.0) {
+                            paid /= it.unitPrice1
+                            usedOnMid?.text = String.format("(kWh) %.3f", paid)
+                        }
+                    }
                 }
-                paidOffPeakTag -> if (entity!!.unitPrice2 > 0.0) {
-                    paid /= entity!!.unitPrice2
-                    usedOffPeak?.text = String.format("(kWh) %.3f", paid)
+                paidOffPeakTag -> {
+                    usedOffPeak?.text = getString(R.string.EmptyKWh)
+                    entity?.let {
+                        if (it.unitPrice2 > 0.0) {
+                            paid /= it.unitPrice2
+                            usedOffPeak?.text = String.format("(kWh) %.3f", paid)
+                        }
                 }
             }
-        }
-    }
-
-    companion object {
-
-        internal const val paidOnPeakTag = 111
-        internal const val paidOnMidTag = 222
-        internal const val paidOffPeakTag = 333
-
-        fun newInstance(): HydroFragment {
-            val fragment = HydroFragment()
-            fragment.mTag = FragmentScreen.HYDRO_FRAGMENT
-            fragment.entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HydroType)
-            return fragment
+            }
         }
     }
     //endregion

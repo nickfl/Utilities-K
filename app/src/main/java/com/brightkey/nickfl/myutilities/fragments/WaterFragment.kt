@@ -19,13 +19,19 @@ import java.util.*
 
 class WaterFragment : BaseFragment(), View.OnClickListener {
 
+    internal val paidWaterTag = 111
+    internal val paidWasteTag = 222
+    internal val paidStormTag = 333
+
     private var usedWater: TextView? = null
     private var usedWaste: TextView? = null
     private var usedStorm: TextView? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.WATER_FRAGMENT
+        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.WaterType)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -126,39 +132,44 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun afterTextChanged(editable: Editable) {
-            var paid = if (editable.toString().isEmpty()) 0.0 else java.lang.Double.parseDouble(editable.toString())
+            val value = editable.toString()
+            var paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
             when (view.id) {
-                paidWaterTag -> if (entity!!.unitPrice0 > 0.0) {
-                    paid /= entity!!.unitPrice0
-                    usedWater?.text = String.format("(m3) %.3f", paid)
-                    val waste = paid * 0.85
-                    usedWaste?.text = String.format("(m3) %.3f", waste)
-                    paidAmount1?.setText(String.format("%.2f", waste * entity!!.unitPrice1))
+                paidWaterTag -> {
+                    usedWater?.text = getString(R.string.EmptyM3)
+                    usedWaste?.text = getString(R.string.EmptyM3)
+                    paidAmount1?.setText("0.0")
+                    entity?.let {
+                        if (it.unitPrice0 > 0.0) {
+                            paid /= it.unitPrice0
+                            usedWater?.text = String.format("(m3) %.3f", paid)
+                            val waste = paid * 0.85
+                            usedWaste?.text = String.format("(m3) %.3f", waste)
+                            paidAmount1?.setText(String.format("%.2f", waste * it.unitPrice1))
+                        }
+                    }
                 }
-                paidWasteTag -> if (entity!!.unitPrice1 > 0.0) {
-                    paid /= entity!!.unitPrice1
-                    usedWaste?.text = String.format("(m3) %.3f", paid)
+                paidWasteTag -> {
+                    usedWaste?.text = getString(R.string.EmptyM3)
+                    entity?.let {
+                        if (it.unitPrice1 > 0.0) {
+                            paid /= it.unitPrice1
+                            usedWaste?.text = String.format("(m3) %.3f", paid)
+                        }
+                    }
                 }
-                paidStormTag -> if (entity!!.unitPrice2 > 0.0) {
-                    paid /= entity!!.unitPrice2
-                    usedStorm?.text = String.format("(days) %.0f", paid)
+                paidStormTag -> {
+                    usedStorm?.text = getString(R.string.EmptyM3)
+                    entity?.let {
+                        if (it.unitPrice2 > 0.0) {
+                            paid /= it.unitPrice2
+                            usedStorm?.text = String.format("(days) %.0f", paid)
+                        }
+                    }
                 }
             }
         }
     }
-
-    companion object {
-
-        internal const val paidWaterTag = 111
-        internal const val paidWasteTag = 222
-        internal const val paidStormTag = 333
-
-        fun newInstance(): WaterFragment {
-            val fragment = WaterFragment()
-            fragment.mTag = FragmentScreen.WATER_FRAGMENT
-            fragment.entity = MyUtilitiesApplication.getConfigEntityForType(Constants.WaterType)
-            return fragment
-        }
-    }
     //endregion
+
 }// Required empty public constructor
