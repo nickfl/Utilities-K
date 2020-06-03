@@ -76,4 +76,7 @@
     <string name="Done">DONE</string>
     <string name="not_valid_fields">Some fields are empty!</string>
 
+    <string name="EmptyKWh">(kWh) 0.0</string>
+    <string name="EmptyM3">(m3) 0.0</string>
+
 </resources>
