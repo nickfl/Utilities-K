@@ -55,7 +55,7 @@
     <string name="title_period">Change Period</string>
     <string name="title_utility_chart">Change Utility</string>
     <string name="button_period">Update Period</string>
-    <string name="zero_period">All Years</string>
+    <string name="zero_period">Current Year</string>
     <string name="hydro_details">DETAILS:</string>
     <string name="hydro_add_payment">ADD PAYMENT</string>
     <string name="hydro_update_payment">UPDATE PAYMENT</string>
@@ -78,5 +78,7 @@
 
     <string name="EmptyKWh">(kWh) 0.0</string>
     <string name="EmptyM3">(m3) 0.0</string>
+    <string name="Year2018">Year 2018</string>
+    <string name="Year2019">Year 2019</string>
 
 </resources>
