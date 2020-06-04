@@ -8,14 +8,28 @@ import android.widget.Button
 import android.widget.RadioGroup
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
+import com.brightkey.nickfl.myutilities.helpers.Constants
 import timber.log.Timber
 
 class UtilityFragment : BaseFragment() {
 
     private var selected = R.id.radioButtonHydro
+    private lateinit var oldType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.UTILITY_FRAGMENT
+        setHasOptionsMenu(true)
+        oldType = arguments?.getString("type") ?: Constants.HydroType
+        if (oldType == Constants.HydroType) {
+            selected = R.id.radioButtonHydro
+        } else if (oldType == Constants.HeatType) {
+            selected = R.id.radioButtonGas
+        } else if (oldType == Constants.PhoneType) {
+            selected = R.id.radioButtonPhone
+        } else if (oldType == Constants.WaterType) {
+            selected = R.id.radioButtonWater
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +44,6 @@ class UtilityFragment : BaseFragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
     }
 
@@ -41,21 +54,12 @@ class UtilityFragment : BaseFragment() {
 
     private fun setup(view: View) {
         val group = view.findViewById<RadioGroup>(R.id.radioGroupUtilities)
-        group.check(R.id.radioButtonHydro)
+        group.check(selected)
         val select = view.findViewById<Button>(R.id.buttonSelect)
         select.setOnClickListener {
             utilitySelected(selected)
         }
         group.setOnCheckedChangeListener { _, i -> selected = i }
     }
-
-    companion object {
-
-        fun newInstance(): UtilityFragment {
-            val fragment = UtilityFragment()
-            fragment.mTag = FragmentScreen.UTILITY_FRAGMENT
-            return fragment
-        }
-    }
-    //endregion
+   //endregion
 }

@@ -1,33 +1,31 @@
 package com.brightkey.nickfl.myutilities.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.TimeListAdapter
-import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.TimeListModel
 import timber.log.Timber
 
+
 class TimeDetailsFragment : BaseFragment() {
 
-//    private OnDashboardInteractionListener mListener;
+    private lateinit var detailsType: String
+    private lateinit var title: String
 
-    private var detailsType = Constants.HydroType
-
-    fun setDetailsType(type: String) {
-        detailsType = type
-    }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.TIMEDETAILS_FRAGMENT
+        detailsType = arguments?.getString("title") ?: "hyro_bill"
+        title = MyUtilitiesApplication.getConfigEntityForType(detailsType)?.utilityType ?: "Utility"
+        setHasOptionsMenu(true)
+     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,28 +39,20 @@ class TimeDetailsFragment : BaseFragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
-        (activity as MainActivity).setCustomOptions(R.menu.fragment)
+        (activity as MainActivity).setCustomOptions(R.menu.fragment, title)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val line = Exception().stackTrace[0].lineNumber + 1
-        Timber.w("[$line] onAttach()")
-//        if (context instanceof OnDashboardInteractionListener) {
-//            mListener = (OnDashboardInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        val line = Exception().stackTrace[0].lineNumber + 1
+//        Timber.w("[$line] onAttach()")
+//    }
 
-    override fun onDetach() {
-        super.onDetach()
-        val line = Exception().stackTrace[0].lineNumber + 1
-        Timber.w("[$line] onDetach()")
-//        mListener = null;
-    }
+//    override fun onDetach() {
+//        super.onDetach()
+//        val line = Exception().stackTrace[0].lineNumber + 1
+//        Timber.w("[$line] onDetach()")
+//    }
 
     //region Helpers
     private fun setupRecycler(view: View) {
@@ -74,15 +64,6 @@ class TimeDetailsFragment : BaseFragment() {
         rv.layoutManager = llm
         val adapter = TimeListAdapter(requireActivity(), models)
         rv.adapter = adapter
-    }
-
-    companion object {
-
-        fun newInstance(): TimeDetailsFragment {
-            val fragment = TimeDetailsFragment()
-            fragment.mTag = FragmentScreen.TIMEDETAILS_FRAGMENT
-            return fragment
-        }
     }
     //endregion
 }

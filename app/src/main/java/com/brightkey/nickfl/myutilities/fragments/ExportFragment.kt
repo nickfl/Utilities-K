@@ -25,6 +25,8 @@ class ExportFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.EXPORT_FRAGMENT
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +41,6 @@ class ExportFragment : BaseFragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
         cleanup()
     }
@@ -78,14 +79,6 @@ class ExportFragment : BaseFragment() {
         group = view.findViewById(R.id.radioGroup)
         group?.setOnCheckedChangeListener { _, i -> selected = i }
     }
-
-    companion object {
-
-        fun newInstance(): ExportFragment {
-            val fragment = ExportFragment()
-            fragment.mTag = FragmentScreen.EXPORT_FRAGMENT
-            return fragment
-        }
-    }
     //endregion
+
 }// Required empty public constructor

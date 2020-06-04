@@ -1,5 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.DashboardFragment"
+        android:label="@string/title_myutility"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_timeDetailsFragment"
+            app:destination="@id/timeDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/timeDetailsFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.TimeDetailsFragment"
+        android:label="fragment_time_details"
+        tools:layout="@layout/fragment_time_details" >
+        <action
+            android:id="@+id/action_timeDetailsFragment_to_hydroFragment"
+            app:destination="@id/hydroFragment" />
+        <action
+            android:id="@+id/action_timeDetailsFragment_to_phoneFragment"
+            app:destination="@id/phoneFragment" />
+        <action
+            android:id="@+id/action_timeDetailsFragment_to_waterFragment"
+            app:destination="@id/waterFragment" />
+        <action
+            android:id="@+id/action_timeDetailsFragment_to_heatFragment"
+            app:destination="@id/heatFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/heatFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.HeatFragment"
+        android:label="@string/title_heat"
+        tools:layout="@layout/fragment_heat" />
+
+    <fragment
+        android:id="@+id/hydroFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.HydroFragment"
+        android:label="@string/title_hydro"
+        tools:layout="@layout/fragment_hydro" />
+
+    <fragment
+        android:id="@+id/phoneFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.PhoneFragment"
+        android:label="@string/title_phone"
+        tools:layout="@layout/fragment_phone" />
+
+    <fragment
+        android:id="@+id/waterFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.WaterFragment"
+        android:label="@string/title_water"
+        tools:layout="@layout/fragment_water" />
+
+    <fragment
+        android:id="@+id/importFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.ImportFragment"
+        android:label="@string/drawer_import" />
+
+    <fragment
+        android:id="@+id/exportFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.ExportFragment"
+        android:label="@string/drawer_export" />
+
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.ChartFragment"
+        android:label="@string/title_utility_chart"
+        tools:layout="@layout/fragment_chart" />
+
+    <fragment
+        android:id="@+id/periodFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.PeriodFragment"
+        android:label="@string/title_period"
+        tools:layout="@layout/fragment_period" />
+
+    <fragment
+        android:id="@+id/utilityFragment"
+        android:name="com.brightkey.nickfl.myutilities.fragments.UtilityFragment"
+        android:label="@string/title_utility_chart"
+        tools:layout="@layout/fragment_utility" />
 
 </navigation>

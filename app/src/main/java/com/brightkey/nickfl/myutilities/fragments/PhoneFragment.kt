@@ -21,6 +21,9 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.PHONE_FRAGMENT
         entity = MyUtilitiesApplication.getConfigEntityForType(Constants.PhoneType)
+        doEdit = arguments?.getBoolean("edit") ?: false
+        editIndex = arguments?.getInt("index") ?: 0
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -17,9 +17,11 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
     private var mListener: OnDashboardInteractionListener? = null
     private lateinit var adapter: DashboardAdapter
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.DASHBOARD_FRAGMENT
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -72,14 +74,5 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
     // AdapterDashboardInterface
     override fun utilityPressed(itemId: String) {
         mListener?.onDashboardInteraction(itemId)
-    }
-
-    companion object {
-
-        fun newInstance(): DashboardFragment {
-            val fragment = DashboardFragment()
-            fragment.mTag = FragmentScreen.DASHBOARD_FRAGMENT
-            return fragment
-        }
     }
 }

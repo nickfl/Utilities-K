@@ -18,10 +18,12 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private var spinner: Spinner? = null
     private var selectedPeriod = 0
-    private val periodNames = arrayOf("Current", "2019", "2018")
+    private val periodNames = arrayOf("Current Year", "2019", "2018")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.PERIOD_FRAGMENT
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,6 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
     }
 
@@ -71,14 +72,5 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    companion object {
-
-        fun newInstance(): PeriodFragment {
-            val fragment = PeriodFragment()
-            fragment.mTag = FragmentScreen.PERIOD_FRAGMENT
-            return fragment
-        }
     }
 }

@@ -15,19 +15,33 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.brightkey.nickfl.myutilities.R
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, DashboardFragment.OnDashboardInteractionListener, DatePickerDialog.OnDateSetListener, BaseFragment.ExitFragmentListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private var nManager: NavigationManager? = null
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+
+//    private val appBarConfiguration by lazy {
+//        AppBarConfiguration(
+//            setOf(
+//                R.id.chartFragment,
+//                R.id.importFragment,
+//                R.id.exportFragment
+//            ), drawer_layout
+//        )
+//    }
+
     private var currentModelItem: DashboardModel? = null
     private var currentChartType: String = ""
 
@@ -37,14 +51,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var fabHeat: FloatingActionButton? = null
     private var fabHydro: FloatingActionButton? = null
     private var fabPhone: FloatingActionButton? = null
-    private var timeListFragment: TimeDetailsFragment? = null
-    private var dashFragment: DashboardFragment? = null
     private var exportFragment: ExportFragment? = null
     private var importFragment: ImportFragment? = null
-    private var periodFragment: PeriodFragment? = null
-    private var chartFragment: ChartFragment? = null
-    private var utilityFragment: UtilityFragment? = null
-    private var currentPeriod: String = ""  // default - All Years
+    private var currentPeriod: String = ""  // default - Current Year
 
     // all buttons are the same
     private var originY = -1.0f
@@ -52,7 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private var menuId = R.menu.main
 
-    //region Override
+    //region Activity Overrides
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -70,13 +79,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         currentModelItem = findModelItem(currentChartType)
     }
 
+    //device back button pressed
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
             return
         }
-        if (!nManager!!.isTopFragment(FragmentScreen.DASHBOARD_FRAGMENT)) {
+
+        val currentDestId = navController.currentDestination?.id ?: R.id.dashboardFragment
+        if (currentDestId != R.id.dashboardFragment) {
             returnToDashboard()
             return
         }
@@ -84,12 +96,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (menu != null && menu.hasVisibleItems()) {
-            if (menu.getItem(0)?.itemId == R.id.action_period) {
-                menu.getItem(1).title = currentPeriod
-            }
-            if (menu.getItem(0)?.itemId == R.id.chart_choice) {
-                menu.getItem(1).title = currentModelItem?.utilityType ?: resources.getString(R.string.title_hydro)
+        menu?.let {
+            if (it.hasVisibleItems()) {
+                if (it.getItem(0)?.itemId == R.id.action_period) {
+                    it.getItem(1).title = currentPeriod
+                }
+                if (it.getItem(0)?.itemId == R.id.chart_choice) {
+                    it.getItem(1).title = currentModelItem?.utilityType ?: resources.getString(R.string.title_hydro)
+                }
             }
         }
         return super.onPrepareOptionsMenu(menu)
@@ -108,22 +122,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_period -> {
-                setTitle(R.string.title_period)
-                showFragmentFromRight(FragmentScreen.PERIOD_FRAGMENT)
+                navigateTo(R.id.periodFragment)
                 return true
             }
             R.id.action_close -> {
                 returnToDashboard()
             }
             R.id.chart_choice -> {
-                setTitle(R.string.title_utility_chart)
-                showFragmentFromRight(FragmentScreen.UTILITY_FRAGMENT)
+                val bundle = Bundle()
+                bundle.putString("type", currentChartType)
+                navigateTo(R.id.utilityFragment, bundle)
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+    // Items in Drawer
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
@@ -131,18 +146,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setCurrentChart()
             }
             R.id.nav_export -> {
-                setTitle(R.string.drawer_export)
-                nManager?.replaceScreenTo(FragmentScreen.EXPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
+                navigateTo(R.id.exportFragment)
             }
             R.id.nav_import -> {
-                setTitle(R.string.drawer_import)
-                nManager?.replaceScreenTo(FragmentScreen.IMPORT_FRAGMENT, ScreenAnimation.ENTER_FROM_RIGHT)
+                navigateTo(R.id.importFragment)
             }
             R.id.nav_clean -> {
                 RealmHelper.shared().cleanAllUtilityBills()
                 // back to the dashboard
                 returnToDashboard()
-                dashFragment?.reloadView()
             }
         }
 
@@ -150,24 +162,50 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
     // endregion
 
     //region Helpers
+    private fun topFragment(): BaseFragment {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        return navHostFragment?.childFragmentManager?.getFragments()?.get(0) as BaseFragment
+    }
+
+    private fun updateTitle(title: CharSequence) {
+        toolbar.title = title
+    }
+
+    private fun navigateTo(destination: Int, bundle: Bundle? = null) {
+        navController.popBackStack()
+        navController.navigate(destination, bundle)
+    }
+
+    private fun navigateWithAction(action: Int, extras: FragmentNavigator.Extras) {
+        navController.popBackStack(R.id.nav_host_fragment, false)
+        navController.navigate(action, null, null, extras)
+    }
+
     private fun setCurrentChart() {
         currentModelItem = findModelItem(currentChartType)
-        setChartTitle(currentModelItem)
-        showFragmentFromRight(FragmentScreen.CHART_FRAGMENT)
-        chartFragment?.configureChart(currentModelItem)
+        currentModelItem?.let {
+            val bundle = Bundle()
+            bundle.putString("type", it.utilityIcon)
+            bundle.putString("color", it.vendorColor)
+            navigateTo(R.id.chartFragment, bundle)
+            setChartTitle(it)
+        }
     }
 
     private fun setChartTitle(model: DashboardModel?) {
-        var type = model?.utilityType ?: Constants.HydroType
-        if (PeriodManager.shared.period == Periods.Current) {
-            type = "Current $type"
+        model?.let {
+            var type = it.utilityType
+            if (PeriodManager.shared.period == Periods.Current) {
+                type = "Current $type"
+            }
+            val total = it.totalPaid
+            val title: String = type + String.format(" ( $%.2f )", total)
+            updateTitle(title)
         }
-        val total = model?.totalPaid ?: 0.0
-        val title: String = type + String.format(" ( $%.2f )", total)
-        setTitle(title)
     }
 
     private fun findModelItem(forUtility: String): DashboardModel? {
@@ -180,8 +218,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return null
     }
 
-    private fun toggleFABs(hide: Boolean?) {
-        val alpha: Float = if (hide != null && hide) 0.0f else 1.0f
+    private fun toggleFABs(hide: Boolean) {
+        val alpha: Float = if (hide) 0.0f else 1.0f
         fabMain?.alpha = alpha
         fabWater?.alpha = alpha
         fabHeat?.alpha = alpha
@@ -190,19 +228,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun returnToDashboard() {
-        menuId = R.menu.main
-        invalidateOptionsMenu()
-        //replace fragment
-        setTitle(R.string.app_name)
-        nManager?.replaceScreenTo(FragmentScreen.DASHBOARD_FRAGMENT, ScreenAnimation.ENTER_FROM_LEFT)
-        toggleFABs(false)
+        navigateTo(R.id.dashboardFragment)
+        setCustomOptions(R.menu.main)
     }
 
     private fun setupDrawer(toolbar: Toolbar) {
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout)
+//        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
+
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(this/*toggle*/)
+        drawer.addDrawerListener(this)
         toggle.syncState()
     }
 
@@ -213,18 +250,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val cal = GregorianCalendar()
                 date.text = DateFormatters.dateStringFromCalendar(cal)
             }
-            Periods.Year2019 -> { date.text = "Year 2019" }
-            Periods.Year2018 -> { date.text = "Year 2018" }
+            Periods.Year2019 -> { date.text = getString(R.string.Year2019) }
+            Periods.Year2018 -> { date.text = getString(R.string.Year2018) }
         }
     }
+
     private fun updateTotal(header: View) {
         val total = header.findViewById<TextView>(R.id.textViewTotalNow)
         val totalPay = RealmHelper.shared().totalPayment()
         total.text = String.format(getString(R.string.nav_header_total) + "%.2f", totalPay)
     }
+
     private fun setupHeader() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        navigationView.setupWithNavController(navController)
+
         val header = navigationView.getHeaderView(0)
         updateDate(header)
         updateTotal(header)
@@ -238,64 +281,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupNavigation() {
-        nManager = NavigationManager(this, R.id.fragment_container)
-
-        //keep all fragments for this activity
-        dashFragment = DashboardFragment.newInstance()
-        nManager?.storeFragment(dashFragment!!, FragmentScreen.DASHBOARD_FRAGMENT)
-        val hydroFragment = HydroFragment.newInstance()
-        nManager?.storeFragment(hydroFragment, FragmentScreen.HYDRO_FRAGMENT)
-        val heatFragment = HeatFragment.newInstance()
-        nManager?.storeFragment(heatFragment, FragmentScreen.HEAT_FRAGMENT)
-        val waterFragment = WaterFragment.newInstance()
-        nManager?.storeFragment(waterFragment, FragmentScreen.WATER_FRAGMENT)
-        val phoneFragment = PhoneFragment.newInstance()
-        nManager?.storeFragment(phoneFragment, FragmentScreen.PHONE_FRAGMENT)
-        timeListFragment = TimeDetailsFragment.newInstance()
-        nManager?.storeFragment(timeListFragment!!, FragmentScreen.TIMEDETAILS_FRAGMENT)
-        exportFragment = ExportFragment.newInstance()
-        nManager?.storeFragment(exportFragment!!, FragmentScreen.EXPORT_FRAGMENT)
-        importFragment = ImportFragment.newInstance()
-        nManager?.storeFragment(importFragment!!, FragmentScreen.IMPORT_FRAGMENT)
-        periodFragment = PeriodFragment.newInstance()
-        nManager?.storeFragment(periodFragment!!, FragmentScreen.PERIOD_FRAGMENT)
-        chartFragment = ChartFragment.newInstance()
-        nManager?.storeFragment(chartFragment!!, FragmentScreen.CHART_FRAGMENT)
-        utilityFragment = UtilityFragment.newInstance()
-        nManager?.storeFragment(utilityFragment!!, FragmentScreen.UTILITY_FRAGMENT)
-
-        // Create a first Fragment to be placed in the activity layout
-        nManager?.addScreen(FragmentScreen.DASHBOARD_FRAGMENT, null)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            //show FAB for dashboard only!
+            toggleFABs(destination.id != R.id.dashboardFragment)
+        }
     }
 
     private fun setupFABs() {
         fabWater = findViewById<View>(R.id.fab_water) as FloatingActionButton
         fabWater?.setOnClickListener {
-            //replace fragment
             fabAction()
-            setTitle(R.string.title_water)
-            showFragmentFromRight(FragmentScreen.WATER_FRAGMENT)
+            navigateTo(R.id.waterFragment)
         }
         fabHeat = findViewById<View>(R.id.fab_heat) as FloatingActionButton
         fabHeat?.setOnClickListener {
             fabAction()
-            //replace fragment
-            setTitle(R.string.title_heat)
-            showFragmentFromRight(FragmentScreen.HEAT_FRAGMENT)
+            navigateTo(R.id.heatFragment)
         }
         fabHydro = findViewById<View>(R.id.fab_hydro) as FloatingActionButton
         fabHydro?.setOnClickListener {
             fabAction()
-            //replace fragment
-            setTitle(R.string.title_hydro)
-            showFragmentFromRight(FragmentScreen.HYDRO_FRAGMENT)
+            navigateTo(R.id.hydroFragment)
         }
         fabPhone = findViewById<View>(R.id.fab_phone) as FloatingActionButton
         fabPhone?.setOnClickListener {
             fabAction()
-            //replace fragment
-            setTitle(R.string.title_phone)
-            showFragmentFromRight(FragmentScreen.PHONE_FRAGMENT)
+            navigateTo(R.id.phoneFragment)
         }
 
         fabMain = findViewById<View>(R.id.fab) as FloatingActionButton
@@ -330,32 +341,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fabMain?.setImageResource(res)
     }
 
-    fun setCustomOptions(rMenu: Int) {
+    fun setCustomOptions(rMenu: Int, title: String? = null) {
+        invalidateOptionsMenu()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] setCustomOptions()")
         menuId = rMenu
+        title?.let {
+            updateTitle(it)
+        }
     }
     //endregion
 
     //region Show Fragment
     private fun showFragmentFrom(right: Boolean, screen: FragmentScreen) {
         if (screen != FragmentScreen.DASHBOARD_FRAGMENT) {
-            toggleFABs(true)
             if (buttonsVisible) {
                 fabAction()
             }
         }
         val direction = if (right) ScreenAnimation.ENTER_FROM_RIGHT else ScreenAnimation.ENTER_FROM_LEFT
-        nManager?.replaceScreenTo(screen, direction)
+//        nManager?.replaceScreenTo(screen, direction)
     }
 
-    private fun showFragmentFromRight(screen: FragmentScreen) {
-        showFragmentFrom(true, screen)
-    }
+//    private fun showFragmentFromRight(screen: FragmentScreen) {
+//        showFragmentFrom(true, screen)
+//    }
 
-    private fun showFragmentFromLeft(screen: FragmentScreen) {
-        showFragmentFrom(false, screen)
-    }
+//    private fun showFragmentFromLeft(screen: FragmentScreen) {
+//        showFragmentFrom(false, screen)
+//    }
     // endregion
 
     //region Fragments methods
@@ -378,29 +392,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun editFragment(screen: FragmentScreen, index: Int) {
-        nManager?.editScreen(screen, ScreenAnimation.ENTER_FROM_RIGHT, index)
+        val bundle = Bundle()
+        bundle.putInt("index", index)
+        bundle.putBoolean("edit", true)
+        var destId = R.id.dashboardFragment
+        when (screen) {
+            FragmentScreen.NO_SCREEN -> { destId = R.id.dashboardFragment }
+            FragmentScreen.WATER_FRAGMENT -> { destId = R.id.waterFragment }
+            FragmentScreen.HYDRO_FRAGMENT -> { destId = R.id.hydroFragment }
+            FragmentScreen.HEAT_FRAGMENT -> { destId = R.id.heatFragment }
+            FragmentScreen.PHONE_FRAGMENT -> { destId = R.id.phoneFragment }
+        }
+        navController.navigate(destId, bundle)
     }
 
     fun changePeriod(period: String) {
         currentPeriod = period
-        dashFragment?.dataUpdated()
+//        dashFragment?.dataUpdated()
     }
     // endregion
 
     // OnDashboardInteractionListener
     override fun onDashboardInteraction(itemId: String) {
-
-        val title = MyUtilitiesApplication.getConfigEntityForType(itemId)?.utilityVendorName
-        setTitle(title)
+        val bundle = Bundle()
+        bundle.putString("title", itemId)
         val line = Exception().stackTrace[0].lineNumber + 1
-        Timber.i("[$line] onDashboardInteraction.title: $title")
-        timeListFragment?.setDetailsType(itemId)
-        showFragmentFromRight(FragmentScreen.TIMEDETAILS_FRAGMENT)
+        Timber.i("[$line] onDashboardInteraction.itemId: $itemId")
+        navigateTo(R.id.timeDetailsFragment, bundle)
     }
 
+    // OnDateSetListener
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         val cal = GregorianCalendar(year, month, day)
-        nManager?.topFragment()?.currentDateView?.text = DateFormatters.dateStringFromCalendar(cal)
+        topFragment().currentDateView?.text = DateFormatters.dateStringFromCalendar(cal)
     }
 
     // ExitFragmentListener

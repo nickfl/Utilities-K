@@ -25,6 +25,9 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HEAT_FRAGMENT
         entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HeatType)
+        doEdit = arguments?.getBoolean("edit") ?: false
+        editIndex = arguments?.getInt("index") ?: 0
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +42,6 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
         cleanUp()
     }

@@ -36,6 +36,10 @@ class ChartFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf")
+        chartType = arguments?.getString("type") ?: Constants.HydroType
+        val color = arguments?.getString("color") ?: "#F58233"
+        chartColor = Color.parseColor(color)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +56,6 @@ class ChartFragment : BaseFragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.charts)
         cleanup()
 

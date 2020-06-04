@@ -24,6 +24,8 @@ class ImportFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mTag = FragmentScreen.IMPORT_FRAGMENT
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +40,6 @@ class ImportFragment : BaseFragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.fragment)
     }
 
@@ -81,15 +82,6 @@ class ImportFragment : BaseFragment() {
             }
         }
         group.setOnCheckedChangeListener { _, i -> selected = i }
-    }
-
-    companion object {
-
-        fun newInstance(): ImportFragment {
-            val fragment = ImportFragment()
-            fragment.mTag = FragmentScreen.IMPORT_FRAGMENT
-            return fragment
-        }
     }
     //endregion
 }
