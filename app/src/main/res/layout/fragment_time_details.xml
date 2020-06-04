@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brightkey.nickfl.myutilities.fragments.TimeDetailsFragment">
+    tools:context=".fragments.TimeDetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTimeDetails"
