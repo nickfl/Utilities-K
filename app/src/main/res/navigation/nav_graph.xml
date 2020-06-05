@@ -23,6 +23,26 @@
         <action
             android:id="@+id/action_dashboardFragment_to_chartFragment"
             app:destination="@id/chartFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_waterFragment"
+            app:destination="@id/waterFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_heatFragment"
+            app:destination="@id/heatFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_hydroFragment"
+            app:destination="@id/hydroFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_phoneFragment"
+            app:destination="@id/phoneFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
     </fragment>
 
     <fragment

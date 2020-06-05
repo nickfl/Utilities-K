@@ -2,10 +2,7 @@ package com.brightkey.nickfl.myutilities.activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -13,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -84,16 +80,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //device back button pressed
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (drawer.isDrawerOpen(Gravity.LEFT)) {
+            drawer.closeDrawer(Gravity.LEFT)
             return
         }
 
-        val currentDestId = navController.currentDestination?.id ?: R.id.dashboardFragment
-        if (currentDestId != R.id.dashboardFragment) {
-            returnToDashboard()
-            return
-        }
+//        val currentDestId = navController.currentDestination?.id ?: R.id.dashboardFragment
+//        if (currentDestId != R.id.dashboardFragment) {
+//            returnToDashboard()
+//            return
+//        }
         super.onBackPressed()
     }
 
@@ -140,7 +136,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    // Items in Drawer
+    // Items in Drawer - OnNavigationItemSelectedListener
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
@@ -161,7 +157,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawer.closeDrawer(GravityCompat.START)
+        drawer.closeDrawer(Gravity.LEFT)
         return true
     }
 
@@ -290,22 +286,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fabWater = findViewById<View>(R.id.fab_water) as FloatingActionButton
         fabWater?.setOnClickListener {
             fabAction()
-            navigateTo(R.id.waterFragment)
+            val action = DashboardFragmentDirections.actionDashboardFragmentToWaterFragment(UtilityEditModel())
+            navController.navigate(action)
         }
         fabHeat = findViewById<View>(R.id.fab_heat) as FloatingActionButton
         fabHeat?.setOnClickListener {
             fabAction()
-            navigateTo(R.id.heatFragment)
+            val action = DashboardFragmentDirections.actionDashboardFragmentToHeatFragment(UtilityEditModel())
+            navController.navigate(action)
         }
         fabHydro = findViewById<View>(R.id.fab_hydro) as FloatingActionButton
         fabHydro?.setOnClickListener {
             fabAction()
-            navigateTo(R.id.hydroFragment)
+            val action = DashboardFragmentDirections.actionDashboardFragmentToHydroFragment(UtilityEditModel())
+            navController.navigate(action)
         }
         fabPhone = findViewById<View>(R.id.fab_phone) as FloatingActionButton
         fabPhone?.setOnClickListener {
             fabAction()
-            navigateTo(R.id.phoneFragment)
+            val action = DashboardFragmentDirections.actionDashboardFragmentToPhoneFragment(UtilityEditModel())
+            navController.navigate(action)
         }
 
         fabMain = findViewById<View>(R.id.fab) as FloatingActionButton
