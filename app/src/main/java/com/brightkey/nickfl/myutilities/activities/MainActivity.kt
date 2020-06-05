@@ -129,9 +129,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 returnToDashboard()
             }
             R.id.chart_choice -> {
-                val bundle = Bundle()
-                bundle.putString("type", currentChartType)
-                navigateTo(R.id.utilityFragment, bundle)
+                val action = ChartFragmentDirections.actionChartFragmentToUtilityFragment(currentChartType)
+                navController.navigate(action)
             }
         }
 

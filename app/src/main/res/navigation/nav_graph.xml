@@ -76,7 +76,13 @@
         android:id="@+id/chartFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.ChartFragment"
         android:label="@string/title_utility_chart"
-        tools:layout="@layout/fragment_chart" />
+        tools:layout="@layout/fragment_chart" >
+        <action
+            android:id="@+id/action_chartFragment_to_utilityFragment"
+            app:destination="@id/utilityFragment"
+            app:enterAnim="@anim/enter_from_bottom"
+            app:exitAnim="@anim/exit_to_bottom" />
+    </fragment>
 
     <fragment
         android:id="@+id/periodFragment"
@@ -88,6 +94,11 @@
         android:id="@+id/utilityFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.UtilityFragment"
         android:label="@string/title_utility_chart"
-        tools:layout="@layout/fragment_utility" />
+        tools:layout="@layout/fragment_utility" >
+        <argument
+            android:name="chartType"
+            app:argType="string"
+            android:defaultValue="hydro_bill" />
+    </fragment>
 
 </navigation>

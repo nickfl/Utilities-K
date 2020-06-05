@@ -20,15 +20,12 @@ class UtilityFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.UTILITY_FRAGMENT
         setHasOptionsMenu(true)
-        oldType = arguments?.getString("type") ?: Constants.HydroType
-        if (oldType == Constants.HydroType) {
-            selected = R.id.radioButtonHydro
-        } else if (oldType == Constants.HeatType) {
-            selected = R.id.radioButtonGas
-        } else if (oldType == Constants.PhoneType) {
-            selected = R.id.radioButtonPhone
-        } else if (oldType == Constants.WaterType) {
-            selected = R.id.radioButtonWater
+        oldType = arguments?.getString("chartType") ?: Constants.HydroType
+        when (oldType) {
+            Constants.HydroType -> selected = R.id.radioButtonHydro
+            Constants.HeatType -> selected = R.id.radioButtonGas
+            Constants.PhoneType -> selected = R.id.radioButtonPhone
+            Constants.WaterType -> selected = R.id.radioButtonWater
         }
     }
 
