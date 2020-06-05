@@ -413,9 +413,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // endregion
 
     // OnDashboardInteractionListener
+    // `itemId` - utilityType, default - "hydro_bill"
     override fun onDashboardInteraction(itemId: String) {
         val bundle = Bundle()
-        bundle.putString("title", itemId)
+        bundle.putString("itemId", itemId)
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] onDashboardInteraction.itemId: $itemId")
         navigateTo(R.id.timeDetailsFragment, bundle)
