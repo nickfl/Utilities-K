@@ -122,7 +122,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_period -> {
-                navigateTo(R.id.periodFragment)
+                val action = DashboardFragmentDirections.actionDashboardFragmentToPeriodFragment(currentPeriod)
+                navController.navigate(action)
                 return true
             }
             R.id.action_close -> {

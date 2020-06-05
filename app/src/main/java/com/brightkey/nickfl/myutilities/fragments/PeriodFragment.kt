@@ -23,6 +23,8 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.PERIOD_FRAGMENT
+        val oldPeriod = arguments?.getString("periodNow") ?: "Current Year"
+        selectedPeriod = periodNames.indexOf(oldPeriod)
         setHasOptionsMenu(true)
     }
 
@@ -43,12 +45,14 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private fun setup(view: View) {
         spinner = view.findViewById<Spinner>(R.id.spinner)
-        if (spinner != null) {
-            spinner?.onItemSelectedListener = this
+        spinner?.let {
+            it.onItemSelectedListener = this
             val aAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, periodNames)
             aAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner?.adapter = aAdapter
+            it.adapter = aAdapter
+            it.setSelection(selectedPeriod, false)
         }
+
         // Update button
         val updateBtn = view.findViewById<Button>(R.id.button_update)
         updateBtn?.setOnClickListener() {

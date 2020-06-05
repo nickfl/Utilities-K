@@ -13,6 +13,11 @@
         <action
             android:id="@+id/action_dashboardFragment_to_timeDetailsFragment"
             app:destination="@id/timeDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_periodFragment"
+            app:destination="@id/periodFragment"
+            app:enterAnim="@anim/enter_from_bottom"
+            app:exitAnim="@anim/exit_to_bottom" />
     </fragment>
 
     <fragment
@@ -88,7 +93,12 @@
         android:id="@+id/periodFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.PeriodFragment"
         android:label="@string/title_period"
-        tools:layout="@layout/fragment_period" />
+        tools:layout="@layout/fragment_period" >
+        <argument
+            android:name="periodNow"
+            app:argType="string"
+            android:defaultValue="Current Year" />
+    </fragment>
 
     <fragment
         android:id="@+id/utilityFragment"
