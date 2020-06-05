@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
@@ -124,12 +123,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navController.navigate(action)
                 return true
             }
-            R.id.action_close -> {
-                returnToDashboard()
-            }
             R.id.chart_choice -> {
                 val action = ChartFragmentDirections.actionChartFragmentToUtilityFragment(currentChartType)
                 navController.navigate(action)
+                return true
+            }
+            R.id.action_close -> {
+                returnToDashboard()
+                return true
             }
         }
 
@@ -353,39 +354,38 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //region Fragments methods
     fun backToCharts(chart: Int) {
-        when (chart) {
+        currentChartType = when (chart) {
             R.id.radioButtonHydro -> {
-                currentChartType = Constants.HydroType
+                Constants.HydroType
             }
             R.id.radioButtonGas -> {
-                currentChartType = Constants.HeatType
+                Constants.HeatType
             }
             R.id.radioButtonWater -> {
-                currentChartType = Constants.WaterType
+                Constants.WaterType
             }
             R.id.radioButtonPhone -> {
-                currentChartType = Constants.PhoneType
+                Constants.PhoneType
             }
+            else -> return
         }
         setCurrentChart(false)
     }
 
     fun editFragment(screen: FragmentScreen, index: Int) {
         val model = UtilityEditModel(index, true)
-        val action: NavDirections?
-        when (screen) {
-            FragmentScreen.NO_SCREEN -> return
+        val action = when (screen) {
             FragmentScreen.WATER_FRAGMENT -> {
-                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToWaterFragment(model)
+                TimeDetailsFragmentDirections.actionTimeDetailsFragmentToWaterFragment(model)
             }
             FragmentScreen.HYDRO_FRAGMENT -> {
-                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToHydroFragment(model)
+                TimeDetailsFragmentDirections.actionTimeDetailsFragmentToHydroFragment(model)
             }
             FragmentScreen.HEAT_FRAGMENT -> {
-                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToHeatFragment(model)
+                TimeDetailsFragmentDirections.actionTimeDetailsFragmentToHeatFragment(model)
             }
             FragmentScreen.PHONE_FRAGMENT -> {
-                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToPhoneFragment(model)
+                TimeDetailsFragmentDirections.actionTimeDetailsFragmentToPhoneFragment(model)
             }
             else -> return
         }
