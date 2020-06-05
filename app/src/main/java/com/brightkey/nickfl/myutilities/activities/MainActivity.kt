@@ -15,13 +15,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
 import com.brightkey.nickfl.myutilities.models.DashboardModel
+import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -178,11 +179,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun navigateTo(destination: Int, bundle: Bundle? = null) {
         navController.popBackStack()
         navController.navigate(destination, bundle)
-    }
-
-    private fun navigateWithAction(action: Int, extras: FragmentNavigator.Extras) {
-        navController.popBackStack(R.id.nav_host_fragment, false)
-        navController.navigate(action, null, null, extras)
     }
 
     private fun setCurrentChart() {
@@ -352,26 +348,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     //endregion
 
-    //region Show Fragment
-    private fun showFragmentFrom(right: Boolean, screen: FragmentScreen) {
-        if (screen != FragmentScreen.DASHBOARD_FRAGMENT) {
-            if (buttonsVisible) {
-                fabAction()
-            }
-        }
-        val direction = if (right) ScreenAnimation.ENTER_FROM_RIGHT else ScreenAnimation.ENTER_FROM_LEFT
-//        nManager?.replaceScreenTo(screen, direction)
-    }
-
-//    private fun showFragmentFromRight(screen: FragmentScreen) {
-//        showFragmentFrom(true, screen)
-//    }
-
-//    private fun showFragmentFromLeft(screen: FragmentScreen) {
-//        showFragmentFrom(false, screen)
-//    }
-    // endregion
-
     //region Fragments methods
     fun backToCharts(chart: Int) {
         when (chart) {
@@ -392,18 +368,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun editFragment(screen: FragmentScreen, index: Int) {
-        val bundle = Bundle()
-        bundle.putInt("index", index)
-        bundle.putBoolean("edit", true)
-        var destId = R.id.dashboardFragment
+        val model = UtilityEditModel(index, true)
+        val action: NavDirections?
         when (screen) {
-            FragmentScreen.NO_SCREEN -> { destId = R.id.dashboardFragment }
-            FragmentScreen.WATER_FRAGMENT -> { destId = R.id.waterFragment }
-            FragmentScreen.HYDRO_FRAGMENT -> { destId = R.id.hydroFragment }
-            FragmentScreen.HEAT_FRAGMENT -> { destId = R.id.heatFragment }
-            FragmentScreen.PHONE_FRAGMENT -> { destId = R.id.phoneFragment }
+            FragmentScreen.NO_SCREEN -> return
+            FragmentScreen.WATER_FRAGMENT -> {
+                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToWaterFragment(model)
+            }
+            FragmentScreen.HYDRO_FRAGMENT -> {
+                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToHydroFragment(model)
+            }
+            FragmentScreen.HEAT_FRAGMENT -> {
+                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToHeatFragment(model)
+            }
+            FragmentScreen.PHONE_FRAGMENT -> {
+                action = TimeDetailsFragmentDirections.actionTimeDetailsFragmentToPhoneFragment(model)
+            }
+            else -> return
         }
-        navController.navigate(destId, bundle)
+        action.let {
+            navController.navigate(it)
+        }
     }
 
     fun changePeriod(period: String) {
@@ -417,7 +402,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onDashboardInteraction(itemId: String) {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] onDashboardInteraction.itemId: $itemId")
-        var action = DashboardFragmentDirections.actionDashboardFragmentToTimeDetailsFragment(itemId)
+        val action = DashboardFragmentDirections.actionDashboardFragmentToTimeDetailsFragment(itemId)
         navController.navigate(action)
     }
 

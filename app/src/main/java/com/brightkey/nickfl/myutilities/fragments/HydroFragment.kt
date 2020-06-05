@@ -14,6 +14,7 @@ import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 import java.util.*
 
@@ -31,8 +32,13 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HYDRO_FRAGMENT
         entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HydroType)
-        doEdit = arguments?.getBoolean("edit") ?: false
-        editIndex = arguments?.getInt("index") ?: 0
+        val model = arguments?.getParcelable<UtilityEditModel>("editBillHydro")
+        doEdit = false
+        editIndex = 0
+        model?.let{
+            doEdit = it.edit
+            editIndex = it.index
+        }
         setHasOptionsMenu(true)
     }
 

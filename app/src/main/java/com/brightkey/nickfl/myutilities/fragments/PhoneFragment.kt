@@ -12,6 +12,7 @@ import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 import java.util.*
 
@@ -21,8 +22,13 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.PHONE_FRAGMENT
         entity = MyUtilitiesApplication.getConfigEntityForType(Constants.PhoneType)
-        doEdit = arguments?.getBoolean("edit") ?: false
-        editIndex = arguments?.getInt("index") ?: 0
+        val model = arguments?.getParcelable<UtilityEditModel>("editBillBell")
+        doEdit = false
+        editIndex = 0
+        model?.let{
+            doEdit = it.edit
+            editIndex = it.index
+        }
         setHasOptionsMenu(true)
     }
 

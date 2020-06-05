@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_timeDetailsFragment"
-            app:destination="@id/timeDetailsFragment" />
+            app:destination="@id/timeDetailsFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
         <action
             android:id="@+id/action_dashboardFragment_to_periodFragment"
             app:destination="@id/periodFragment"
@@ -27,16 +29,24 @@
         tools:layout="@layout/fragment_time_details" >
         <action
             android:id="@+id/action_timeDetailsFragment_to_hydroFragment"
-            app:destination="@id/hydroFragment" />
+            app:destination="@id/hydroFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
         <action
             android:id="@+id/action_timeDetailsFragment_to_phoneFragment"
-            app:destination="@id/phoneFragment" />
+            app:destination="@id/phoneFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
         <action
             android:id="@+id/action_timeDetailsFragment_to_waterFragment"
-            app:destination="@id/waterFragment" />
+            app:destination="@id/waterFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
         <action
             android:id="@+id/action_timeDetailsFragment_to_heatFragment"
-            app:destination="@id/heatFragment" />
+            app:destination="@id/heatFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left" />
         <argument
             android:name="billType"
             app:argType="string"
@@ -47,25 +57,41 @@
         android:id="@+id/heatFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.HeatFragment"
         android:label="@string/title_heat"
-        tools:layout="@layout/fragment_heat" />
+        tools:layout="@layout/fragment_heat" >
+        <argument
+            android:name="editBillHeat"
+            app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
+    </fragment>
 
     <fragment
         android:id="@+id/hydroFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.HydroFragment"
         android:label="@string/title_hydro"
-        tools:layout="@layout/fragment_hydro" />
+        tools:layout="@layout/fragment_hydro" >
+        <argument
+            android:name="editBillHydro"
+            app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
+    </fragment>
 
     <fragment
         android:id="@+id/phoneFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.PhoneFragment"
         android:label="@string/title_phone"
-        tools:layout="@layout/fragment_phone" />
+        tools:layout="@layout/fragment_phone" >
+        <argument
+            android:name="editBillBell"
+            app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
+    </fragment>
 
     <fragment
         android:id="@+id/waterFragment"
         android:name="com.brightkey.nickfl.myutilities.fragments.WaterFragment"
         android:label="@string/title_water"
-        tools:layout="@layout/fragment_water" />
+        tools:layout="@layout/fragment_water" >
+        <argument
+            android:name="editBillWater"
+            app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
+    </fragment>
 
     <fragment
         android:id="@+id/importFragment"
