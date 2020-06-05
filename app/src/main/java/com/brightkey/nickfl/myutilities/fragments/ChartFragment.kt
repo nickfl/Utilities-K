@@ -9,6 +9,7 @@ import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.models.ChartModel
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.components.AxisBase
@@ -36,8 +37,13 @@ class ChartFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf")
-        chartType = arguments?.getString("type") ?: Constants.HydroType
-        val color = arguments?.getString("color") ?: "#F58233"
+        val model = arguments?.getParcelable<ChartModel>("chartModel")
+        chartType = Constants.HydroType
+        var color = "#F58233"
+        model?.let{
+            chartType = it.type
+            color = it.color
+        }
         chartColor = Color.parseColor(color)
         setHasOptionsMenu(true)
     }

@@ -21,6 +21,7 @@ import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
+import com.brightkey.nickfl.myutilities.models.ChartModel
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -181,13 +182,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navController.navigate(destination, bundle)
     }
 
-    private fun setCurrentChart() {
+    private fun setCurrentChart(fromDrawer: Boolean = true) {
         currentModelItem = findModelItem(currentChartType)
         currentModelItem?.let {
-            val bundle = Bundle()
-            bundle.putString("type", it.utilityIcon)
-            bundle.putString("color", it.vendorColor)
-            navigateTo(R.id.chartFragment, bundle)
+            val model = ChartModel(it.utilityIcon, it.vendorColor)
+            val action = if (fromDrawer) {
+                DashboardFragmentDirections.actionDashboardFragmentToChartFragment(model)
+            } else {
+                UtilityFragmentDirections.actionUtilityFragmentToChartFragment(model)
+            }
+            navController.navigate(action)
             setChartTitle(it)
         }
     }
@@ -364,7 +368,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 currentChartType = Constants.PhoneType
             }
         }
-        setCurrentChart()
+        setCurrentChart(false)
     }
 
     fun editFragment(screen: FragmentScreen, index: Int) {
