@@ -44,7 +44,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun setup(view: View) {
-        spinner = view.findViewById<Spinner>(R.id.spinner)
+        spinner = view.findViewById(R.id.spinner)
         spinner?.let {
             it.onItemSelectedListener = this
             val aAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, periodNames)
@@ -55,7 +55,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
         // Update button
         val updateBtn = view.findViewById<Button>(R.id.button_update)
-        updateBtn?.setOnClickListener() {
+        updateBtn?.setOnClickListener {
             (activity as MainActivity).changePeriod(periodNames[selectedPeriod])
             when (selectedPeriod) {
                 0 -> {PeriodManager.shared.updatePeriodForToday()

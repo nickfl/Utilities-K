@@ -19,7 +19,7 @@ open class UtilityBillModel(
 ) : RealmObject() {
 
     fun copy(): UtilityBillModel {
-        var dest = UtilityBillModel()
+        val dest = UtilityBillModel()
         dest.id = this.id
         dest.utilityType = this.utilityType
         dest.billDate = this.billDate
@@ -68,8 +68,8 @@ open class UtilityBillModel(
         } else ""
     }
 
-    val paidDate: String
-        get() = if (datePaid != null) {
-            DateFormatters.dateStringFromDate(datePaid!!)
-        } else ""
+//    val paidDate: String
+//        get() = if (datePaid != null) {
+//            DateFormatters.dateStringFromDate(datePaid!!)
+//        } else ""
 }

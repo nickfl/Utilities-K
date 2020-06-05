@@ -25,7 +25,7 @@ import java.util.*
  */
 abstract class BaseFragment : Fragment() {
 
-    val TAG = this.javaClass.getSimpleName()
+    val TAG = this.javaClass.simpleName
 
     var mTag: FragmentScreen? = null
     private var addDueDay: Button? = null

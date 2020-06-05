@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.R
+import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.models.TimeListModel
 import timber.log.Timber
 
@@ -22,7 +22,7 @@ class TimeListAdapter(private val mActivity: Activity, private val paidList: Lis
     init {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.d("[$line] DashboardAdapter")
-        //        this.mListener = rowListener;
+//        this.mListener = rowListener;
     }
 
     //region RecyclerView Methods
@@ -42,7 +42,7 @@ class TimeListAdapter(private val mActivity: Activity, private val paidList: Lis
     }
 
     private fun bindDashHolder(dashHolder: TimeListViewHolder, index: Int) {
-        dashHolder.totalPaid.setText(String.format("$%.2f", this.paidList[index].totalPaid))
+        dashHolder.totalPaid.text = String.format("$%.2f", this.paidList[index].totalPaid)
         val dueToPay = customString("Due Date: " + this.paidList[index].duePaid, 9)
         dashHolder.dueToPay.text = dueToPay
         val whenPaid = customString("Paid Date: " + this.paidList[index].whenPaid, 10)
@@ -73,27 +73,12 @@ class TimeListAdapter(private val mActivity: Activity, private val paidList: Lis
 
     //region View Holders
     internal inner class TimeListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val dueToPay: TextView  // due date
-        val nowPaid: TextView   // amount paid this time
-        val totalPaid: TextView // total paid for this utility
-        val whenPaid: TextView  // date when paid
-        val line: View
-        val dots: ImageView
-
-        init {
-            this.dueToPay = itemView.findViewById<View>(R.id.textViewDuePaid) as TextView
-            this.nowPaid = itemView.findViewById<View>(R.id.textViewAmountPaid) as TextView
-            this.whenPaid = itemView.findViewById<View>(R.id.textViewDataPaid) as TextView
-            this.totalPaid = itemView.findViewById<View>(R.id.textViewTotalPaid) as TextView
-            this.line = itemView.findViewById(R.id.viewLine) as View
-            this.dots = itemView.findViewById<View>(R.id.imageViewMore) as ImageView
-        }
-        //endregion
+        val dueToPay: TextView = itemView.findViewById<View>(R.id.textViewDuePaid) as TextView    // due date
+        val nowPaid: TextView = itemView.findViewById<View>(R.id.textViewAmountPaid) as TextView  // amount paid this time
+        val totalPaid: TextView = itemView.findViewById<View>(R.id.textViewTotalPaid) as TextView // total paid for this utility
+        val whenPaid: TextView = itemView.findViewById<View>(R.id.textViewDataPaid) as TextView   // date when paid
+        val line: View = itemView.findViewById(R.id.viewLine) as View
+        val dots: ImageView = itemView.findViewById<View>(R.id.imageViewMore) as ImageView
     }
-
-    //------------------------------------------
-    interface AdapterDashboardInterface {
-        fun utilityPressed(userId: Long)
-    }
+    //endregion
 }

@@ -26,9 +26,9 @@ class MyUtilitiesApplication : Application() {
         }
 
         config = JsonUtility.loadConfigFromAsset("configuration.json", this)
-        if (config != null) {
+        config?.let {
             val line = Exception().stackTrace[0].lineNumber + 1
-            Timber.d("[" + line + "] config: " + config!!.toString())
+            Timber.d("[$line] config: $it.toString()")
         }
     }
 

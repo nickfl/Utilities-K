@@ -31,7 +31,7 @@ class Geometry {
 
     companion object {
 
-        internal var duration = 300
+        private var duration = 300
 
         fun moveButtonToY(yellow: View, newY: Float, aFinished: AnimationFinished?) {
             val animation1 = ObjectAnimator.ofFloat(yellow, "y", newY)

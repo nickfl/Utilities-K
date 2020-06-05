@@ -10,7 +10,6 @@ import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.ChartModel
-import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -68,11 +67,6 @@ class ChartFragment : BaseFragment() {
         setData(chartValues)
         chart?.setFitBars(true)
         chart?.invalidate()
-    }
-
-    fun configureChart(model: DashboardModel?) {
-        chartType = model?.utilityIcon ?: Constants.HydroType
-        chartColor = Color.parseColor(model?.vendorColor ?: "#F58233")
     }
 
     //region start Helpers
@@ -171,15 +165,6 @@ class ChartFragment : BaseFragment() {
             data.barWidth = barWidth
             chart?.data = data
             chart?.legend?.isEnabled = false
-        }
-    }
-
-    companion object {
-
-        fun newInstance(): ChartFragment {
-            val fragment = ChartFragment()
-            fragment.mTag = FragmentScreen.CHART_FRAGMENT
-            return fragment
         }
     }
     //endregion

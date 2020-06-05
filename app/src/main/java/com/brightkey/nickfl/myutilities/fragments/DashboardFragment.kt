@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.DashboardAdapter
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 
 class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInterface {
@@ -43,15 +43,6 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
     override fun onDetach() {
         super.onDetach()
         mListener = null
-    }
-
-    fun dataUpdated() {
-        adapter.notifyDataSetChanged()
-    }
-
-    fun reloadView() {
-        adapter.cleanUtilities()
-        adapter.notifyDataSetChanged()
     }
 
     //region Helpers

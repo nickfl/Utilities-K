@@ -14,7 +14,7 @@ import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import timber.log.Timber
 
-class DashboardAdapter(private val mActivity: Activity, private val utilityList: List<DashboardModel>, rowListener: DashboardAdapter.AdapterDashboardInterface) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DashboardAdapter(private val mActivity: Activity, private val utilityList: List<DashboardModel>, rowListener: AdapterDashboardInterface) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mListener: AdapterDashboardInterface
 
     init {
@@ -79,23 +79,14 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
     //region View Holders
     internal inner class DashboardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val cardView: CardView
-        val utilityIcon: ImageView
-        val utilityType: TextView
-        val utilityVendor: TextView
-        val accountNumber: TextView
-        val totalUnits: TextView
-        val totalPaid: TextView
+        val cardView: CardView = itemView.findViewById<View>(R.id.dashCardView) as CardView
+        val utilityIcon: ImageView = itemView.findViewById<View>(R.id.imageViewIcon) as ImageView
+        val utilityType: TextView = itemView.findViewById<View>(R.id.textViewDashboard) as TextView
+        val utilityVendor: TextView = itemView.findViewById<View>(R.id.textViewVendor) as TextView
+        val accountNumber: TextView = itemView.findViewById<View>(R.id.textViewAccount) as TextView
+        val totalUnits: TextView = itemView.findViewById<View>(R.id.textViewTotalUnits) as TextView
+        val totalPaid: TextView = itemView.findViewById<View>(R.id.textViewTotalPaid) as TextView
 
-        init {
-            this.cardView = itemView.findViewById<View>(R.id.dashCardView) as CardView
-            this.utilityIcon = itemView.findViewById<View>(R.id.imageViewIcon) as ImageView
-            this.utilityType = itemView.findViewById<View>(R.id.textViewDashboard) as TextView
-            this.utilityVendor = itemView.findViewById<View>(R.id.textViewVendor) as TextView
-            this.accountNumber = itemView.findViewById<View>(R.id.textViewAccount) as TextView
-            this.totalUnits = itemView.findViewById<View>(R.id.textViewTotalUnits) as TextView
-            this.totalPaid = itemView.findViewById<View>(R.id.textViewTotalPaid) as TextView
-        }
     }
     //endregion
 

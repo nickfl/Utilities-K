@@ -1,10 +1,11 @@
 package com.brightkey.nickfl.myutilities.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionInflater
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity

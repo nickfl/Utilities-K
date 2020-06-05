@@ -19,7 +19,7 @@ class RealmHelper private constructor() {
                 realm.deleteAll()
             }
         } catch (e: IllegalStateException) {
-            var line = Exception().stackTrace[0].lineNumber + 1
+            val line = Exception().stackTrace[0].lineNumber + 1
             Timber.e("Realm: [$line] deleteAll Failed!")
         }
     }
@@ -42,7 +42,7 @@ class RealmHelper private constructor() {
 
     fun fetchAllUtilityBills(): List<UtilityBillModel> {
         val res = realm.where<UtilityBillModel>().findAll()
-        var list: ArrayList<UtilityBillModel> = ArrayList()
+        val list: ArrayList<UtilityBillModel> = ArrayList()
         for (item in res) {
             list.add(item.copy())
         }
@@ -111,7 +111,7 @@ class RealmHelper private constructor() {
                     .equalTo("utilityType", type)
                     .findAll()
                     .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
-            var utils: ArrayList<UtilityBillModel> = ArrayList()
+            val utils: ArrayList<UtilityBillModel> = ArrayList()
             for (item in result) {
                 utils.add(item)
             }
