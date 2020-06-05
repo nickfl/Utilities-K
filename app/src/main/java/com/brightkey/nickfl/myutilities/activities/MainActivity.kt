@@ -168,7 +168,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //region Helpers
     private fun topFragment(): BaseFragment {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        return navHostFragment?.childFragmentManager?.getFragments()?.get(0) as BaseFragment
+        return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseFragment
     }
 
     private fun updateTitle(title: CharSequence) {
@@ -415,11 +415,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // OnDashboardInteractionListener
     // `itemId` - utilityType, default - "hydro_bill"
     override fun onDashboardInteraction(itemId: String) {
-        val bundle = Bundle()
-        bundle.putString("itemId", itemId)
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] onDashboardInteraction.itemId: $itemId")
-        navigateTo(R.id.timeDetailsFragment, bundle)
+        var action = DashboardFragmentDirections.actionDashboardFragmentToTimeDetailsFragment(itemId)
+        navController.navigate(action)
     }
 
     // OnDateSetListener

@@ -32,6 +32,10 @@
         <action
             android:id="@+id/action_timeDetailsFragment_to_heatFragment"
             app:destination="@id/heatFragment" />
+        <argument
+            android:name="billType"
+            app:argType="string"
+            android:defaultValue="hydro_bill" />
     </fragment>
 
     <fragment

@@ -22,7 +22,7 @@ class TimeDetailsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.TIMEDETAILS_FRAGMENT
-        detailsType = arguments?.getString("itemId") ?: "hydro_bill"
+        detailsType = arguments?.getString("billType") ?: "hydro_bill"
         title = MyUtilitiesApplication.getConfigEntityForType(detailsType)?.utilityType ?: "Utility"
         setHasOptionsMenu(true)
      }
