@@ -178,7 +178,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun navigateTo(destination: Int, bundle: Bundle? = null) {
-        navController.popBackStack()
         navController.navigate(destination, bundle)
     }
 
