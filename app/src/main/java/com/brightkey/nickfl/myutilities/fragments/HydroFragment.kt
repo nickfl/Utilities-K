@@ -6,17 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
-import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
-import java.util.*
 
 class HydroFragment : BaseFragment(), View.OnClickListener {
 
@@ -33,8 +29,6 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
         mTag = FragmentScreen.HYDRO_FRAGMENT
         entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HydroType)
         val model = arguments?.getParcelable<UtilityEditModel>("editBillHydro")
-        doEdit = false
-        editIndex = 0
         model?.let{
             doEdit = it.edit
             editIndex = it.index
@@ -68,7 +62,7 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
         addPayment?.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
-        super.setupMainStatement(view, this)
+        setupMainStatement(view, this)
 
         // Details:
         val onPeak = view.findViewById<View>(R.id.includeOnPeak)
@@ -97,8 +91,8 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun cleanUp() {
-        super.initMainStatement()
-        if (!doEdit!!) {
+        initMainStatement()
+        if (!doEdit) {
             changeDateVisibility(true)
             usedOnPeak?.setText(R.string.hydro_zero_used)
             usedOnMid?.setText(R.string.hydro_zero_used)
@@ -110,26 +104,7 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v === addPayment) {
-            val check = ArrayList<EditText>()
-            check.add(paidAmount0!!)
-            check.add(paidAmount1!!)
-            check.add(paidAmount2!!)
-            if (!super.validateData(check)) {
-                val line = Exception().stackTrace[0].lineNumber + 1
-                Timber.e("[$line] validateData failed!")
-                super.showError()
-                return
-            }
-            val utility = if (doEdit!!) editUtility else UtilityBillModel()
-            if (!doEdit!!) {
-                super.saveMainStatement(utility!!, Constants.HydroType)
-            }
-            utility!!.amountDue = super.amountFrom(paymentTotal!!)
-            utility.amountType0 = super.amountFrom(paidAmount0!!)
-            utility.amountType1 = super.amountFrom(paidAmount1!!)
-            utility.amountType2 = super.amountFrom(paidAmount2!!)
-            //add or update payment
-            RealmHelper.updateBill(utility)
+            saveFullBill()
             exitListener?.onFragmentExit()
             return
         }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
+import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import timber.log.Timber
@@ -40,18 +41,13 @@ abstract class BaseFragment : Fragment() {
     var paidAmount1: EditText? = null
     var paidAmount2: EditText? = null
 
-    var doEdit: Boolean? = null
+    var doEdit: Boolean = false
     var editIndex: Int = 0
 
     var entity: ConfigEntity? = null
     var editUtility: UtilityBillModel? = null
 
     var exitListener: ExitFragmentListener? = null
-
-    init {
-        doEdit = false
-        editIndex = 0
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,6 +159,31 @@ abstract class BaseFragment : Fragment() {
                 return false
             }
 
+        }
+        return true
+    }
+
+    fun saveFullBill(): Boolean {
+        val check = ArrayList<EditText>()
+        check.add(paidAmount0!!)
+        check.add(paidAmount1!!)
+        check.add(paidAmount2!!)
+        if (!validateData(check)) {
+            val line = Exception().stackTrace[0].lineNumber + 1
+            Timber.e("[$line] validateData failed!")
+            showError()
+            return false
+        }
+        val utility = if (doEdit) editUtility else UtilityBillModel()
+        utility?.let {
+            if (!doEdit) {
+                saveMainStatement(it, Constants.PhoneType)
+            }
+            it.amountDue = amountFrom(paymentTotal!!)
+            it.amountType0 = amountFrom(paidAmount0!!)
+            it.amountType1 = amountFrom(paidAmount1!!)
+            it.amountType2 = amountFrom(paidAmount2!!)
+            RealmHelper.updateBill(it)
         }
         return true
     }

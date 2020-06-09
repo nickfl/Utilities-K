@@ -27,8 +27,6 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         mTag = FragmentScreen.HEAT_FRAGMENT
         entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HeatType)
         val model = arguments?.getParcelable<UtilityEditModel>("editBillHeat")
-        doEdit = false
-        editIndex = 0
         model?.let{
             doEdit = it.edit
             editIndex = it.index
@@ -61,7 +59,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         addPayment?.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
-        super.setupMainStatement(view, this)
+        setupMainStatement(view, this)
 
         // Details:
         val onPeak = view.findViewById<View>(R.id.includeOnPeak)
@@ -73,8 +71,8 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun cleanUp() {
-        super.initMainStatement()
-        if (!doEdit!!) {
+        initMainStatement()
+        if (!doEdit) {
             changeDateVisibility(true)
             usedGas?.setText(R.string.water_zero_used)
         } else {
@@ -86,19 +84,21 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         if (v === addPayment) {
             val check = ArrayList<EditText>()
             check.add(paidAmount0!!)
-            if (!super.validateData(check)) {
+            if (!validateData(check)) {
                 val line = Exception().stackTrace[0].lineNumber + 1
                 Timber.e("[$line] validateData failed!")
-                super.showError()
+                showError()
                 return
             }
-            val utility = if (doEdit!!) editUtility else UtilityBillModel()
-            if (!doEdit!!) {
-                super.saveMainStatement(utility!!, Constants.HeatType)
+            val utility = if (doEdit) editUtility else UtilityBillModel()
+            utility?.let{
+                if (!doEdit) {
+                    saveMainStatement(it, Constants.HeatType)
+                }
+                it.amountDue = amountFrom(paymentTotal!!)
+                it.amountType0 = amountFrom(paidAmount0!!)
+                RealmHelper.updateBill(it)
             }
-            utility!!.amountDue = super.amountFrom(paymentTotal!!)
-            utility.amountType0 = super.amountFrom(paidAmount0!!)
-            RealmHelper.updateBill(utility)
             exitListener?.onFragmentExit()
             return
         }
