@@ -49,7 +49,7 @@ class PhoneFragment : BaseFragment(), View.OnClickListener {
         acc.text = entity?.accountNumber
 
         addPayment = view.findViewById(R.id.buttonAddPhonePayment)
-        addPayment?.setOnClickListener(this)
+        addPayment.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
         setupMainStatement(view, this)

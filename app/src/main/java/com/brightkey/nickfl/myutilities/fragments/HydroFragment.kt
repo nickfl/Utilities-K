@@ -59,7 +59,7 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
 
         //add payment button
         addPayment = view.findViewById(R.id.buttonAddHydroPayment)
-        addPayment?.setOnClickListener(this)
+        addPayment.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
         setupMainStatement(view, this)
@@ -69,8 +69,8 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
         val nameOnPeak = onPeak.findViewById<TextView>(R.id.textAmountViewName)
         nameOnPeak.setText(R.string.hydro_on_peak_pay)
         paidAmount0 = onPeak.findViewById(R.id.textAmountViewAmount)
-        paidAmount0?.addTextChangedListener(AmountTextWatcher(paidAmount0!!))
-        paidAmount0?.id = paidOnPeakTag
+        paidAmount0.addTextChangedListener(AmountTextWatcher(paidAmount0))
+        paidAmount0.id = paidOnPeakTag
         usedOnPeak = onPeak.findViewById(R.id.textAmountViewPrice)
 
         val onMid = view.findViewById<View>(R.id.includeOnMid)

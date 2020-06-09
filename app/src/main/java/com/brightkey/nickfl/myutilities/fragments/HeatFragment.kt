@@ -6,17 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
-import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
-import java.util.*
 
 class HeatFragment : BaseFragment(), View.OnClickListener {
 
@@ -56,7 +52,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         acc.text = entity?.accountNumber
 
         addPayment = view.findViewById(R.id.buttonAddHeatPayment)
-        addPayment?.setOnClickListener(this)
+        addPayment.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
         setupMainStatement(view, this)
@@ -66,7 +62,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         val nameOnPeak = onPeak.findViewById<TextView>(R.id.textAmountViewName)
         nameOnPeak.setText(R.string.heat_gas_pay)
         paidAmount0 = onPeak.findViewById(R.id.textAmountViewAmount)
-        paidAmount0?.addTextChangedListener(AmountTextWatcher())
+        paidAmount0.addTextChangedListener(AmountTextWatcher())
         usedGas = onPeak.findViewById(R.id.textAmountViewPrice)
     }
 
@@ -82,23 +78,7 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v === addPayment) {
-            val check = ArrayList<EditText>()
-            check.add(paidAmount0!!)
-            if (!validateData(check)) {
-                val line = Exception().stackTrace[0].lineNumber + 1
-                Timber.e("[$line] validateData failed!")
-                showError()
-                return
-            }
-            val utility = if (doEdit) editUtility else UtilityBillModel()
-            utility?.let{
-                if (!doEdit) {
-                    saveMainStatement(it, Constants.HeatType)
-                }
-                it.amountDue = amountFrom(paymentTotal!!)
-                it.amountType0 = amountFrom(paidAmount0!!)
-                RealmHelper.updateBill(it)
-            }
+            saveFullBill()
             exitListener?.onFragmentExit()
             return
         }

@@ -29,15 +29,16 @@ abstract class BaseFragment : Fragment() {
     val TAG = this.javaClass.simpleName
 
     var mTag: FragmentScreen? = null
-    private var addDueDay: Button? = null
-    var currentDateView: TextView? = null // Due or Statement Date
-    var addPayment: Button? = null        // Add or Edit payment
+
+    private lateinit var addDueDay: Button
+    var currentDateView: TextView? = null  // Due or Statement Date
+    lateinit var addPayment: Button        // Add or Edit payment
     var addStatementDay: Button? = null
     var billDate: TextView? = null
-    var paymentTotal: EditText? = null    // total amount to pay for a utility
+    private lateinit var paymentTotal: EditText   // total amount to pay for a utility
     var dueDate: TextView? = null
 
-    var paidAmount0: EditText? = null
+    lateinit var paidAmount0: EditText
     var paidAmount1: EditText? = null
     var paidAmount2: EditText? = null
 
@@ -83,7 +84,7 @@ abstract class BaseFragment : Fragment() {
 
         val due = layoutStatement.findViewById<View>(R.id.includeDDate)
         addDueDay = due.findViewById(R.id.buttonDateAdd)
-        addDueDay?.setOnClickListener(listener)
+        addDueDay.setOnClickListener(listener)
         dueDate = due.findViewById(R.id.textDateViewDate)
         val nameDue = due.findViewById<TextView>(R.id.textDateViewName)
         nameDue.setText(R.string.utility_due_date)
@@ -92,7 +93,7 @@ abstract class BaseFragment : Fragment() {
         paymentTotal = price.findViewById(R.id.textPriceViewAmount)
     }
 
-    fun saveMainStatement(utility: UtilityBillModel, utilityType: String) {
+    private fun saveMainStatement(utility: UtilityBillModel, utilityType: String) {
         val cal = GregorianCalendar()
         utility.utilityType = utilityType
         utility.datePaid = cal.time
@@ -104,42 +105,30 @@ abstract class BaseFragment : Fragment() {
         val cal = GregorianCalendar()
         billDate?.text = DateFormatters.dateStringFromCalendar(cal)
         dueDate?.text = DateFormatters.dateStringFromCalendar(cal)
-        paymentTotal?.setText("")
-        if (paidAmount0 != null) {
-            paidAmount0?.setText("")
-        }
-        if (paidAmount1 != null) {
-            paidAmount1?.setText("")
-        }
-        if (paidAmount2 != null) {
-            paidAmount2?.setText("")
-        }
+        paymentTotal.setText("")
+        paidAmount0.setText("")
+        paidAmount1?.setText("")
+        paidAmount2?.setText("")
     }
 
     fun changeDateVisibility(show: Boolean?) {
         val visible = if (show!!) View.VISIBLE else View.INVISIBLE
         addStatementDay?.visibility = visible
-        addDueDay?.visibility = visible
+        addDueDay.visibility = visible
     }
 
     private fun fillInStatement(utility: UtilityBillModel) {
         changeDateVisibility(false)
-        addPayment?.setText(R.string.hydro_update_payment)
+        addPayment.setText(R.string.hydro_update_payment)
         billDate?.text = utility.getBillDate()
         dueDate?.text = utility.getDueDate()
-        paymentTotal?.setText(utility.getAmountDue())
-        if (paidAmount0 != null) {
-            paidAmount0?.setText(utility.getAmountType0())
-        }
-        if (paidAmount1 != null) {
-            paidAmount1?.setText(utility.getAmountType1())
-        }
-        if (paidAmount2 != null) {
-            paidAmount2?.setText(utility.getAmountType2())
-        }
+        paymentTotal.setText(utility.getAmountDue())
+        paidAmount0.setText(utility.getAmountType0())
+        paidAmount1?.setText(utility.getAmountType1())
+        paidAmount2?.setText(utility.getAmountType2())
     }
 
-    fun amountFrom(payment: TextView): Double {
+    private fun amountFrom(payment: TextView): Double {
         var text = payment.text.toString()
         if (text[0] == '$') {
             text = text.substring(1)
@@ -147,10 +136,9 @@ abstract class BaseFragment : Fragment() {
         return java.lang.Double.parseDouble(text)
     }
 
-    fun validateData(fields: MutableList<EditText>): Boolean {
-        fields.add(paymentTotal!!)
+    private fun validateData(fields: MutableList<EditText>): Boolean {
         for (one in fields) {
-            if (one.text == null || one.text.toString().isEmpty()) {
+            if (one.text.isNullOrBlank()) {
                 return false
             }
             try {
@@ -158,16 +146,16 @@ abstract class BaseFragment : Fragment() {
             } catch (ex: Exception) {
                 return false
             }
-
         }
         return true
     }
 
     fun saveFullBill(): Boolean {
         val check = ArrayList<EditText>()
-        check.add(paidAmount0!!)
-        check.add(paidAmount1!!)
-        check.add(paidAmount2!!)
+        check.add(paymentTotal)
+        check.add(paidAmount0)
+        paidAmount1?.run { check.add(paidAmount1!!) }
+        paidAmount2?.run { check.add(paidAmount2!!) }
         if (!validateData(check)) {
             val line = Exception().stackTrace[0].lineNumber + 1
             Timber.e("[$line] validateData failed!")
@@ -175,20 +163,20 @@ abstract class BaseFragment : Fragment() {
             return false
         }
         val utility = if (doEdit) editUtility else UtilityBillModel()
-        utility?.let {
+        utility?.let { model ->
             if (!doEdit) {
-                saveMainStatement(it, Constants.PhoneType)
+                saveMainStatement(model, Constants.PhoneType)
             }
-            it.amountDue = amountFrom(paymentTotal!!)
-            it.amountType0 = amountFrom(paidAmount0!!)
-            it.amountType1 = amountFrom(paidAmount1!!)
-            it.amountType2 = amountFrom(paidAmount2!!)
-            RealmHelper.updateBill(it)
+            model.amountDue = amountFrom(paymentTotal)
+            model.amountType0 = amountFrom(paidAmount0)
+            paidAmount1?.run { model.amountType1 = amountFrom(paidAmount1!!) }
+            paidAmount2?.run { model.amountType2 = amountFrom(paidAmount2!!) }
+            RealmHelper.updateBill(model)
         }
         return true
     }
 
-    fun showError() {
+    private fun showError() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(context, R.style.myErrorDialog))
         builder.setMessage(R.string.not_valid_fields)
                 .setTitle(R.string.oops)

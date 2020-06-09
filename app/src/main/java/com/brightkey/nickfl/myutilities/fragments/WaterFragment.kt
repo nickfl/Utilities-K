@@ -58,7 +58,7 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
         acc.text = entity?.accountNumber
 
         addPayment = view.findViewById(R.id.buttonAddWaterPayment)
-        addPayment?.setOnClickListener(this)
+        addPayment.setOnClickListener(this)
 
         // the same for all Utilities - Main Statement data
         setupMainStatement(view, this)
@@ -68,8 +68,8 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
         val nameOnPeak = onPeak.findViewById<TextView>(R.id.textAmountViewName)
         nameOnPeak.setText(R.string.water_water_pay)
         paidAmount0 = onPeak.findViewById(R.id.textAmountViewAmount)
-        paidAmount0?.addTextChangedListener(AmountTextWatcher(paidAmount0!!))
-        paidAmount0?.id = paidWaterTag
+        paidAmount0.addTextChangedListener(AmountTextWatcher(paidAmount0))
+        paidAmount0.id = paidWaterTag
         usedWater = onPeak.findViewById(R.id.textAmountViewPrice)
 
         val onMid = view.findViewById<View>(R.id.includeOnMid)
