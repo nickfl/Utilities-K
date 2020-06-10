@@ -25,7 +25,13 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import timber.log.Timber
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, DashboardFragment.OnDashboardInteractionListener, DatePickerDialog.OnDateSetListener, BaseFragment.ExitFragmentListener, ActivityCompat.OnRequestPermissionsResultCallback {
+class MainActivity : AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener,
+        DrawerLayout.DrawerListener,
+        DashboardFragment.OnDashboardInteractionListener,
+        DatePickerDialog.OnDateSetListener,
+        BaseFragment.ExitFragmentListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 

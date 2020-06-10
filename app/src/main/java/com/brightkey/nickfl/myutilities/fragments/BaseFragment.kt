@@ -1,7 +1,5 @@
 package com.brightkey.nickfl.myutilities.fragments
 
-import android.content.Context
-import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -49,21 +47,6 @@ abstract class BaseFragment(billType: String = ""  // Constant.HeatType
     var editUtility: UtilityBillModel? = null
 
     var exitListener: ExitFragmentListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val line = Exception().stackTrace[0].lineNumber + 1
-        Timber.w("[$line] onCreate()")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is ExitFragmentListener) {
-            exitListener = context
-        } else {
-            throw RuntimeException("$context must implement OnFragmentInteractionListener")
-        }
-    }
 
     fun billForUtility(item: ConfigEntity, index: Int): UtilityBillModel {
         val utils = RealmHelper.utilitiesForType(item.utilityIcon!!)

@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.myutilities.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -34,6 +35,15 @@ class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
         val view = inflater.inflate(R.layout.fragment_heat, container, false)
         setup(view)
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ExitFragmentListener) {
+            exitListener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
     }
 
     override fun onResume() {

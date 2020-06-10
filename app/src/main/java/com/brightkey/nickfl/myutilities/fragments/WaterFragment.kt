@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.myutilities.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,7 +14,7 @@ import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class WaterFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
+class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
 
     internal val paidWaterTag = 111
     internal val paidWasteTag = 222
@@ -40,6 +41,15 @@ class WaterFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
         val view = inflater.inflate(R.layout.fragment_water, container, false)
         setup(view)
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ExitFragmentListener) {
+            exitListener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
     }
 
     override fun onResume() {
