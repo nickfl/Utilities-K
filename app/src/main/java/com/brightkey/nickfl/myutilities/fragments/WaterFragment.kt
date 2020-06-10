@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class WaterFragment : BaseFragment(), View.OnClickListener {
+class WaterFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
 
     internal val paidWaterTag = 111
     internal val paidWasteTag = 222
@@ -27,7 +26,6 @@ class WaterFragment : BaseFragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.WATER_FRAGMENT
-        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.WaterType)
         val model = arguments?.getParcelable<UtilityEditModel>("editBillWater")
         model?.let{
             doEdit = it.edit

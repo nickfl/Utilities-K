@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class HydroFragment : BaseFragment(), View.OnClickListener {
+class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
 
     internal val paidOnPeakTag = 111
     internal val paidOnMidTag = 222
@@ -27,7 +26,6 @@ class HydroFragment : BaseFragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HYDRO_FRAGMENT
-        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HydroType)
         val model = arguments?.getParcelable<UtilityEditModel>("editBillHydro")
         model?.let{
             doEdit = it.edit

@@ -5,19 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class PhoneFragment : BaseFragment(), View.OnClickListener {
+class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.PHONE_FRAGMENT
-        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.PhoneType)
         val model = arguments?.getParcelable<UtilityEditModel>("editBillBell")
         model?.let{
             doEdit = it.edit

@@ -36,6 +36,7 @@ class ChartFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf")
+        mTag = FragmentScreen.CHART_FRAGMENT
         val model = arguments?.getParcelable<ChartModel>("chartModel")
         chartType = Constants.HydroType
         var color = "#F58233"

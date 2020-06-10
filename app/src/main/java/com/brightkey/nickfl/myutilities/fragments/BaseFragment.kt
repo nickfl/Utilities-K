@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
@@ -24,11 +25,11 @@ import java.util.*
  * @since 1.0.0
  * Date: 1/21/2017
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment(billType: String = ""  // Constant.HeatType
+) : Fragment() {
 
-    val TAG = this.javaClass.simpleName
-
-    var mTag: FragmentScreen? = null
+    lateinit var mTag: FragmentScreen
+    var entity = if (billType.isNotEmpty()) MyUtilitiesApplication.getConfigEntityForType(billType) else null
 
     private lateinit var addDueDay: Button
     var currentDateView: TextView? = null  // Due or Statement Date
@@ -45,7 +46,6 @@ abstract class BaseFragment : Fragment() {
     var doEdit: Boolean = false
     var editIndex: Int = 0
 
-    var entity: ConfigEntity? = null
     var editUtility: UtilityBillModel? = null
 
     var exitListener: ExitFragmentListener? = null

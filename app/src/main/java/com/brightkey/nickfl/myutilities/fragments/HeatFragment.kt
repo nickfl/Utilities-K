@@ -7,21 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class HeatFragment : BaseFragment(), View.OnClickListener {
+class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
 
     private var usedGas: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HEAT_FRAGMENT
-        entity = MyUtilitiesApplication.getConfigEntityForType(Constants.HeatType)
         val model = arguments?.getParcelable<UtilityEditModel>("editBillHeat")
         model?.let{
             doEdit = it.edit
@@ -105,5 +103,4 @@ class HeatFragment : BaseFragment(), View.OnClickListener {
         }
     }
     //endregion
-
-}// Required empty public constructor
+}
