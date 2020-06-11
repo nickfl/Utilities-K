@@ -11,21 +11,16 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
+class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener {
 
     private var usedGas: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HEAT_FRAGMENT
-        val model = arguments?.getParcelable<UtilityEditModel>("editBillHeat")
-        model?.let{
-            doEdit = it.edit
-            editIndex = it.index
-        }
+        super.getArguments(arguments)
         setHasOptionsMenu(true)
     }
 
@@ -39,7 +34,7 @@ class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is ExitFragmentListener) {
+        if (context is BaseFragment.ExitFragmentListener) {
             exitListener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
@@ -57,7 +52,7 @@ class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<View>(R.id.textHeatAcc) as TextView
-        acc.text = entity?.accountNumber
+        acc.text = accountNumber()
 
         addPayment = view.findViewById(R.id.buttonAddHeatPayment)
         addPayment.setOnClickListener(this)
@@ -80,7 +75,7 @@ class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
             changeDateVisibility(true)
             usedGas?.setText(R.string.water_zero_used)
         } else {
-            billForUtility(entity, editIndex)
+            billForUtility()
         }
     }
 
@@ -100,16 +95,7 @@ class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun afterTextChanged(editable: Editable) {
-            var paid = 0.0
-            entity?.let {
-                if (it.unitPrice0 > 0.0) {
-                    val value = editable.toString()
-                    if (value.isNotEmpty()) {
-                        paid = java.lang.Double.parseDouble(value) / it.unitPrice0
-                    }
-                }
-            }
-            usedGas?.text = String.format("(m3) %.3f", paid)
+            usedGas?.text = String.format("(m3) %.3f", editableChanged(editable))
         }
     }
     //endregion

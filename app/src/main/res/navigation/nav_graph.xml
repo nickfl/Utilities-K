@@ -82,7 +82,7 @@
         android:label="@string/title_heat"
         tools:layout="@layout/fragment_heat" >
         <argument
-            android:name="editBillHeat"
+            android:name="editBillUtility"
             app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
     </fragment>
 
@@ -92,7 +92,7 @@
         android:label="@string/title_hydro"
         tools:layout="@layout/fragment_hydro" >
         <argument
-            android:name="editBillHydro"
+            android:name="editBillUtility"
             app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
     </fragment>
 
@@ -102,7 +102,7 @@
         android:label="@string/title_phone"
         tools:layout="@layout/fragment_phone" >
         <argument
-            android:name="editBillBell"
+            android:name="editBillUtility"
             app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
     </fragment>
 
@@ -112,7 +112,7 @@
         android:label="@string/title_water"
         tools:layout="@layout/fragment_water" >
         <argument
-            android:name="editBillWater"
+            android:name="editBillUtility"
             app:argType="com.brightkey.nickfl.myutilities.models.UtilityEditModel" />
     </fragment>
 

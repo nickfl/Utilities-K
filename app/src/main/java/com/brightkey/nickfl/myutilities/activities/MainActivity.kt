@@ -54,8 +54,6 @@ class MainActivity : AppCompatActivity(),
     private var fabHeat: FloatingActionButton? = null
     private var fabHydro: FloatingActionButton? = null
     private var fabPhone: FloatingActionButton? = null
-    private var exportFragment: ExportFragment? = null
-    private var importFragment: ImportFragment? = null
     private var currentPeriod: String = ""  // default - Current Year
 
     // all buttons are the same
@@ -171,9 +169,9 @@ class MainActivity : AppCompatActivity(),
     // endregion
 
     //region Helpers
-    private fun topFragment(): BaseFragment {
+    private fun topFragment(): BaseEditFragment {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseFragment
+        return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseEditFragment
     }
 
     private fun updateTitle(title: CharSequence) {

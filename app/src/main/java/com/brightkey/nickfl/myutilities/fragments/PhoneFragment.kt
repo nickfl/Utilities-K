@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.myutilities.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,19 +9,14 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
+class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.PHONE_FRAGMENT
-        val model = arguments?.getParcelable<UtilityEditModel>("editBillBell")
-        model?.let{
-            doEdit = it.edit
-            editIndex = it.index
-        }
+        super.getArguments(arguments)
         setHasOptionsMenu(true)
     }
 
@@ -30,6 +26,15 @@ class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
         val view = inflater.inflate(R.layout.fragment_phone, container, false)
         setup(view)
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is BaseFragment.ExitFragmentListener) {
+            exitListener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
     }
 
     override fun onResume() {
@@ -44,7 +49,7 @@ class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<View>(R.id.textPhoneAcc) as TextView
-        acc.text = entity?.accountNumber
+        acc.text = accountNumber()
 
         addPayment = view.findViewById(R.id.buttonAddPhonePayment)
         addPayment.setOnClickListener(this)
@@ -80,7 +85,7 @@ class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
         if (!doEdit) {
             changeDateVisibility(true)
         } else {
-            billForUtility(entity, editIndex)
+            billForUtility()
         }
     }
 

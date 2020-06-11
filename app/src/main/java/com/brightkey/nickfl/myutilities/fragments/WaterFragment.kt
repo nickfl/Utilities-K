@@ -11,10 +11,9 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
+class WaterFragment : BaseEditFragment(Constants.WaterType), View.OnClickListener {
 
     internal val paidWaterTag = 111
     internal val paidWasteTag = 222
@@ -27,11 +26,7 @@ class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.WATER_FRAGMENT
-        val model = arguments?.getParcelable<UtilityEditModel>("editBillWater")
-        model?.let{
-            doEdit = it.edit
-            editIndex = it.index
-        }
+        super.getArguments(arguments)
         setHasOptionsMenu(true)
     }
 
@@ -45,7 +40,7 @@ class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is ExitFragmentListener) {
+        if (context is BaseFragment.ExitFragmentListener) {
             exitListener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
@@ -63,7 +58,7 @@ class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<View>(R.id.textWaterAcc) as TextView
-        acc.text = entity?.accountNumber
+        acc.text = accountNumber()
 
         addPayment = view.findViewById(R.id.buttonAddWaterPayment)
         addPayment.setOnClickListener(this)
@@ -105,7 +100,7 @@ class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
             usedWaste?.setText(R.string.water_zero_used)
             usedStorm?.setText(R.string.water_zero_used)
         } else {
-            billForUtility(entity, editIndex)
+            billForUtility()
         }
     }
 
@@ -125,39 +120,20 @@ class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
 
         override fun afterTextChanged(editable: Editable) {
             val value = editable.toString()
-            var paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
+            val paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
             when (view.id) {
                 paidWaterTag -> {
-                    usedWater?.text = getString(R.string.EmptyM3)
-                    usedWaste?.text = getString(R.string.EmptyM3)
-                    paidAmount1?.setText("0.0")
-                    entity?.let {
-                        if (it.unitPrice0 > 0.0) {
-                            paid /= it.unitPrice0
-                            usedWater?.text = String.format("(m3) %.3f", paid)
-                            val waste = paid * 0.85
-                            usedWaste?.text = String.format("(m3) %.3f", waste)
-                            paidAmount1?.setText(String.format("%.2f", waste * it.unitPrice1))
-                        }
-                    }
+                    val water = unit0(paid)
+                    usedWater?.text = String.format("(m3) %.3f", water)
+                    val waste = water * 0.85
+                    usedWaste?.text = String.format("(m3) %.3f", waste)
+                    paidAmount1?.setText(String.format("%.2f", unitWaste1(waste)))
                 }
                 paidWasteTag -> {
-                    usedWaste?.text = getString(R.string.EmptyM3)
-                    entity?.let {
-                        if (it.unitPrice1 > 0.0) {
-                            paid /= it.unitPrice1
-                            usedWaste?.text = String.format("(m3) %.3f", paid)
-                        }
-                    }
+                    usedWaste?.text = String.format("(m3) %.3f",  unit1(paid))
                 }
                 paidStormTag -> {
-                    usedStorm?.text = getString(R.string.EmptyM3)
-                    entity?.let {
-                        if (it.unitPrice2 > 0.0) {
-                            paid /= it.unitPrice2
-                            usedStorm?.text = String.format("(days) %.0f", paid)
-                        }
-                    }
+                    usedStorm?.text = String.format("(days) %.3f",  unit2(paid))
                 }
             }
         }

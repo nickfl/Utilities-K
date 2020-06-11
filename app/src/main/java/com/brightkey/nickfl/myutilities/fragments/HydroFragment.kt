@@ -11,10 +11,9 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
-import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import timber.log.Timber
 
-class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
+class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListener {
 
     internal val paidOnPeakTag = 111
     internal val paidOnMidTag = 222
@@ -27,11 +26,7 @@ class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HYDRO_FRAGMENT
-        val model = arguments?.getParcelable<UtilityEditModel>("editBillHydro")
-        model?.let{
-            doEdit = it.edit
-            editIndex = it.index
-        }
+        super.getArguments(arguments)
         setHasOptionsMenu(true)
     }
 
@@ -45,7 +40,7 @@ class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is ExitFragmentListener) {
+        if (context is BaseFragment.ExitFragmentListener) {
             exitListener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
@@ -63,7 +58,7 @@ class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<TextView>(R.id.textHydroAcc)
-        acc.text = entity?.accountNumber
+        acc.text = accountNumber()
 
         //add payment button
         addPayment = view.findViewById(R.id.buttonAddHydroPayment)
@@ -106,7 +101,7 @@ class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
             usedOnMid?.setText(R.string.hydro_zero_used)
             usedOffPeak?.setText(R.string.hydro_zero_used)
         } else {
-            billForUtility(entity, editIndex)
+            billForUtility()
         }
     }
 
@@ -126,35 +121,17 @@ class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
 
         override fun afterTextChanged(editable: Editable) {
             val value = editable.toString()
-            var paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
+            val paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
             when (view.id) {
                 paidOnPeakTag -> {
-                    usedOnPeak?.text = getString(R.string.EmptyKWh)
-                    entity?.let {
-                        if (it.unitPrice0 > 0.0) {
-                            paid /= it.unitPrice0
-                            usedOnPeak?.text = String.format("(kWh) %.3f", paid)
-                        }
-                    }
+                    usedOnPeak?.text = String.format("(kWh) %.3f",  unit0(paid))
                 }
                 paidOnMidTag -> {
-                    usedOnMid?.text = getString(R.string.EmptyKWh)
-                    entity?.let {
-                        if (it.unitPrice1 > 0.0) {
-                            paid /= it.unitPrice1
-                            usedOnMid?.text = String.format("(kWh) %.3f", paid)
-                        }
-                    }
+                    usedOnMid?.text = String.format("(kWh) %.3f",  unit1(paid))
                 }
                 paidOffPeakTag -> {
-                    usedOffPeak?.text = getString(R.string.EmptyKWh)
-                    entity?.let {
-                        if (it.unitPrice2 > 0.0) {
-                            paid /= it.unitPrice2
-                            usedOffPeak?.text = String.format("(kWh) %.3f", paid)
-                        }
+                    usedOffPeak?.text = String.format("(kWh) %.3f",  unit2(paid))
                 }
-            }
             }
         }
     }
