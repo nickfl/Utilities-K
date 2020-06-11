@@ -7,13 +7,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
-import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel
 import timber.log.Timber
 import java.util.*
 
@@ -27,7 +27,8 @@ abstract class BaseFragment(billType: String = ""  // Constant.HeatType
 ) : Fragment() {
 
     lateinit var mTag: FragmentScreen
-    var entity = if (billType.isNotEmpty()) MyUtilitiesApplication.getConfigEntityForType(billType) else null
+    var model = BaseViewModel(billType)
+    var entity = model.entity
 
     private lateinit var addDueDay: Button
     var currentDateView: TextView? = null  // Due or Statement Date
@@ -42,17 +43,25 @@ abstract class BaseFragment(billType: String = ""  // Constant.HeatType
     var paidAmount2: EditText? = null
 
     var doEdit: Boolean = false
+        get() = model.doEdit
+        set(value) {
+            field = value
+            model.doEdit = value
+        }
     var editIndex: Int = 0
-
-    var editUtility: UtilityBillModel? = null
+        get() = model.editIndex
+        set(value) {
+            field = value
+            model.editIndex = value
+        }
 
     var exitListener: ExitFragmentListener? = null
 
-    fun billForUtility(item: ConfigEntity, index: Int): UtilityBillModel {
-        val utils = RealmHelper.utilitiesForType(item.utilityIcon!!)
-        val utility = utils[index]
-        fillInStatement(utility)
-        return utility.copy()
+    fun billForUtility(item: ConfigEntity?, index: Int) {
+        item?.utilityIcon?.let{
+            model.billForUtility(it, index)
+            fillInStatement(model.editUtility)
+        }
     }
 
     fun setupMainStatement(view: View, listener: View.OnClickListener) {
@@ -94,8 +103,8 @@ abstract class BaseFragment(billType: String = ""  // Constant.HeatType
         paidAmount2?.setText("")
     }
 
-    fun changeDateVisibility(show: Boolean?) {
-        val visible = if (show!!) View.VISIBLE else View.INVISIBLE
+    fun changeDateVisibility(show: Boolean) {
+        val visible = if (show) View.VISIBLE else View.INVISIBLE
         addStatementDay?.visibility = visible
         addDueDay.visibility = visible
     }
@@ -120,12 +129,10 @@ abstract class BaseFragment(billType: String = ""  // Constant.HeatType
     }
 
     private fun validateData(fields: MutableList<EditText>): Boolean {
-        for (one in fields) {
-            if (one.text.isNullOrBlank()) {
-                return false
-            }
+        fields.forEach {
+            if (it.text.isNullOrBlank()) { return false }
             try {
-                java.lang.Double.parseDouble(one.text.toString())
+                java.lang.Double.parseDouble(it.text.toString())
             } catch (ex: Exception) {
                 return false
             }
@@ -145,8 +152,7 @@ abstract class BaseFragment(billType: String = ""  // Constant.HeatType
             showError()
             return false
         }
-        val utility = if (doEdit) editUtility else UtilityBillModel()
-        utility?.let { model ->
+        model.editUtility.let { model ->
             if (!doEdit) {
                 saveMainStatement(model, Constants.PhoneType)
             }

@@ -80,7 +80,7 @@ class HeatFragment : BaseFragment(Constants.HeatType), View.OnClickListener {
             changeDateVisibility(true)
             usedGas?.setText(R.string.water_zero_used)
         } else {
-            editUtility = billForUtility(entity!!, editIndex)
+            billForUtility(entity, editIndex)
         }
     }
 

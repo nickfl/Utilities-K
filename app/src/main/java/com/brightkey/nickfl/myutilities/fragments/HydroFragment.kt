@@ -106,7 +106,7 @@ class HydroFragment : BaseFragment(Constants.HydroType), View.OnClickListener {
             usedOnMid?.setText(R.string.hydro_zero_used)
             usedOffPeak?.setText(R.string.hydro_zero_used)
         } else {
-            editUtility = billForUtility(entity!!, editIndex)
+            billForUtility(entity, editIndex)
         }
     }
 

@@ -105,7 +105,7 @@ class WaterFragment : BaseFragment(Constants.WaterType), View.OnClickListener {
             usedWaste?.setText(R.string.water_zero_used)
             usedStorm?.setText(R.string.water_zero_used)
         } else {
-            editUtility = billForUtility(entity!!, editIndex)
+            billForUtility(entity, editIndex)
         }
     }
 

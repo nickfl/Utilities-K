@@ -80,7 +80,7 @@ class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
         if (!doEdit) {
             changeDateVisibility(true)
         } else {
-            editUtility = billForUtility(entity!!, editIndex)
+            billForUtility(entity, editIndex)
         }
     }
 
