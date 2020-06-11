@@ -33,7 +33,10 @@
     <string name="drawer_clean">Clean Records</string>
 
     <string name="utility_hydro">Hydro</string>
-    <string name="utility_hydro_details">Details</string>
+    <string name="utility_hydro_details">Hydro Details</string>
+    <string name="utility_heat_details">Heat Details</string>
+    <string name="utility_phone_details">Phone Details</string>
+    <string name="utility_water_details">Water Details</string>
     <string name="utility_statement_date">Statement Date:</string>
     <string name="utility_amount_due">Amount Due ($):</string>
     <string name="utility_due_date">Due Date:</string>

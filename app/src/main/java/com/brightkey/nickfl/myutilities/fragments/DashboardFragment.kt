@@ -5,21 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
+import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.DashboardAdapter
 import com.brightkey.nickfl.myutilities.models.DashboardModel
+import timber.log.Timber
 
-class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInterface {
+class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface {
 
     private var mListener: OnDashboardInteractionListener? = null
     private lateinit var adapter: DashboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mTag = FragmentScreen.DASHBOARD_FRAGMENT
         setHasOptionsMenu(true)
     }
 
@@ -38,6 +40,13 @@ class DashboardFragment : BaseFragment(), DashboardAdapter.AdapterDashboardInter
         } else {
             throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val line = Exception().stackTrace[0].lineNumber + 1
+        Timber.w("[$line] onResume()")
+        (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.title_myutility))
     }
 
     override fun onDetach() {

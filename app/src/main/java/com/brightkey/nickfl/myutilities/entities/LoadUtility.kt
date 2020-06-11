@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.myutilities.entities
 
+import com.brightkey.nickfl.myutilities.helpers.RealmHandled
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import java.io.FileInputStream
 
@@ -10,9 +11,9 @@ class LoadUtility internal constructor(var utilityType: String, // Hydro, Water,
                                        var amountDue: Double,
                                        var amountType0: Double,
                                        var amountType1: Double,
-                                       var amountType2: Double) {
+                                       var amountType2: Double) : RealmHandled {
 
-    fun saveToRealm() {
+    override fun saveToRealm() {
         val helper = RealmHelper.shared()
         helper.addUtilityBill(this)
     }

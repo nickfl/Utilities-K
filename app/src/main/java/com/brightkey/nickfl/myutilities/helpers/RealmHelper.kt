@@ -11,6 +11,10 @@ import io.realm.kotlin.where
 import timber.log.Timber
 import java.io.FileInputStream
 
+interface RealmHandled {
+    fun saveToRealm()
+}
+
 class RealmHelper private constructor() {
 
     fun cleanAllUtilityBills() {
@@ -25,7 +29,7 @@ class RealmHelper private constructor() {
     }
 
     fun addUtilityBill(bill: LoadUtility) {
-        var id = realm.where<UtilityBillModel>().findAll().size
+        val id = realm.where<UtilityBillModel>().findAll().size
         realm.executeTransaction { realm ->
             val rBill = realm.createObject(UtilityBillModel::class.java, id)
             rBill.utilityType = bill.utilityType
@@ -36,23 +40,32 @@ class RealmHelper private constructor() {
             rBill.amountType0 = bill.amountType0
             rBill.amountType1 = bill.amountType1
             rBill.amountType2 = bill.amountType2
-            id++
+        }
+    }
+
+    fun addUtilityBill(bill: UtilityBillModel) {
+        realm.executeTransaction { realm ->
+            val rBill = realm.createObject(UtilityBillModel::class.java, bill.id)
+            rBill.utilityType = bill.utilityType
+            rBill.datePaid = bill.datePaid
+            rBill.dueDate = bill.dueDate
+            rBill.billDate = bill.billDate
+            rBill.amountDue = bill.amountDue
+            rBill.amountType0 = bill.amountType0
+            rBill.amountType1 = bill.amountType1
+            rBill.amountType2 = bill.amountType2
         }
     }
 
     fun fetchAllUtilityBills(): List<UtilityBillModel> {
         val res = realm.where<UtilityBillModel>().findAll()
         val list: ArrayList<UtilityBillModel> = ArrayList()
-        for (item in res) {
-            list.add(item.copy())
-        }
+        res.forEach { list.add(it.copy()) }
         return  list
     }
 
     fun saveJsonToRealm(fis: FileInputStream) {
-        realm.executeTransaction { realm ->
-            realm.createAllFromJson(UtilityBillModel::class.java, fis)
-        }
+        JsonUtility.loadUtilityFromFileToRealm(fis)
     }
 
     // calculate all totals!: units and amount paid
@@ -61,16 +74,16 @@ class RealmHelper private constructor() {
                 .equalTo("utilityType", item.utilityIcon!!)
                 .findAll()
                 .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
-        var units: Long = 0
+        var units = 0L
         var total = 0.0
-        for (one in utils) {
+        utils.forEach {
             if (item.unitPrice0 > 0.0)
-                units += (one.amountType0 / item.unitPrice0).toLong()
+                units += (it.amountType0 / item.unitPrice0).toLong()
             if (item.unitPrice1 > 0.0)
-                units += (one.amountType1 / item.unitPrice1).toLong()
+                units += (it.amountType1 / item.unitPrice1).toLong()
             if (item.unitPrice2 > 0.0)
-                units += (one.amountType2 / item.unitPrice2).toLong()
-            total += one.amountDue
+                units += (it.amountType2 / item.unitPrice2).toLong()
+            total += it.amountDue
         }
         val bundle = Bundle()
         bundle.putLong("units", units)
@@ -96,6 +109,8 @@ class RealmHelper private constructor() {
             if (INSTANCE == null) {
                 INSTANCE = RealmHelper()
                 Realm.init(context)
+//                val config = RealmConfiguration.Builder().name("myUtilities.realm").build()
+//                Realm.setDefaultConfiguration(config)
                 realm = Realm.getDefaultInstance()
 //                realmListener = RealmChangeListener {
 //                    val res = realm.where<UtilityBillModel>().findAll()
@@ -112,14 +127,12 @@ class RealmHelper private constructor() {
                     .findAll()
                     .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
             val utils: ArrayList<UtilityBillModel> = ArrayList()
-            for (item in result) {
-                utils.add(item)
-            }
+            result.forEach { utils.add(it) }
             return utils
         }
 
         fun updateBill(bill: UtilityBillModel) {
-            if (bill.id == -1L) {
+            if (bill.id < 0) {
                 bill.id = realm.where<UtilityBillModel>().findAll().size.toLong()
             }
             realm.executeTransaction { realm ->

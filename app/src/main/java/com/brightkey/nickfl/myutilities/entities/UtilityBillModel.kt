@@ -1,6 +1,8 @@
 package com.brightkey.nickfl.myutilities.entities
 
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
+import com.brightkey.nickfl.myutilities.helpers.RealmHandled
+import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
@@ -16,7 +18,7 @@ open class UtilityBillModel(
         var amountType0: Double = 0.0,
         var amountType1: Double = 0.0,
         var amountType2: Double = 0.0
-) : RealmObject() {
+) : RealmObject(), RealmHandled {
 
     fun copy(): UtilityBillModel {
         val dest = UtilityBillModel()
@@ -32,40 +34,72 @@ open class UtilityBillModel(
         return dest
     }
 
-    fun getAmountDue(): String {
+    open fun getAmountDue(): String {
         return if (amountDue > 0.0) {
             "" + amountDue
         } else ""
     }
 
-    fun getAmountType0(): String {
+    open fun getAmountType0(): String {
         return if (amountType0 > 0.0) {
             "" + amountType0
         } else ""
     }
 
-    fun getAmountType1(): String {
+    open fun getAmountType1(): String {
         return if (amountType1 > 0.0) {
             "" + amountType1
         } else ""
     }
 
-    fun getAmountType2(): String {
+    open fun getAmountType2(): String {
         return if (amountType2 > 0.0) {
             "" + amountType2
         } else ""
     }
 
-    fun getBillDate(): String {
-        return if (billDate != null) {
-            DateFormatters.dateStringFromDate(billDate!!)
-        } else ""
+    open fun getBillDate(): String {
+        billDate?.let {
+            return DateFormatters.dateStringFromDate(it)
+        }
+        return ""
     }
 
-    fun getDueDate(): String {
-        return if (dueDate != null) {
-            DateFormatters.dateStringFromDate(dueDate!!)
-        } else ""
+    open fun setBillDate(billDateStr: String?) {
+        billDateStr?.let{
+            this.billDate = DateFormatters.dateFromString(it)
+        }
+    }
+
+    open fun getDueDate(): String {
+        dueDate?.let {
+            return DateFormatters.dateStringFromDate(it)
+        }
+        return ""
+    }
+
+    open fun setDueDate(dueDateStr: String?) {
+        dueDateStr?.let{
+            this.dueDate = DateFormatters.dateFromString(it)
+        }
+    }
+
+    open fun getDatePaid(): String {
+        datePaid?.let {
+            return DateFormatters.dateStringFromDate(it)
+        }
+        return ""
+    }
+
+    open fun setDatePaid(paidDateStr: String?) {
+        paidDateStr?.let{
+            this.datePaid = DateFormatters.dateFromString(it)
+        }
+    }
+
+    override fun saveToRealm() {
+        val helper = RealmHelper.shared()
+        helper.addUtilityBill(this)
     }
 
 //    val paidDate: String

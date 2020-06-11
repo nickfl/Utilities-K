@@ -37,7 +37,7 @@ class PhoneFragment : BaseFragment(Constants.PhoneType), View.OnClickListener {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
         activity?.invalidateOptionsMenu()
-        (activity as MainActivity).setCustomOptions(R.menu.fragment)
+        (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.utility_phone_details))
         cleanUp()
     }
 

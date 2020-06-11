@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioGroup
+import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import timber.log.Timber
 
-class UtilityFragment : BaseFragment() {
+class UtilityFragment : Fragment() {
 
     private var selected = R.id.radioButtonHydro
     private lateinit var oldType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mTag = FragmentScreen.UTILITY_FRAGMENT
         setHasOptionsMenu(true)
         oldType = arguments?.getString("chartType") ?: Constants.HydroType
         when (oldType) {

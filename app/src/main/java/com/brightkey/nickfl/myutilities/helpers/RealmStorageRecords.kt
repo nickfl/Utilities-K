@@ -1,11 +1,10 @@
 package com.brightkey.nickfl.myutilities.helpers
 
-import android.app.Activity
+import android.content.Context
 import android.os.Environment
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
-import java.io.FileInputStream
+import timber.log.Timber
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.io.IOException
 import java.io.File as File1
 
@@ -41,14 +40,20 @@ class RealmStorageRecords {
         private fun readRecords(folder: File1, filename: String): Boolean {
             val file = File1(folder, filename)
             if (!file.exists()) {
+                val line = Exception().stackTrace[0].lineNumber + 1
+                Timber.i("[$line] file Not found: ${file.absolutePath}")
                 return false
             }
             try {
-                val fis = FileInputStream(file)
+                val fis = file.inputStream()
                 LoadUtility.storeRecordsInRealm(fis)
             } catch (ex: FileNotFoundException) {
+                val line = Exception().stackTrace[0].lineNumber + 1
+                Timber.i("[$line] readRecords(error): $ex")
                 return false
             } catch (ex: IOException) {
+                val line = Exception().stackTrace[0].lineNumber + 1
+                Timber.i("[$line] readRecords(error): $ex")
                 return false
             }
 
@@ -64,10 +69,14 @@ class RealmStorageRecords {
             val list = RealmHelper.shared().fetchAllUtilityBills()
             val jsonContent = JsonUtility.convertToJson(list)
             try {
-                val out = FileOutputStream(file)
-                out.write(jsonContent.toByteArray())
-                out.close()
+                val fos = file.outputStream()
+                fos.use {
+                    it.write(jsonContent.toByteArray())
+                    it.close()
+                }
             } catch (ex: IOException) {
+                val line = Exception().stackTrace[0].lineNumber + 1
+                Timber.i("[$line] exportRecords(error): $ex")
                 return false
             }
 
@@ -85,15 +94,15 @@ class RealmStorageRecords {
         //endregion
 
         //region Load Default records
-        fun loadDefaultAssets(activity: Activity) {
+        fun loadDefaultAssets(context: Context) {
 
             // remove old recode first
             RealmHelper.shared().cleanAllUtilityBills()
 
-            JsonUtility.loadUtilityFromFileToRealm("alectra.json", activity)
-            JsonUtility.loadUtilityFromFileToRealm("bell.json", activity)
-            JsonUtility.loadUtilityFromFileToRealm("enbridge.json", activity)
-            JsonUtility.loadUtilityFromFileToRealm("peel.json", activity)
+            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("alectra.json", context)
+            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("bell.json", context)
+            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("enbridge.json", context)
+            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("peel.json", context)
         }
     }
 }

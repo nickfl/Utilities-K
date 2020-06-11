@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.helpers.Constants
@@ -21,7 +22,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import timber.log.Timber
 import java.util.*
 
-class ChartFragment : BaseFragment() {
+class ChartFragment : Fragment() {
 
 //    protected var tfLight: Typeface? = null
     private val allMonths = arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
@@ -36,7 +37,6 @@ class ChartFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf")
-        mTag = FragmentScreen.CHART_FRAGMENT
         val model = arguments?.getParcelable<ChartModel>("chartModel")
         chartType = Constants.HydroType
         var color = "#F58233"

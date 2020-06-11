@@ -231,7 +231,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun returnToDashboard() {
         navigateTo(R.id.dashboardFragment)
-        setCustomOptions(R.menu.main)
+        setCustomOptions(R.menu.main, getString(R.string.title_myutility))
     }
 
     private fun setupDrawer(toolbar: Toolbar) {
@@ -442,11 +442,11 @@ class MainActivity : AppCompatActivity(),
             return
         }
         if (requestCode == Constants.REQUEST_READ_PERMISSIONS) {
-            importFragment?.importRecordsFromDevice()
+            RealmStorageRecords.importRecords()
             return
         }
         if (requestCode == Constants.REQUEST_WRITE_PERMISSIONS) {
-            exportFragment?.exportRecord()
+            RealmStorageRecords.exportRecords()
             return
         }
     }

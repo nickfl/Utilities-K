@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
@@ -15,14 +16,13 @@ import com.brightkey.nickfl.myutilities.models.TimeListModel
 import timber.log.Timber
 
 
-class TimeDetailsFragment : BaseFragment() {
+class TimeDetailsFragment : Fragment() {
 
     private lateinit var detailsType: String
     private lateinit var title: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mTag = FragmentScreen.TIMEDETAILS_FRAGMENT
         detailsType = arguments?.getString("billType") ?: "hydro_bill"
         title = MyUtilitiesApplication.getConfigEntityForType(detailsType)?.utilityType ?: "Utility"
         setHasOptionsMenu(true)

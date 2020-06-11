@@ -1,6 +1,7 @@
 package com.brightkey.nickfl.myutilities.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,16 +38,25 @@ class ExportFragment : BaseFragment() {
         return view
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ExitFragmentListener) {
+            exitListener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        (activity as MainActivity).setCustomOptions(R.menu.fragment)
+        (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.drawer_export))
         cleanup()
     }
 
     // will be used in MainActivity
-    fun exportRecord() {
+    private fun exportRecord() {
         val activity = activity as Activity
 
         //check permission first
