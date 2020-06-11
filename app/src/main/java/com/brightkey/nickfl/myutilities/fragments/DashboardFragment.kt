@@ -46,7 +46,7 @@ class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.title_myutility))
+        (activity as MainActivity).setCustomOptions(R.menu.main, getString(R.string.title_myutility))
     }
 
     override fun onDetach() {

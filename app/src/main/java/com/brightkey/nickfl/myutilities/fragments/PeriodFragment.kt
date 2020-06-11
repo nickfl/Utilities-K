@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.myutilities.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,15 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         val view = inflater.inflate(R.layout.fragment_period, container, false)
         setup(view)
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is BaseFragment.ExitFragmentListener) {
+            exitListener = context
+        } else {
+            throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")
+        }
     }
 
     override fun onResume() {
