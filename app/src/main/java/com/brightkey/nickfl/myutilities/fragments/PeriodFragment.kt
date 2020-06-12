@@ -9,17 +9,21 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
+import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.helpers.PeriodManager
 import com.brightkey.nickfl.myutilities.helpers.Periods
 import timber.log.Timber
 
-class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
+class PeriodFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+    private lateinit var mTag: FragmentScreen
     private var spinner: Spinner? = null
     private var selectedPeriod = 0
     private val periodNames = arrayOf("Current Year", "2019", "2018")
+    private var exitListener: ExitFragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +43,7 @@ class PeriodFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is BaseFragment.ExitFragmentListener) {
+        if (context is ExitFragmentListener) {
             exitListener = context
         } else {
             throw RuntimeException(activity.toString() + " must implement OnFragmentInteractionListener")

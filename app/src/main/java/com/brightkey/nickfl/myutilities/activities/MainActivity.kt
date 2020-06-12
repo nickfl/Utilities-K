@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
+import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
 import com.brightkey.nickfl.myutilities.models.ChartModel
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(),
         DrawerLayout.DrawerListener,
         DashboardFragment.OnDashboardInteractionListener,
         DatePickerDialog.OnDateSetListener,
-        BaseFragment.ExitFragmentListener,
+        ExitFragmentListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }

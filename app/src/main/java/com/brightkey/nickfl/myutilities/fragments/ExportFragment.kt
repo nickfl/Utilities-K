@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
+import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
 import timber.log.Timber
@@ -19,10 +20,12 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass.
  */
-class ExportFragment : BaseFragment() {
+class ExportFragment : Fragment() {
 
+    lateinit var mTag: FragmentScreen
     private var group: RadioGroup? = null
     private var selected = R.id.radioButtonDevice
+    private var exitListener: ExitFragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

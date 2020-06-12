@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
+import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel
@@ -44,7 +45,7 @@ abstract class BaseEditFragment(private var billType: String = ""
 
     // these properties used in fragments
     var doEdit: Boolean = false
-    var exitListener: BaseFragment.ExitFragmentListener? = null
+    var exitListener: ExitFragmentListener? = null
 
     fun getArguments(bundle: Bundle?) {
         val args = bundle?.getParcelable<UtilityEditModel>("editBillUtility")

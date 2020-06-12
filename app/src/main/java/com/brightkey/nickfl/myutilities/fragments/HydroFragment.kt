@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
+import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import timber.log.Timber
 
@@ -40,7 +41,7 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is BaseFragment.ExitFragmentListener) {
+        if (context is ExitFragmentListener) {
             exitListener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
