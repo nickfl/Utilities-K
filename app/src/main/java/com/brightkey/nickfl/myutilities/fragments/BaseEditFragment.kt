@@ -58,7 +58,7 @@ abstract class BaseEditFragment(private var billType: String = ""
 
     private fun billForUtility() {
         entity?.utilityIcon?.let{
-            model.billForUtility(it)
+            model.fetchBillForUtility(it)
             fillInStatement()
         }
     }

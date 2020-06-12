@@ -15,63 +15,63 @@ open class BaseViewModel(billType: String // Constant.HeatType
     open val entity = if (billType.isNotEmpty()) MyUtilitiesApplication.getConfigEntityForType(billType) else null
     private var editIndex = 0
 
-    private var utilityToEdit = UtilityBillModel()
+    private var utilityBillToEdit = UtilityBillModel()
 
     open fun setEditIndex(index: Int) {
         editIndex = index
     }
 
     open fun updateBillInRealm() {
-        RealmHelper.updateBill(utilityToEdit)
+        RealmHelper.updateBill(utilityBillToEdit)
     }
 
-    open fun billForUtility(utilityType: String) {
+    open fun fetchBillForUtility(utilityType: String) {
         val utils = RealmHelper.utilitiesForType(utilityType)
         val utility = utils[editIndex]
-        utilityToEdit = utility.copy()
+        utilityBillToEdit = utility.copy()
     }
 
     open fun getBillDate(): String {
-        return utilityToEdit.getBillDate()
+        return utilityBillToEdit.getBillDate()
     }
     open fun getDueDate(): String {
-        return utilityToEdit.getDueDate()
+        return utilityBillToEdit.getDueDate()
     }
     open fun getAmountDue(): String {
-        return utilityToEdit.getAmountDue()
+        return utilityBillToEdit.getAmountDue()
     }
     open fun getAmountType0(): String {
-        return utilityToEdit.getAmountType0()
+        return utilityBillToEdit.getAmountType0()
     }
     open fun getAmountType1(): String {
-        return utilityToEdit.getAmountType2()
+        return utilityBillToEdit.getAmountType2()
     }
     open fun getAmountType2(): String {
-        return utilityToEdit.getAmountType2()
+        return utilityBillToEdit.getAmountType2()
     }
     open fun setAmountDue(payment: TextView) {
-        utilityToEdit.amountDue = amountFrom(payment)
+        utilityBillToEdit.amountDue = amountFrom(payment)
     }
     open fun setAmountType0(payment: TextView) {
-        utilityToEdit.amountType0 = amountFrom(payment)
+        utilityBillToEdit.amountType0 = amountFrom(payment)
     }
     open fun setAmountType1(payment: TextView) {
-        utilityToEdit.amountType1 = amountFrom(payment)
+        utilityBillToEdit.amountType1 = amountFrom(payment)
     }
     open fun setAmountType2(payment: TextView) {
-        utilityToEdit.amountType2 = amountFrom(payment)
+        utilityBillToEdit.amountType2 = amountFrom(payment)
     }
     open fun setUtilityType(type: String) {
-        utilityToEdit.utilityType = type
+        utilityBillToEdit.utilityType = type
     }
     open fun setUtilityDatePaid(date: Date) {
-        utilityToEdit.datePaid = date
+        utilityBillToEdit.datePaid = date
     }
     open fun setUtilityDueDate(date: Date) {
-        utilityToEdit.dueDate = date
+        utilityBillToEdit.dueDate = date
     }
     open fun setUtilityBillDate(date: Date) {
-        utilityToEdit.billDate = date
+        utilityBillToEdit.billDate = date
     }
 
     private fun amountFrom(payment: TextView): Double {
