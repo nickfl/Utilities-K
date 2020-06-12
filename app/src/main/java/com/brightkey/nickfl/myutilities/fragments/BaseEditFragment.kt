@@ -9,11 +9,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel
+import com.brightkey.nickfl.myutilities.viewmodel.BaseViewModelFactory
 import timber.log.Timber
 import java.util.*
 
@@ -27,9 +30,9 @@ abstract class BaseEditFragment(private var billType: String = ""
 ) : Fragment() {
 
     lateinit var mTag: FragmentScreen
-    private val model = BaseViewModel(billType)
 
-    private var entity = model.entity
+    private lateinit var model: BaseViewModel
+    private var entity: ConfigEntity? = null
 
     private lateinit var addDueDay: Button
     var currentDateView: TextView? = null  // Due or Statement Date
@@ -47,6 +50,13 @@ abstract class BaseEditFragment(private var billType: String = ""
 
     // this property used in fragments
     var exitListener: ExitFragmentListener? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val factory = BaseViewModelFactory(billType)
+        model = ViewModelProvider(this, factory).get(BaseViewModel::class.java)
+        entity = model.entity
+    }
 
     fun getArguments(bundle: Bundle?) {
         val args = bundle?.getParcelable<UtilityEditModel>("editBillUtility")

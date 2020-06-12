@@ -9,6 +9,7 @@ buildscript {
         realm_version = '6.0.2'
         gson_version = '2.8.6'
         nav_version = '2.2.2'
+        life_version = '2.2.0'
     }
     repositories {
         google()
