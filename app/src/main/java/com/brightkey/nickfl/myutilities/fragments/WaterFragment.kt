@@ -53,7 +53,11 @@ class WaterFragment : BaseEditFragment(Constants.WaterType), View.OnClickListene
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
         (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.utility_water_details))
-        cleanUp()
+        startUp {
+            usedWater?.setText(R.string.water_zero_used)
+            usedWaste?.setText(R.string.water_zero_used)
+            usedStorm?.setText(R.string.water_zero_used)
+        }
     }
 
     //region start Helpers
@@ -91,18 +95,6 @@ class WaterFragment : BaseEditFragment(Constants.WaterType), View.OnClickListene
         paidAmount2?.addTextChangedListener(AmountTextWatcher(paidAmount2!!))
         paidAmount2?.id = paidStormTag
         usedStorm = offPeak.findViewById(R.id.textAmountViewPrice)
-    }
-
-    private fun cleanUp() {
-        initMainStatement()
-        if (!doEdit) {
-            changeDateVisibility(true)
-            usedWater?.setText(R.string.water_zero_used)
-            usedWaste?.setText(R.string.water_zero_used)
-            usedStorm?.setText(R.string.water_zero_used)
-        } else {
-            billForUtility()
-        }
     }
 
     override fun onClick(v: View) {

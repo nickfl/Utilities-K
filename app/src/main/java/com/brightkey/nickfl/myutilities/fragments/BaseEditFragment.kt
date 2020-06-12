@@ -27,7 +27,7 @@ abstract class BaseEditFragment(private var billType: String = ""
 ) : Fragment() {
 
     lateinit var mTag: FragmentScreen
-    private var model = BaseViewModel(billType)
+    private val model = BaseViewModel(billType)
 
     private var entity = model.entity
 
@@ -43,8 +43,9 @@ abstract class BaseEditFragment(private var billType: String = ""
     var paidAmount1: EditText? = null
     var paidAmount2: EditText? = null
 
-    // these properties used in fragments
-    var doEdit: Boolean = false
+    private var doEdit: Boolean = false
+
+    // this property used in fragments
     var exitListener: ExitFragmentListener? = null
 
     fun getArguments(bundle: Bundle?) {
@@ -55,10 +56,20 @@ abstract class BaseEditFragment(private var billType: String = ""
         }
     }
 
-    fun billForUtility() {
+    private fun billForUtility() {
         entity?.utilityIcon?.let{
             model.billForUtility(it)
             fillInStatement()
+        }
+    }
+
+    fun startUp(newUtilityInit: (()->Unit)? = null) {
+        initMainStatement()
+        if (!doEdit) {
+            changeDateVisibility(true)
+            newUtilityInit?.let { it() }
+        } else {
+            billForUtility()
         }
     }
 
@@ -91,7 +102,7 @@ abstract class BaseEditFragment(private var billType: String = ""
         model.setUtilityBillDate(DateFormatters.dateFromString(billDate?.text.toString()))
     }
 
-    fun initMainStatement() {
+    private fun initMainStatement() {
         val cal = GregorianCalendar()
         billDate?.text = DateFormatters.dateStringFromCalendar(cal)
         dueDate?.text = DateFormatters.dateStringFromCalendar(cal)
@@ -101,7 +112,7 @@ abstract class BaseEditFragment(private var billType: String = ""
         paidAmount2?.setText("")
     }
 
-    fun changeDateVisibility(show: Boolean) {
+    private fun changeDateVisibility(show: Boolean) {
         val visible = if (show) View.VISIBLE else View.INVISIBLE
         addStatementDay?.visibility = visible
         addDueDay.visibility = visible

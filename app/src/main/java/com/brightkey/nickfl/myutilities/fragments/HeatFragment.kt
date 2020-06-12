@@ -47,7 +47,7 @@ class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener 
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
         (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.utility_heat_details))
-        cleanUp()
+        startUp { usedGas?.setText(R.string.water_zero_used) }
     }
 
     //region start Helpers
@@ -68,16 +68,6 @@ class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener 
         paidAmount0 = onPeak.findViewById(R.id.textAmountViewAmount)
         paidAmount0.addTextChangedListener(AmountTextWatcher())
         usedGas = onPeak.findViewById(R.id.textAmountViewPrice)
-    }
-
-    private fun cleanUp() {
-        initMainStatement()
-        if (!doEdit) {
-            changeDateVisibility(true)
-            usedGas?.setText(R.string.water_zero_used)
-        } else {
-            billForUtility()
-        }
     }
 
     override fun onClick(v: View) {

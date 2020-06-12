@@ -44,7 +44,7 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
         Timber.w("[$line] onResume()")
         activity?.invalidateOptionsMenu()
         (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.utility_phone_details))
-        cleanUp()
+        startUp()
     }
 
     //region start Helpers
@@ -79,15 +79,6 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
         paidAmount2 = offPeak.findViewById(R.id.textAmountViewAmount)
         used = offPeak.findViewById(R.id.textAmountViewPrice)
         used.text = ""
-    }
-
-    private fun cleanUp() {
-        initMainStatement()
-        if (!doEdit) {
-            changeDateVisibility(true)
-        } else {
-            billForUtility()
-        }
     }
 
     override fun onClick(v: View) {

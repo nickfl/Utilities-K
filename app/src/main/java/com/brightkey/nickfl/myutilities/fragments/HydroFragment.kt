@@ -53,7 +53,11 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
         (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.utility_hydro_details))
-        cleanUp()
+        startUp {
+            usedOnPeak?.setText(R.string.hydro_zero_used)
+            usedOnMid?.setText(R.string.hydro_zero_used)
+            usedOffPeak?.setText(R.string.hydro_zero_used)
+        }
     }
 
     //region start Helpers
@@ -92,18 +96,6 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
         paidAmount2?.addTextChangedListener(AmountTextWatcher(paidAmount2!!))
         paidAmount2?.id = paidOffPeakTag
         usedOffPeak = offPeak.findViewById(R.id.textAmountViewPrice)
-    }
-
-    private fun cleanUp() {
-        initMainStatement()
-        if (!doEdit) {
-            changeDateVisibility(true)
-            usedOnPeak?.setText(R.string.hydro_zero_used)
-            usedOnMid?.setText(R.string.hydro_zero_used)
-            usedOffPeak?.setText(R.string.hydro_zero_used)
-        } else {
-            billForUtility()
-        }
     }
 
     override fun onClick(v: View) {
