@@ -54,12 +54,7 @@ class MyUtilitiesApplication : Application() {
             private set
 
         fun getConfigEntityForType(type: String): ConfigEntity? {
-            for (item in config!!) {
-                if (item.utilityIcon == type) {
-                    return item
-                }
-            }
-            return null
+            return config?.first { it.utilityIcon == type }
         }
     }
 }
