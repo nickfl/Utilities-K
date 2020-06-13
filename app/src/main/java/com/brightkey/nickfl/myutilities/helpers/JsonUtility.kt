@@ -2,12 +2,16 @@ package com.brightkey.nickfl.myutilities.helpers
 
 import android.content.Context
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
+import com.brightkey.nickfl.myutilities.entities.LoadUtility
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import timber.log.Timber
-import java.io.*
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 
 object JsonUtility {
 
@@ -53,10 +57,10 @@ object JsonUtility {
     }
 
     // Load Records
-    private fun <T: RealmHandled> loadJSONFromUtilityAsset(fileName: String, context: Context): List<T>? {
+    private fun loadJSONFromUtilityAsset(fileName: String, context: Context): List<LoadUtility>? {
         val jsonStr = loadJsonFileFromAssets(fileName, context)
-        val listType = object : TypeToken<List<T>>() {}.type
-        return Gson().fromJson<List<T>>(jsonStr, listType)
+        val listType = object : TypeToken<List<LoadUtility>>() {}.type
+        return Gson().fromJson<List<LoadUtility>>(jsonStr, listType)
     }
 
     private fun loadJSONFromInputStream(stream: InputStream): List<UtilityBillModel>? {
@@ -65,14 +69,14 @@ object JsonUtility {
         return Gson().fromJson<List<UtilityBillModel>>(jsonStr, listType)
     }
 
-    fun <T: RealmHandled> loadUtilityFromFileToRealm(fileName: String, context: Context) {
-        val utility = loadJSONFromUtilityAsset<T>(fileName, context)
+    fun loadUtilityFromFileToRealm(fileName: String, context: Context) {
+        val utility = loadJSONFromUtilityAsset(fileName, context)
         utility?.let { list ->
             list.forEach { it.saveToRealm() }
             return
         }
 
-        var line = Exception().stackTrace[0].lineNumber + 1
+        val line = Exception().stackTrace[0].lineNumber + 1
         Timber.d("Realm: [$line] $fileName NOT Found!")
     }
 
@@ -83,7 +87,7 @@ object JsonUtility {
             return
         }
 
-        var line = Exception().stackTrace[0].lineNumber + 1
+        val line = Exception().stackTrace[0].lineNumber + 1
         Timber.d("Realm: [$line] $stream NOT Found!")
     }
 }

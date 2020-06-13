@@ -99,10 +99,10 @@ class RealmStorageRecords {
             // remove old recode first
             RealmHelper.shared().cleanAllUtilityBills()
 
-            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("alectra.json", context)
-            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("bell.json", context)
-            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("enbridge.json", context)
-            JsonUtility.loadUtilityFromFileToRealm<LoadUtility>("peel.json", context)
+            JsonUtility.loadUtilityFromFileToRealm("alectra.json", context)
+            JsonUtility.loadUtilityFromFileToRealm("bell.json", context)
+            JsonUtility.loadUtilityFromFileToRealm("enbridge.json", context)
+            JsonUtility.loadUtilityFromFileToRealm("peel.json", context)
         }
     }
 }
