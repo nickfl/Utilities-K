@@ -106,7 +106,7 @@ abstract class BaseEditFragment(private var billType: String = ""
 
     private fun saveMainStatement(utilityType: String) {
         val cal = GregorianCalendar()
-        model.setUtilityType(utilityType)
+        model.utilityType = utilityType
         model.setUtilityDatePaid(cal.time)
         model.setUtilityDueDate(DateFormatters.dateFromString(dueDate?.text.toString()))
         model.setUtilityBillDate(DateFormatters.dateFromString(billDate?.text.toString()))
@@ -131,12 +131,12 @@ abstract class BaseEditFragment(private var billType: String = ""
     private fun fillInStatement() {
         changeDateVisibility(false)
         addPayment.setText(R.string.hydro_update_payment)
-        billDate?.text = model.getBillDate()
-        dueDate?.text = model.getDueDate()
-        paymentTotal.setText(model.getAmountDue())
-        paidAmount0.setText(model.getAmountType0())
-        paidAmount1?.setText(model.getAmountType1())
-        paidAmount2?.setText(model.getAmountType2())
+        billDate?.text = model.billDate
+        dueDate?.text = model.dueDate
+        paymentTotal.setText(model.amountDue)
+        paidAmount0.setText(model.amountType0)
+        paidAmount1?.setText(model.amountType1)
+        paidAmount2?.setText(model.amountType2)
     }
 
     fun saveFullBill(): Boolean {
@@ -166,44 +166,23 @@ abstract class BaseEditFragment(private var billType: String = ""
         return model.editableChanged(editable)
     }
 
-    open fun accountNumber() : String? {
-        return entity?.accountNumber
-    }
+    var accountNumber: String? = null
+        get() = model.accountNumber
 
     open fun unit0(paid: Double): Double {
-        entity?.let {
-            if (it.unitPrice0 > 0.0) {
-                return paid/it.unitPrice0
-            }
-        }
-        return paid
+        return model.unit0(paid)
     }
 
     open fun unit1(paid: Double): Double {
-        entity?.let {
-            if (it.unitPrice1 > 0.0) {
-                return paid/it.unitPrice1
-            }
-        }
-        return paid
+        return model.unit1(paid)
     }
 
     open fun unit2(paid: Double): Double {
-        entity?.let {
-            if (it.unitPrice2 > 0.0) {
-                return paid/it.unitPrice2
-            }
-        }
-        return paid
+        return model.unit2(paid)
     }
 
     open fun unitWaste1(waste: Double): Double {
-        entity?.let {
-            if (it.unitPrice1 > 0.0) {
-                return waste * it.unitPrice1
-            }
-        }
-        return 0.0
+        return model.unitWastePaid(waste)
     }
 
     private fun showError() {

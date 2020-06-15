@@ -53,7 +53,7 @@ class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener 
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<View>(R.id.textHeatAcc) as TextView
-        acc.text = accountNumber()
+        acc.text = accountNumber
 
         addPayment = view.findViewById(R.id.buttonAddHeatPayment)
         addPayment.setOnClickListener(this)

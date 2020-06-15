@@ -63,7 +63,7 @@ class WaterFragment : BaseEditFragment(Constants.WaterType), View.OnClickListene
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<View>(R.id.textWaterAcc) as TextView
-        acc.text = accountNumber()
+        acc.text = accountNumber
 
         addPayment = view.findViewById(R.id.buttonAddWaterPayment)
         addPayment.setOnClickListener(this)

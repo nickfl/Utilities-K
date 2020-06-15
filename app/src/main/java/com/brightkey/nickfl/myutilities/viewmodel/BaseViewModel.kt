@@ -15,9 +15,15 @@ class BaseViewModel(): ViewModel() {
     var entity: ConfigEntity? = null
     private var editIndex = 0
     private var utilityBillToEdit = UtilityBillModel()
+    private var unitPrice0: Double? = null
+    private var unitPrice1: Double? = null
+    private var unitPrice2: Double? = null
 
     constructor(billType: String): this() {
         entity = MyUtilitiesApplication.getConfigEntityForType(billType)
+        unitPrice0 = entity?.unitPrice0
+        unitPrice1 = entity?.unitPrice1
+        unitPrice2 = entity?.unitPrice2
     }
 
     fun setEditIndex(index: Int) {
@@ -34,24 +40,34 @@ class BaseViewModel(): ViewModel() {
         utilityBillToEdit = utility.copy()
     }
 
-    fun getBillDate(): String {
-        return utilityBillToEdit.getBillDate()
-    }
-    fun getDueDate(): String {
-        return utilityBillToEdit.getDueDate()
-    }
-    fun getAmountDue(): String {
-        return utilityBillToEdit.getAmountDue()
-    }
-    fun getAmountType0(): String {
-        return utilityBillToEdit.getAmountType0()
-    }
-    fun getAmountType1(): String {
-        return utilityBillToEdit.getAmountType2()
-    }
-    fun getAmountType2(): String {
-        return utilityBillToEdit.getAmountType2()
-    }
+    val accountNumber: String
+        get() = entity?.accountNumber ?: ""
+
+    var utilityType: String = ""
+        get() = utilityBillToEdit.utilityType
+        set(value) {
+            field = value
+            utilityBillToEdit.utilityType = value
+        }
+
+    var billDate: String = ""
+        get() = utilityBillToEdit.getBillDate()
+
+    var dueDate: String = ""
+        get() = utilityBillToEdit.getDueDate()
+
+    var amountDue: String = ""
+        get() = utilityBillToEdit.getAmountDue()
+
+    var amountType0: String = ""
+        get() = utilityBillToEdit.getAmountType0()
+
+    var amountType1: String = ""
+        get() = utilityBillToEdit.getAmountType2()
+
+    var amountType2: String =""
+        get() = utilityBillToEdit.getAmountType2()
+
     fun setAmountDue(payment: TextView) {
         utilityBillToEdit.amountDue = amountFrom(payment)
     }
@@ -63,9 +79,6 @@ class BaseViewModel(): ViewModel() {
     }
     fun setAmountType2(payment: TextView) {
         utilityBillToEdit.amountType2 = amountFrom(payment)
-    }
-    fun setUtilityType(type: String) {
-        utilityBillToEdit.utilityType = type
     }
     fun setUtilityDatePaid(date: Date) {
         utilityBillToEdit.datePaid = date
@@ -90,12 +103,48 @@ class BaseViewModel(): ViewModel() {
     }
 
     fun editableChanged(editable: Editable): Double {
-        entity?.let {
-            if (it.unitPrice0 > 0.0) {
+        unitPrice0?.let {
+            if (it > 0.0) {
                 val value = editable.toString()
                 if (value.isNotEmpty()) {
-                    return java.lang.Double.parseDouble(value) / it.unitPrice0
+                    return java.lang.Double.parseDouble(value) / it
                 }
+            }
+        }
+        return 0.0
+    }
+
+    fun unit0(paid: Double): Double {
+        unitPrice0?.let {
+            if (it > 0.0) {
+                return paid / it
+            }
+        }
+        return paid
+    }
+
+    fun unit1(paid: Double): Double {
+        unitPrice1?.let {
+            if (it > 0.0) {
+                return paid / it
+            }
+        }
+        return paid
+    }
+
+    fun unit2(paid: Double): Double {
+        unitPrice2?.let {
+            if (it > 0.0) {
+                return paid / it
+            }
+        }
+        return paid
+    }
+
+    fun unitWastePaid(waste: Double): Double {
+        unitPrice1?.let {
+            if (it > 0.0) {
+                return waste * it
             }
         }
         return 0.0

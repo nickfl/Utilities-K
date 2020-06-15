@@ -63,7 +63,7 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<TextView>(R.id.textHydroAcc)
-        acc.text = accountNumber()
+        acc.text = accountNumber
 
         //add payment button
         addPayment = view.findViewById(R.id.buttonAddHydroPayment)

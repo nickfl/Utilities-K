@@ -50,7 +50,7 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
     //region start Helpers
     private fun setup(view: View) {
         val acc = view.findViewById<View>(R.id.textPhoneAcc) as TextView
-        acc.text = accountNumber()
+        acc.text = accountNumber
 
         addPayment = view.findViewById(R.id.buttonAddPhonePayment)
         addPayment.setOnClickListener(this)

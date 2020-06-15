@@ -14,7 +14,9 @@
             android:id="@+id/action_dashboardFragment_to_timeDetailsFragment"
             app:destination="@id/timeDetailsFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_periodFragment"
             app:destination="@id/periodFragment"
@@ -22,27 +24,39 @@
             app:exitAnim="@anim/exit_to_bottom" />
         <action
             android:id="@+id/action_dashboardFragment_to_chartFragment"
-            app:destination="@id/chartFragment" />
+            app:destination="@id/chartFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_waterFragment"
             app:destination="@id/waterFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_heatFragment"
             app:destination="@id/heatFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_hydroFragment"
             app:destination="@id/hydroFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_phoneFragment"
             app:destination="@id/phoneFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
     </fragment>
 
     <fragment
@@ -54,22 +68,30 @@
             android:id="@+id/action_timeDetailsFragment_to_hydroFragment"
             app:destination="@id/hydroFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_timeDetailsFragment_to_phoneFragment"
             app:destination="@id/phoneFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_timeDetailsFragment_to_waterFragment"
             app:destination="@id/waterFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_timeDetailsFragment_to_heatFragment"
             app:destination="@id/heatFragment"
             app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left" />
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <argument
             android:name="billType"
             app:argType="string"
@@ -135,7 +157,7 @@
             android:id="@+id/action_chartFragment_to_utilityFragment"
             app:destination="@id/utilityFragment"
             app:enterAnim="@anim/enter_from_bottom"
-            app:exitAnim="@anim/exit_to_bottom" />
+            app:exitAnim="@anim/exit_to_top" />
         <argument
             android:name="chartModel"
             app:argType="com.brightkey.nickfl.myutilities.models.ChartModel" />
