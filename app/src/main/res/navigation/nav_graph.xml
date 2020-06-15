@@ -21,7 +21,9 @@
             android:id="@+id/action_dashboardFragment_to_periodFragment"
             app:destination="@id/periodFragment"
             app:enterAnim="@anim/enter_from_bottom"
-            app:exitAnim="@anim/exit_to_bottom" />
+            app:exitAnim="@anim/exit_to_top"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <action
             android:id="@+id/action_dashboardFragment_to_chartFragment"
             app:destination="@id/chartFragment"
@@ -157,7 +159,9 @@
             android:id="@+id/action_chartFragment_to_utilityFragment"
             app:destination="@id/utilityFragment"
             app:enterAnim="@anim/enter_from_bottom"
-            app:exitAnim="@anim/exit_to_top" />
+            app:exitAnim="@anim/exit_to_top"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <argument
             android:name="chartModel"
             app:argType="com.brightkey.nickfl.myutilities.models.ChartModel" />
@@ -185,7 +189,9 @@
             android:defaultValue="hydro_bill" />
         <action
             android:id="@+id/action_utilityFragment_to_chartFragment"
-            app:destination="@id/chartFragment" />
+            app:destination="@id/chartFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_to_right" />
     </fragment>
 
 </navigation>
