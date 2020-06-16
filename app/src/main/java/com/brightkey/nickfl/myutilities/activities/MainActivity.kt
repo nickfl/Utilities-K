@@ -230,7 +230,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun returnToDashboard() {
         //use Global action
-        val action = DashboardFragmentDirections.actionGlobalToDashboardFragmernt()
+        val action = DashboardFragmentDirections.actionGlobalToDashboardFragment()
         navController.navigate(action)
         setCustomOptions(R.menu.main, getString(R.string.title_myutility))
     }
