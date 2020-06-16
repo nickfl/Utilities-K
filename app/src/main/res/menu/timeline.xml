@@ -5,13 +5,6 @@
     tools:context="com.brightkey.nickfl.activities.MainActivity">
 
     <item
-        android:id="@+id/action_delete_bill"
-        android:icon="@drawable/ic_delete_bill"
-        android:title="@string/action_delete_bill"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/action_close"
         android:icon="@drawable/ic_cross"
         android:orderInCategory="100"

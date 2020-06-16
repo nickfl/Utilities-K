@@ -137,6 +137,9 @@ class MainActivity : AppCompatActivity(),
                 returnToDashboard()
                 return true
             }
+            R.id.action_delete_bill -> {
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item)

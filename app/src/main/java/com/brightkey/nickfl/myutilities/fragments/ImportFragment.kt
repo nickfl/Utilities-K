@@ -53,7 +53,7 @@ class ImportFragment : Fragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.drawer_import))
+        (activity as MainActivity).setCustomOptions(R.menu.timeline, getString(R.string.drawer_import))
     }
 
     // will be used in MainActivity

@@ -9,6 +9,7 @@
     <string name="nav_header_total">Total: $</string>
     <string name="action_period">Change Period</string>
     <string name="action_chart">Change Utility</string>
+    <string name="action_delete_bill">DELETE</string>
 
     <string name="drawer_settings">Settings</string>
     <string name="drawer_statistics">Statistics</string>

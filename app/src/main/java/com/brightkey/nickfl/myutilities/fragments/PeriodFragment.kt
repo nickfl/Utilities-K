@@ -54,7 +54,7 @@ class PeriodFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        (activity as MainActivity).setCustomOptions(R.menu.fragment)
+        (activity as MainActivity).setCustomOptions(R.menu.timeline)
     }
 
     private fun setup(view: View) {
