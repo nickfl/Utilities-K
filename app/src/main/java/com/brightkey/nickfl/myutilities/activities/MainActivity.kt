@@ -229,7 +229,9 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun returnToDashboard() {
-        navigateTo(R.id.dashboardFragment)
+        //use Global action
+        val action = DashboardFragmentDirections.actionGlobalToDashboardFragmernt()
+        navController.navigate(action)
         setCustomOptions(R.menu.main, getString(R.string.title_myutility))
     }
 

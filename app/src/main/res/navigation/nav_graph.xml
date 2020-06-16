@@ -194,4 +194,11 @@
             app:exitAnim="@anim/exit_to_right" />
     </fragment>
 
+    <action android:id="@+id/action_global_to_dashboardFragmernt"
+        app:destination="@id/dashboardFragment"
+        app:enterAnim="@anim/enter_from_right"
+        app:exitAnim="@anim/exit_to_bottom"
+        app:popEnterAnim="@anim/enter_from_bottom"
+        app:popExitAnim="@anim/exit_to_right" />
+
 </navigation>
