@@ -78,7 +78,10 @@
     <string name="ContentDescription">content description</string>
     <string name="oops">OOPS</string>
     <string name="Done">DONE</string>
+    <string name="Cancel">CANCEL</string>
     <string name="not_valid_fields">Some fields are empty!</string>
+    <string name="sure_delete_bill">This bill will be deleted!</string>
+    <string name="attention">ATTENTION</string>
 
     <string name="EmptyKWh">(kWh) 0.0</string>
     <string name="EmptyM3">(m3) 0.0</string>

@@ -6,7 +6,9 @@ import android.view.*
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
@@ -138,6 +140,8 @@ class MainActivity : AppCompatActivity(),
                 return true
             }
             R.id.action_delete_bill -> {
+                //alert to confirm Yes-No
+                showConfirmationDelete()
                 return true
             }
         }
@@ -351,6 +355,25 @@ class MainActivity : AppCompatActivity(),
         fabMain?.setImageResource(res)
     }
 
+    private fun showConfirmationDelete() {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.myErrorDialog))
+        builder.setMessage(R.string.sure_delete_bill)
+                .setTitle(R.string.attention)
+                .setIcon(R.drawable.warning)
+                .setNeutralButton(R.string.Cancel, null)
+                .setPositiveButton(R.string.action_delete_bill) {_, _ ->
+                    val count = topFragment().removeBill()
+                    if (count > 0) {
+                        onBackPressed()
+                    } else {
+                        returnToDashboard()
+                    }
+                }
+
+        val alert = builder.create()
+        alert.show()
+    }
+
     fun setCustomOptions(rMenu: Int, title: String? = null) {
         invalidateOptionsMenu()
         val line = Exception().stackTrace[0].lineNumber + 1
@@ -406,7 +429,6 @@ class MainActivity : AppCompatActivity(),
 
     fun changePeriod(period: String) {
         currentPeriod = period
-//        dashFragment?.dataUpdated()
     }
     // endregion
 

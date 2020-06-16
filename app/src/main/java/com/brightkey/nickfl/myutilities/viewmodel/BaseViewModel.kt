@@ -150,6 +150,10 @@ class BaseViewModel(): ViewModel() {
         return 0.0
     }
 
+    fun removeCurrentBill(): Int {
+        return RealmHelper.shared().deleteUtilityBill(utilityBillToEdit)
+    }
+
     companion object {
 
         //region start Helpers

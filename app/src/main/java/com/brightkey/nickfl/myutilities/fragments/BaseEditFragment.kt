@@ -104,6 +104,10 @@ abstract class BaseEditFragment(private var billType: String = ""
         paymentTotal = price.findViewById(R.id.textPriceViewAmount)
     }
 
+    fun removeBill(): Int {
+        return model.removeCurrentBill()
+    }
+
     private fun saveMainStatement(utilityType: String) {
         val cal = GregorianCalendar()
         model.utilityType = utilityType

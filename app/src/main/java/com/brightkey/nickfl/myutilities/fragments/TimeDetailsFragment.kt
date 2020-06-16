@@ -20,6 +20,7 @@ class TimeDetailsFragment : Fragment() {
 
     private lateinit var detailsType: String
     private lateinit var title: String
+    private lateinit var adapter: TimeListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class TimeDetailsFragment : Fragment() {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
         (activity as MainActivity).setCustomOptions(R.menu.timeline, title)
+        dataUpdated()
     }
 
 //    override fun onAttach(context: Context) {
@@ -56,6 +58,15 @@ class TimeDetailsFragment : Fragment() {
 //    }
 
     //region Helpers
+    private fun dataUpdated() {
+        adapter.notifyDataSetChanged()
+    }
+
+//    private fun reloadView() {
+//        adapter.cleanUtilities()
+//        adapter.notifyDataSetChanged()
+//    }
+
     private fun setupRecycler(view: View) {
         val utils = RealmHelper.utilitiesForType(detailsType)
         val models = TimeListModel.convertToTimeList(utils, detailsType)
@@ -63,7 +74,7 @@ class TimeDetailsFragment : Fragment() {
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(activity)
         rv.layoutManager = llm
-        val adapter = TimeListAdapter(requireActivity(), models)
+        adapter = TimeListAdapter(requireActivity(), models)
         rv.adapter = adapter
     }
     //endregion

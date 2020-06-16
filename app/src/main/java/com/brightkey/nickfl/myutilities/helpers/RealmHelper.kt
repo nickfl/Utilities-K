@@ -64,6 +64,17 @@ class RealmHelper private constructor() {
         return  list
     }
 
+    fun deleteUtilityBill(bill: UtilityBillModel): Int {
+        val res = realm.where<UtilityBillModel>().findAll().first { it.id == bill.id }
+        realm.executeTransaction { _ ->
+            res?.let { it.deleteFromRealm() }
+        }
+        return realm.where<UtilityBillModel>()
+                .equalTo("utilityType", bill.utilityType)
+                .findAll()
+                .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }.size
+    }
+
     fun saveJsonToRealm(fis: FileInputStream) {
         JsonUtility.loadUtilityFromFileToRealm(fis)
     }
