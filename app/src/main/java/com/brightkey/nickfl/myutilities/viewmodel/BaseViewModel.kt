@@ -63,7 +63,7 @@ class BaseViewModel(): ViewModel() {
         get() = utilityBillToEdit.getAmountType0()
 
     var amountType1: String = ""
-        get() = utilityBillToEdit.getAmountType2()
+        get() = utilityBillToEdit.getAmountType1()
 
     var amountType2: String =""
         get() = utilityBillToEdit.getAmountType2()
