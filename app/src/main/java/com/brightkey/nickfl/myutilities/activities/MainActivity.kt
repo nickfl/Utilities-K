@@ -343,8 +343,8 @@ class MainActivity : AppCompatActivity(),
         Geometry.moveButtonToY(fabHeat!!, heatY, null)
         Geometry.moveButtonToY(fabHydro!!, hydroY, null)
         Geometry.moveButtonToY(fabPhone!!, phoneY, null)
-        val res = if (buttonsVisible) R.drawable.ic_remove_black_24dp
-                        else R.drawable.ic_add_black_24dp
+        val res = if (buttonsVisible) R.drawable.ic_minus
+                        else R.drawable.ic_plus
         fabMain?.setImageResource(res)
     }
 

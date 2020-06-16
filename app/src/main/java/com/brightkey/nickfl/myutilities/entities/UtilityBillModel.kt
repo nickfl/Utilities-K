@@ -97,6 +97,7 @@ open class UtilityBillModel(
         }
     }
 
+    //RealmHandled protocol
     override fun saveToRealm() {
         val helper = RealmHelper.shared()
         helper.addUtilityBill(this)

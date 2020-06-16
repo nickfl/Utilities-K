@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_invert_colors_black_24dp" />
+        app:srcCompat="@drawable/ic_water_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_heat"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_wb_sunny_black_24dp" />
+        app:srcCompat="@drawable/ic_heat_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_hydro"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_lightbulb_outline_black_24dp" />
+        app:srcCompat="@drawable/ic_hydro_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_phone"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_phone_black_24dp" />
+        app:srcCompat="@drawable/ic_phone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -60,6 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@drawable/ic_plus" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
