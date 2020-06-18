@@ -12,8 +12,10 @@ import java.util.*
 
 class BaseViewModel(): ViewModel() {
 
-    var entity: ConfigEntity? = null
-    private var editIndex = 0
+
+    private var editIndex: Int = 0
+    private var entity: ConfigEntity? = null
+
     private var utilityBillToEdit = UtilityBillModel()
     private var unitPrice0: Double? = null
     private var unitPrice1: Double? = null

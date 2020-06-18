@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
-import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel
@@ -32,7 +31,7 @@ abstract class BaseEditFragment(private var billType: String = ""
     lateinit var mTag: FragmentScreen
 
     private lateinit var model: BaseViewModel
-    private var entity: ConfigEntity? = null
+    private var doEdit: Boolean = false
 
     private lateinit var addDueDay: Button
     var currentDateView: TextView? = null  // Due or Statement Date
@@ -46,8 +45,6 @@ abstract class BaseEditFragment(private var billType: String = ""
     var paidAmount1: EditText? = null
     var paidAmount2: EditText? = null
 
-    private var doEdit: Boolean = false
-
     // this property used in fragments
     var exitListener: ExitFragmentListener? = null
 
@@ -55,7 +52,6 @@ abstract class BaseEditFragment(private var billType: String = ""
         super.onCreate(savedInstanceState)
         val factory = BaseViewModelFactory(billType)
         model = ViewModelProvider(this, factory).get(BaseViewModel::class.java)
-        entity = model.entity
     }
 
     fun getArguments(bundle: Bundle?) {
@@ -67,7 +63,7 @@ abstract class BaseEditFragment(private var billType: String = ""
     }
 
     private fun billForUtility() {
-        entity?.utilityIcon?.let{
+        model.utilityType.let{
             model.fetchBillForUtility(it)
             fillInStatement()
         }
