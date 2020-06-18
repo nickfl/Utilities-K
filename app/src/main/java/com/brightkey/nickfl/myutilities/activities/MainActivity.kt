@@ -433,7 +433,7 @@ class MainActivity : AppCompatActivity(),
     // endregion
 
     // OnDashboardInteractionListener
-    // `itemId` - utilityType, default - "hydro_bill"
+    // `itemId` - utilityType, default - HydroType
     override fun onDashboardInteraction(itemId: String) {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] onDashboardInteraction.itemId: $itemId")

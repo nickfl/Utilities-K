@@ -66,8 +66,8 @@ class RealmHelper private constructor() {
 
     fun deleteUtilityBill(bill: UtilityBillModel): Int {
         val res = realm.where<UtilityBillModel>().findAll().first { it.id == bill.id }
-        realm.executeTransaction { _ ->
-            res?.let { it.deleteFromRealm() }
+        realm.executeTransaction {
+            res?.deleteFromRealm()
         }
         return realm.where<UtilityBillModel>()
                 .equalTo("utilityType", bill.utilityType)
