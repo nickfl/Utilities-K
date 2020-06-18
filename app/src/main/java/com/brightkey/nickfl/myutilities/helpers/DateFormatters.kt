@@ -25,12 +25,11 @@ object DateFormatters {
 
     fun dateFromString(dateString: String): Date {
         val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
-        var convertedDate = Date()
         try {
-            convertedDate = dateFormat.parse(dateString)
+            return dateFormat.parse(dateString) ?: Date()
         } catch (e: ParseException) {
             e.printStackTrace()
         }
-        return convertedDate
+        return Date()
     }
 }

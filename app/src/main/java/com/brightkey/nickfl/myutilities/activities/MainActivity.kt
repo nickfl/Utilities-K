@@ -433,7 +433,7 @@ class MainActivity : AppCompatActivity(),
     // endregion
 
     // OnDashboardInteractionListener
-    // `itemId` - utilityType, default - "hydro_bill"
+    // `itemId` - utilityType, default - HydroType
     override fun onDashboardInteraction(itemId: String) {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] onDashboardInteraction.itemId: $itemId")
@@ -469,10 +469,12 @@ class MainActivity : AppCompatActivity(),
         }
         if (requestCode == Constants.REQUEST_READ_PERMISSIONS) {
             RealmStorageRecords.importRecords()
+            onFragmentExit()
             return
         }
         if (requestCode == Constants.REQUEST_WRITE_PERMISSIONS) {
             RealmStorageRecords.exportRecords()
+            onFragmentExit()
             return
         }
     }

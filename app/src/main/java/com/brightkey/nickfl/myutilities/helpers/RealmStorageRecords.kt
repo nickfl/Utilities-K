@@ -3,6 +3,10 @@ package com.brightkey.nickfl.myutilities.helpers
 import android.content.Context
 import android.os.Environment
 import com.brightkey.nickfl.myutilities.entities.LoadUtility
+import com.brightkey.nickfl.myutilities.helpers.Constants.FILE_RECORDS_HEAT
+import com.brightkey.nickfl.myutilities.helpers.Constants.FILE_RECORDS_HYDRO
+import com.brightkey.nickfl.myutilities.helpers.Constants.FILE_RECORDS_PHONE
+import com.brightkey.nickfl.myutilities.helpers.Constants.FILE_RECORDS_WATER
 import timber.log.Timber
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -99,10 +103,10 @@ class RealmStorageRecords {
             // remove old recode first
             RealmHelper.shared().cleanAllUtilityBills()
 
-            JsonUtility.loadUtilityFromFileToRealm("alectra.json", context)
-            JsonUtility.loadUtilityFromFileToRealm("bell.json", context)
-            JsonUtility.loadUtilityFromFileToRealm("enbridge.json", context)
-            JsonUtility.loadUtilityFromFileToRealm("peel.json", context)
+            JsonUtility.loadUtilityFromFileToRealm(FILE_RECORDS_HYDRO, context)
+            JsonUtility.loadUtilityFromFileToRealm(FILE_RECORDS_PHONE, context)
+            JsonUtility.loadUtilityFromFileToRealm(FILE_RECORDS_HEAT, context)
+            JsonUtility.loadUtilityFromFileToRealm(FILE_RECORDS_WATER, context)
         }
     }
 }

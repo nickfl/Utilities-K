@@ -10,7 +10,7 @@ import java.util.*
 open class UtilityBillModel(
         @PrimaryKey
         var id: Long = -1L,
-        var utilityType: String = "", // Hydro, Water, Gas, Bell
+        var utilityType: String = "", // Hydro_bill, Water_bill, Gas_bill, Bell_bill
         var billDate: Date? = null,
         var dueDate: Date? = null,
         var datePaid: Date? = null,

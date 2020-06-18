@@ -4,7 +4,7 @@ import com.brightkey.nickfl.myutilities.helpers.RealmHandled
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import java.io.FileInputStream
 
-class LoadUtility internal constructor(var utilityType: String, // Hydro, Water, Gas, Bell
+class LoadUtility internal constructor(var utilityType: String, // Hydro_bill, Water_bill, Gas_bill, Bell_bill
                                        var billDate: String,
                                        var dueDate: String,
                                        var datePaid: String,

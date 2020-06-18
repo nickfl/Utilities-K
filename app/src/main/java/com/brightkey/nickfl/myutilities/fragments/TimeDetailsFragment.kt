@@ -11,6 +11,7 @@ import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.TimeListAdapter
+import com.brightkey.nickfl.myutilities.helpers.Constants.HydroType
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.TimeListModel
 import timber.log.Timber
@@ -24,7 +25,7 @@ class TimeDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailsType = arguments?.getString("billType") ?: "hydro_bill"
+        detailsType = arguments?.getString("billType") ?: HydroType
         title = MyUtilitiesApplication.getConfigEntityForType(detailsType)?.utilityType ?: "Utility"
         setHasOptionsMenu(true)
      }
