@@ -1,5 +1,6 @@
 package com.brightkey.nickfl.myutilities.entities
 
+import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.helpers.RealmHandled
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import java.io.FileInputStream
@@ -15,7 +16,20 @@ class LoadUtility internal constructor(var utilityType: String, // Hydro_bill, W
 
     override fun saveToRealm() {
         val helper = RealmHelper.shared()
-        helper.addUtilityBill(this)
+        helper.addUtilityBill(convertToBillModel())
+    }
+
+    private fun convertToBillModel(): UtilityBillModel {
+        val model = UtilityBillModel()
+        model.utilityType = this.utilityType
+        model.datePaid = DateFormatters.dateFromString(this.datePaid)
+        model.dueDate = DateFormatters.dateFromString(this.dueDate)
+        model.billDate = DateFormatters.dateFromString(this.billDate)
+        model.amountDue = this.amountDue
+        model.amountType0 = this.amountType0
+        model.amountType1 = this.amountType1
+        model.amountType2 = this.amountType2
+        return model
     }
 
     companion object {

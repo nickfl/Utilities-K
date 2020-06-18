@@ -28,21 +28,6 @@ class RealmHelper private constructor() {
         }
     }
 
-    fun addUtilityBill(bill: LoadUtility) {
-        val id = realm.where<UtilityBillModel>().findAll().size
-        realm.executeTransaction { realm ->
-            val rBill = realm.createObject(UtilityBillModel::class.java, id)
-            rBill.utilityType = bill.utilityType
-            rBill.datePaid = DateFormatters.dateFromString(bill.datePaid)
-            rBill.dueDate = DateFormatters.dateFromString(bill.dueDate)
-            rBill.billDate = DateFormatters.dateFromString(bill.billDate)
-            rBill.amountDue = bill.amountDue
-            rBill.amountType0 = bill.amountType0
-            rBill.amountType1 = bill.amountType1
-            rBill.amountType2 = bill.amountType2
-        }
-    }
-
     fun addUtilityBill(bill: UtilityBillModel) {
         realm.executeTransaction { realm ->
             val rBill = realm.createObject(UtilityBillModel::class.java, bill.id)
