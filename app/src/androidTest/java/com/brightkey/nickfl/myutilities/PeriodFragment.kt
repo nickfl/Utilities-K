@@ -1,4 +1,4 @@
-package com.brightkey.nickfl.myutilities.fragments
+package com.brightkey.nickfl.myutilities
 
 import android.content.Context
 import android.os.Bundle
@@ -10,9 +10,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.fragments.FragmentScreen
 import com.brightkey.nickfl.myutilities.helpers.PeriodManager
 import com.brightkey.nickfl.myutilities.helpers.Periods
 import timber.log.Timber

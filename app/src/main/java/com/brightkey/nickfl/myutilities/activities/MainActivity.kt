@@ -73,7 +73,8 @@ class MainActivity : AppCompatActivity(),
     private var buttonsVisible = false
 
     private var menuId = R.menu.main
-    private var menuItemSelection = Color.RED
+    private var chartItemSelection = Color.BLUE
+    private var periodItemSelection = Color.BLUE
 
     //region Activity Overrides
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity(),
         setSupportActionBar(toolbar)
 
         currentPeriod = resources.getString(R.string.zero_period)
+        periodItemSelection = resources.getColor(R.color.colorAccent)
 
         setupFABs()
         setupNavigation()
@@ -113,8 +115,8 @@ class MainActivity : AppCompatActivity(),
         menu?.let {
             if (it.hasVisibleItems()) {
                 val itemId0 = it.getItem(0)?.itemId
-                if (itemId0 == R.id.action_period) {
-                    it.getItem(1).title = currentPeriod
+                if (itemId0 == R.id.action_period_current) {
+                    checkedPeriod(it, PeriodManager.shared.period)
                 }
                 if (itemId0 == R.id.chart_choice_hydro) {
                     when (currentModelItem?.utilityIcon ?: HydroType) {
@@ -130,13 +132,30 @@ class MainActivity : AppCompatActivity(),
         return super.onPrepareOptionsMenu(menu)
     }
 
+    private fun checkedPeriod(menu: Menu, periods: Periods) {
+        val item = when (periods) {
+            Periods.Current -> { menu.getItem(0) }
+            Periods.Year2019 -> { menu.getItem(1) }
+            Periods.Year2018 -> { menu.getItem(2) }
+        }
+        val s = SpannableString(item?.title)
+        s.setSpan(ForegroundColorSpan(periodItemSelection), 0, s.length, 0)
+        s.setSpan(StyleSpan(BOLD), 0, s.length, 0)
+        item?.title = s
+    }
+
     private fun checkedItem(menuItem: MenuItem?) {
         val s = SpannableString(menuItem?.title)
-        s.setSpan(ForegroundColorSpan(menuItemSelection), 0, s.length, 0)
+        s.setSpan(ForegroundColorSpan(chartItemSelection), 0, s.length, 0)
         s.setSpan(StyleSpan(BOLD), 0, s.length, 0)
         menuItem?.title = s
     }
 
+    private fun updatePeriods(periods: Periods) {
+        PeriodManager.shared.setCurrentPeriod(periods)
+        val action = DashboardFragmentDirections.actionDashboardFragmentSelf()
+        navController.navigate(action)
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         val inflater: MenuInflater = menuInflater
@@ -149,9 +168,19 @@ class MainActivity : AppCompatActivity(),
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_period -> {
-                val action = DashboardFragmentDirections.actionDashboardFragmentToPeriodFragment(currentPeriod)
-                navController.navigate(action)
+            R.id.action_period_current -> {
+                PeriodManager.shared.updatePeriodForToday()
+                updatePeriods(Periods.Current)
+                return true
+            }
+            R.id.action_period_2019 -> {
+                PeriodManager.shared.updatePeriodForYear(2019)
+                updatePeriods(Periods.Year2019)
+                return true
+            }
+            R.id.action_period_2018 -> {
+                PeriodManager.shared.updatePeriodForYear(2018)
+                updatePeriods(Periods.Year2018)
                 return true
             }
             R.id.chart_choice_hydro -> {
@@ -216,7 +245,7 @@ class MainActivity : AppCompatActivity(),
     // endregion
 
     //region Helpers
-    private fun topFragment(): BaseEditFragment {
+    private fun topFragment(): BaseEditFragment? {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseEditFragment
     }
@@ -233,7 +262,7 @@ class MainActivity : AppCompatActivity(),
         currentModelItem = findModelItem(currentChartType)
         currentModelItem?.let {
             val model = ChartModel(it.utilityIcon, it.vendorColor)
-            menuItemSelection = Color.parseColor(it.vendorColor)
+            chartItemSelection = Color.parseColor(it.vendorColor)
             val action = if (fromDrawer) {
                 DashboardFragmentDirections.actionDashboardFragmentToChartFragment(model)
             } else {
@@ -397,13 +426,13 @@ class MainActivity : AppCompatActivity(),
 
     private fun showConfirmationDelete() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.myErrorDialog))
-        val message = getString(R.string.sure_delete_bill, topFragment().getBillType)
+        val message = getString(R.string.sure_delete_bill, topFragment()?.getBillType ?: "Utility")
         builder.setMessage(message)
                 .setTitle(R.string.attention)
                 .setIcon(R.drawable.warning)
                 .setNegativeButton(R.string.Cancel, null)
                 .setPositiveButton(R.string.action_delete_bill) {_, _ ->
-                    val count = topFragment().removeBill()
+                    val count = topFragment()?.removeBill() ?: 0
                     if (count > 0) {
                         onBackPressed()
                     } else {
@@ -466,7 +495,7 @@ class MainActivity : AppCompatActivity(),
     // OnDateSetListener
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         val cal = GregorianCalendar(year, month, day)
-        topFragment().currentDateView?.text = DateFormatters.dateStringFromCalendar(cal)
+        topFragment()?.currentDateView?.text = DateFormatters.dateStringFromCalendar(cal)
     }
 
     // ExitFragmentListener

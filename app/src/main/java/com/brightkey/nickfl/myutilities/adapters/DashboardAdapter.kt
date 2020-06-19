@@ -40,9 +40,7 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
     }
 
     fun cleanUtilities() {
-        for (data in utilityList) {
-            data.resetData()
-        }
+        utilityList.forEach { it.resetData() }
     }
 
     private fun bindDashHolder(dashHolder: DashboardsViewHolder, index: Int) {

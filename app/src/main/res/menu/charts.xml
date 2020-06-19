@@ -30,13 +30,3 @@
         app:showAsAction="never" />
 
 </menu>
-<!--<item-->
-<!--android:id="@+id/chart_choice"-->
-<!--android:title="@string/action_chart"-->
-<!--android:orderInCategory="100"-->
-<!--app:showAsAction="never" />-->
-<!--<item-->
-<!--android:id="@+id/action_this_utility"-->
-<!--android:title="@string/title_hydro"-->
-<!--android:orderInCategory="100"-->
-<!--app:showAsAction="never" />-->

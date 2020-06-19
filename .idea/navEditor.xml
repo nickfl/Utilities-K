@@ -8,7 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="action_global_to_dashboardFragmernt">
+                  <entry key="action_global_to_dashboardFragment">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -18,13 +18,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-90" />
-                            <option name="y" value="585" />
+                            <option name="x" value="-205" />
+                            <option name="y" value="-309" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_chartFragment_to_utilityFragment">
+                            <entry key="action_chartFragment_self">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -45,6 +45,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboardFragment_self">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboardFragment_to_chartFragment">
                               <value>
                                 <LayoutPositions />
@@ -56,11 +61,6 @@
                               </value>
                             </entry>
                             <entry key="action_dashboardFragment_to_hydroFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_dashboardFragment_to_periodFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -133,18 +133,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="periodFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-118" />
-                            <option name="y" value="-280" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="phoneFragment">
                     <value>
                       <LayoutPositions>
@@ -184,27 +172,6 @@
                               </value>
                             </entry>
                             <entry key="action_timeDetailsFragment_to_waterFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="utilityFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-497" />
-                            <option name="y" value="598" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_utilityFragment_to_chartFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
