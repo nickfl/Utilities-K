@@ -48,6 +48,9 @@ abstract class BaseEditFragment(private var billType: String = ""
     // this property used in fragments
     var exitListener: ExitFragmentListener? = null
 
+    var getBillType: String = "Utility"
+        get() = model.getBillType()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val factory = BaseViewModelFactory(billType)

@@ -28,6 +28,10 @@ class BaseViewModel(): ViewModel() {
         unitPrice2 = entity?.unitPrice2
     }
 
+    fun getBillType(): String {
+        return entity?.utilityType ?: "Utility"
+    }
+
     fun setEditIndex(index: Int) {
         editIndex = index
     }
@@ -37,9 +41,12 @@ class BaseViewModel(): ViewModel() {
     }
 
     fun fetchBillForUtility(utilityType: String) {
-        val utils = RealmHelper.utilitiesForType(utilityType)
-        val utility = utils[editIndex]
-        utilityBillToEdit = utility.copy()
+        val type = if (utilityType.isEmpty()) entity?.utilityIcon else utilityType
+        type?.let {
+            val utils = RealmHelper.utilitiesForType(it)
+            val utility = utils[editIndex]
+            utilityBillToEdit = utility.copy()
+        }
     }
 
     val accountNumber: String

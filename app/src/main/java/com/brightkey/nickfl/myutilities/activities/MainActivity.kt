@@ -357,10 +357,11 @@ class MainActivity : AppCompatActivity(),
 
     private fun showConfirmationDelete() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.myErrorDialog))
-        builder.setMessage(R.string.sure_delete_bill)
+        val message = getString(R.string.sure_delete_bill, topFragment().getBillType)
+        builder.setMessage(message)
                 .setTitle(R.string.attention)
                 .setIcon(R.drawable.warning)
-                .setNeutralButton(R.string.Cancel, null)
+                .setNegativeButton(R.string.Cancel, null)
                 .setPositiveButton(R.string.action_delete_bill) {_, _ ->
                     val count = topFragment().removeBill()
                     if (count > 0) {
