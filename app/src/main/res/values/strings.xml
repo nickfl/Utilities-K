@@ -88,4 +88,9 @@
     <string name="Year2018">Year 2018</string>
     <string name="Year2019">Year 2019</string>
 
+    <string name="chart_hydro">Hydro</string>
+    <string name="chart_heat">Heat</string>
+    <string name="chart_water">Water \u0026 Severs</string>
+    <string name="chart_phone">Phone</string>
+
 </resources>

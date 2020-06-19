@@ -1,7 +1,12 @@
 package com.brightkey.nickfl.myutilities.activities
 
 import android.app.DatePickerDialog
+import android.graphics.Color
+import android.graphics.Typeface.BOLD
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.*
 import android.widget.DatePicker
 import android.widget.TextView
@@ -19,6 +24,10 @@ import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
+import com.brightkey.nickfl.myutilities.helpers.Constants.HeatType
+import com.brightkey.nickfl.myutilities.helpers.Constants.HydroType
+import com.brightkey.nickfl.myutilities.helpers.Constants.PhoneType
+import com.brightkey.nickfl.myutilities.helpers.Constants.WaterType
 import com.brightkey.nickfl.myutilities.models.ChartModel
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
@@ -64,6 +73,7 @@ class MainActivity : AppCompatActivity(),
     private var buttonsVisible = false
 
     private var menuId = R.menu.main
+    private var menuItemSelection = Color.RED
 
     //region Activity Overrides
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +89,7 @@ class MainActivity : AppCompatActivity(),
         setupNavigation()
         setupDrawer(toolbar)
         setupHeader()
-        currentChartType = Constants.HydroType
+        currentChartType = HydroType
         currentModelItem = findModelItem(currentChartType)
     }
 
@@ -102,15 +112,29 @@ class MainActivity : AppCompatActivity(),
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         menu?.let {
             if (it.hasVisibleItems()) {
-                if (it.getItem(0)?.itemId == R.id.action_period) {
+                val itemId0 = it.getItem(0)?.itemId
+                if (itemId0 == R.id.action_period) {
                     it.getItem(1).title = currentPeriod
                 }
-                if (it.getItem(0)?.itemId == R.id.chart_choice) {
-                    it.getItem(1).title = currentModelItem?.utilityType ?: resources.getString(R.string.title_hydro)
+                if (itemId0 == R.id.chart_choice_hydro) {
+                    when (currentModelItem?.utilityIcon ?: HydroType) {
+                        HydroType -> { checkedItem(it.getItem(0)) }
+                        HeatType -> { checkedItem(it.getItem(1)) }
+                        WaterType -> { checkedItem(it.getItem(2)) }
+                        PhoneType -> { checkedItem(it.getItem(3)) }
+                        else -> { checkedItem(it.getItem(0)) }
+                    }
                 }
             }
         }
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun checkedItem(menuItem: MenuItem?) {
+        val s = SpannableString(menuItem?.title)
+        s.setSpan(ForegroundColorSpan(menuItemSelection), 0, s.length, 0)
+        s.setSpan(StyleSpan(BOLD), 0, s.length, 0)
+        menuItem?.title = s
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -130,9 +154,24 @@ class MainActivity : AppCompatActivity(),
                 navController.navigate(action)
                 return true
             }
-            R.id.chart_choice -> {
-                val action = ChartFragmentDirections.actionChartFragmentToUtilityFragment(currentChartType)
-                navController.navigate(action)
+            R.id.chart_choice_hydro -> {
+                currentChartType = HydroType
+                setCurrentChart(false)
+                return true
+            }
+            R.id.chart_choice_heat -> {
+                currentChartType = HeatType
+                setCurrentChart(false)
+                return true
+            }
+            R.id.chart_choice_water -> {
+                currentChartType = WaterType
+                setCurrentChart(false)
+                return true
+            }
+            R.id.chart_choice_phone -> {
+                currentChartType = PhoneType
+                setCurrentChart(false)
                 return true
             }
             R.id.action_close -> {
@@ -194,10 +233,11 @@ class MainActivity : AppCompatActivity(),
         currentModelItem = findModelItem(currentChartType)
         currentModelItem?.let {
             val model = ChartModel(it.utilityIcon, it.vendorColor)
+            menuItemSelection = Color.parseColor(it.vendorColor)
             val action = if (fromDrawer) {
                 DashboardFragmentDirections.actionDashboardFragmentToChartFragment(model)
             } else {
-                UtilityFragmentDirections.actionUtilityFragmentToChartFragment(model)
+                ChartFragmentDirections.actionChartFragmentSelf(model)
             }
             navController.navigate(action)
             setChartTitle(it)
@@ -387,25 +427,6 @@ class MainActivity : AppCompatActivity(),
     //endregion
 
     //region Fragments methods
-    fun backToCharts(chart: Int) {
-        currentChartType = when (chart) {
-            R.id.radioButtonHydro -> {
-                Constants.HydroType
-            }
-            R.id.radioButtonGas -> {
-                Constants.HeatType
-            }
-            R.id.radioButtonWater -> {
-                Constants.WaterType
-            }
-            R.id.radioButtonPhone -> {
-                Constants.PhoneType
-            }
-            else -> return
-        }
-        setCurrentChart(false)
-    }
-
     fun editFragment(screen: FragmentScreen, index: Int) {
         val model = UtilityEditModel(index, true)
         val action = when (screen) {

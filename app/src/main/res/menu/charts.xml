@@ -9,13 +9,34 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/chart_choice"
-        android:title="@string/action_chart"
+        android:id="@+id/chart_choice_hydro"
+        android:title="@string/chart_hydro"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_this_utility"
-        android:title="@string/title_hydro"
+        android:id="@+id/chart_choice_heat"
+        android:title="@string/chart_heat"
         android:orderInCategory="100"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/chart_choice_water"
+        android:title="@string/chart_water"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/chart_choice_phone"
+        android:title="@string/chart_phone"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
 </menu>
+<!--<item-->
+<!--android:id="@+id/chart_choice"-->
+<!--android:title="@string/action_chart"-->
+<!--android:orderInCategory="100"-->
+<!--app:showAsAction="never" />-->
+<!--<item-->
+<!--android:id="@+id/action_this_utility"-->
+<!--android:title="@string/title_hydro"-->
+<!--android:orderInCategory="100"-->
+<!--app:showAsAction="never" />-->

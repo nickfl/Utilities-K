@@ -155,16 +155,14 @@
         android:name="com.brightkey.nickfl.myutilities.fragments.ChartFragment"
         android:label="@string/title_utility_chart"
         tools:layout="@layout/fragment_chart" >
-        <action
-            android:id="@+id/action_chartFragment_to_utilityFragment"
-            app:destination="@id/utilityFragment"
-            app:enterAnim="@anim/enter_from_bottom"
-            app:exitAnim="@anim/exit_to_top"
-            app:popEnterAnim="@anim/enter_from_left"
-            app:popExitAnim="@anim/exit_to_right" />
         <argument
             android:name="chartModel"
             app:argType="com.brightkey.nickfl.myutilities.models.ChartModel" />
+        <action
+            android:id="@+id/action_chartFragment_self"
+            app:destination="@id/chartFragment"
+            app:enterAnim="@anim/enter_from_top"
+            app:exitAnim="@anim/exit_to_bottom" />
     </fragment>
 
     <fragment
@@ -176,22 +174,6 @@
             android:name="periodNow"
             app:argType="string"
             android:defaultValue="Current Year" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/utilityFragment"
-        android:name="com.brightkey.nickfl.myutilities.fragments.UtilityFragment"
-        android:label="@string/title_utility_chart"
-        tools:layout="@layout/fragment_utility" >
-        <argument
-            android:name="chartType"
-            app:argType="string"
-            android:defaultValue="hydro_bill" />
-        <action
-            android:id="@+id/action_utilityFragment_to_chartFragment"
-            app:destination="@id/chartFragment"
-            app:enterAnim="@anim/enter_from_left"
-            app:exitAnim="@anim/exit_to_right" />
     </fragment>
 
     <action android:id="@+id/action_global_to_dashboardFragment"
