@@ -477,10 +477,6 @@ class MainActivity : AppCompatActivity(),
             navController.navigate(it)
         }
     }
-
-    fun changePeriod(period: String) {
-        currentPeriod = period
-    }
     // endregion
 
     // OnDashboardInteractionListener
