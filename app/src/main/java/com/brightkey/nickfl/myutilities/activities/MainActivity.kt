@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity(),
     private var fabHeat: FloatingActionButton? = null
     private var fabHydro: FloatingActionButton? = null
     private var fabPhone: FloatingActionButton? = null
-    private var currentPeriod: String = ""  // default - Current Year
 
     // all buttons are the same
     private var originY = -1.0f
@@ -84,7 +83,6 @@ class MainActivity : AppCompatActivity(),
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        currentPeriod = resources.getString(R.string.zero_period)
         periodItemSelection = resources.getColor(R.color.colorAccent)
 
         setupFABs()
