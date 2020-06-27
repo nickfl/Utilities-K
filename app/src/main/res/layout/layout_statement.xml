@@ -6,28 +6,23 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/includeSDate"
+        android:id="@+id/layoutStatementDate"
         layout="@layout/layout_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="wrap_content" />
 
     <include
-        android:id="@+id/includePrice"
+        android:id="@+id/layoutPrice"
         layout="@layout/layout_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/includeSDate"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
     <include
-        android:id="@+id/includeDDate"
+        android:id="@+id/layoutDueDate"
         layout="@layout/layout_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/includePrice"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
 </LinearLayout>

@@ -85,21 +85,21 @@ abstract class BaseEditFragment(private var billType: String = ""
     fun setupMainStatement(view: View, listener: View.OnClickListener) {
         val layoutStatement = view.findViewById<View>(R.id.includeStatementData)
 
-        val statement = layoutStatement.findViewById<View>(R.id.includeSDate)
+        val statement = layoutStatement.findViewById<View>(R.id.layoutStatementDate)
         addStatementDay = statement.findViewById(R.id.buttonDateAdd)
         addStatementDay?.setOnClickListener(listener)
         billDate = statement.findViewById(R.id.textDateViewDate)
         val nameState = statement.findViewById<TextView>(R.id.textDateViewName)
         nameState.setText(R.string.utility_statement_date)
 
-        val due = layoutStatement.findViewById<View>(R.id.includeDDate)
+        val due = layoutStatement.findViewById<View>(R.id.layoutDueDate)
         addDueDay = due.findViewById(R.id.buttonDateAdd)
         addDueDay.setOnClickListener(listener)
         dueDate = due.findViewById(R.id.textDateViewDate)
         val nameDue = due.findViewById<TextView>(R.id.textDateViewName)
         nameDue.setText(R.string.utility_due_date)
 
-        val price = layoutStatement.findViewById<View>(R.id.includePrice)
+        val price = layoutStatement.findViewById<View>(R.id.layoutPrice)
         paymentTotal = price.findViewById(R.id.textPriceViewAmount)
     }
 
