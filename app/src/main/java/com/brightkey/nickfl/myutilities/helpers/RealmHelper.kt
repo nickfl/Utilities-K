@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication.Companion.context
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
-import com.brightkey.nickfl.myutilities.entities.LoadUtility
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import io.realm.Realm
 import io.realm.kotlin.where

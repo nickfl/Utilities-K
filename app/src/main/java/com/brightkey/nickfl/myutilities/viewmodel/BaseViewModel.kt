@@ -12,7 +12,6 @@ import java.util.*
 
 class BaseViewModel(): ViewModel() {
 
-
     private var editIndex: Int = 0
     private var entity: ConfigEntity? = null
 
