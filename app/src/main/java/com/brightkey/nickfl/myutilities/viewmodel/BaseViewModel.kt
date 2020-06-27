@@ -10,7 +10,7 @@ import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import java.util.*
 
-class BaseViewModel(): ViewModel() {
+class BaseViewModel(billType: String): ViewModel() {
 
     private var editIndex: Int = 0
     private var entity: ConfigEntity? = null
@@ -20,7 +20,7 @@ class BaseViewModel(): ViewModel() {
     private var unitPrice1: Double? = null
     private var unitPrice2: Double? = null
 
-    constructor(billType: String): this() {
+    init {
         entity = MyUtilitiesApplication.getConfigEntityForType(billType)
         unitPrice0 = entity?.unitPrice0
         unitPrice1 = entity?.unitPrice1
