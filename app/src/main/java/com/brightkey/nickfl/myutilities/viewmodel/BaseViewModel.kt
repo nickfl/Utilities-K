@@ -8,6 +8,7 @@ import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
 import com.brightkey.nickfl.myutilities.entities.UtilityBillModel
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.helpers.RealmHelperLocal
 import java.util.*
 
 class BaseViewModel(billType: String): ViewModel() {
@@ -159,7 +160,7 @@ class BaseViewModel(billType: String): ViewModel() {
     }
 
     fun removeCurrentBill(): Int {
-        return RealmHelper.shared().deleteUtilityBill(utilityBillToEdit)
+        return RealmHelperLocal().deleteUtilityBill(utilityBillToEdit)
     }
 
     companion object {

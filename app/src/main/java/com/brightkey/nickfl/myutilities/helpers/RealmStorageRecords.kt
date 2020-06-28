@@ -34,7 +34,7 @@ class RealmStorageRecords {
         fun importRecords(): Boolean {
 
             // remove old recode first
-            RealmHelper.shared().cleanAllUtilityBills()
+            RealmHelperLocal().cleanAllUtilityBills()
 
             val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             return readRecords(folder, Constants.fileRecordsName)
@@ -70,7 +70,7 @@ class RealmStorageRecords {
 
             val folder = getPublicDownloadsStorageDir(Constants.folderRecordsName) ?: return false
             val file = File1(folder, Constants.fileRecordsName)
-            val list = RealmHelper.shared().fetchAllUtilityBills()
+            val list = RealmHelperLocal().fetchAllUtilityBills()
             val jsonContent = JsonUtility.convertToJson(list)
             try {
                 val fos = file.outputStream()
@@ -101,7 +101,7 @@ class RealmStorageRecords {
         fun loadDefaultAssets(context: Context) {
 
             // remove old recode first
-            RealmHelper.shared().cleanAllUtilityBills()
+            RealmHelperLocal().cleanAllUtilityBills()
 
             JsonUtility.loadUtilityFromFileToRealm(FILE_RECORDS_HYDRO, context)
             JsonUtility.loadUtilityFromFileToRealm(FILE_RECORDS_PHONE, context)

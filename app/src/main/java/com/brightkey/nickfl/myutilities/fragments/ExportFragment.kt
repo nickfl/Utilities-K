@@ -7,14 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -23,9 +27,11 @@ import timber.log.Timber
 class ExportFragment : Fragment() {
 
     lateinit var mTag: FragmentScreen
-    private var group: RadioGroup? = null
+
     private var selected = R.id.radioButtonDevice
     private var exitListener: ExitFragmentListener? = null
+    private lateinit var group: RadioGroup
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,17 +74,28 @@ class ExportFragment : Fragment() {
             return
         }
 
-        if (RealmStorageRecords.exportRecords()) {
-            Toast.makeText(activity, "Export Success!", Toast.LENGTH_LONG).show()
-            exitListener?.onFragmentExit()
-        } else {
-            Toast.makeText(getActivity(), "Export Failed...", Toast.LENGTH_LONG).show()
+        showProgress()
+        GlobalScope.launch {
+            val res = RealmStorageRecords.exportRecords()
+            handler(res, "Export")
+        }
+    }
+
+    private fun handler(result: Boolean, action: String) {
+        activity?.runOnUiThread {
+            if (result) {
+                Toast.makeText(MyUtilitiesApplication.context, "$action Success!", Toast.LENGTH_LONG).show()
+                exitListener?.onFragmentExit()
+            } else {
+                Toast.makeText(MyUtilitiesApplication.context, "$action Failed...", Toast.LENGTH_LONG).show()
+            }
+            hideProgress()
         }
     }
 
     //region start Helpers
     private fun cleanup() {
-        group?.check(selected)
+        group.check(selected)
     }
 
     private fun setup(view: View) {
@@ -90,7 +107,21 @@ class ExportFragment : Fragment() {
             }
         }
         group = view.findViewById(R.id.radioGroup)
-        group?.setOnCheckedChangeListener { _, i -> selected = i }
+        group.setOnCheckedChangeListener { _, i -> selected = i }
+        spinner = view.findViewById(R.id.progressBar)
+        spinner.visibility = View.INVISIBLE
+    }
+
+    private fun showProgress() {
+        val line = Exception().stackTrace[0].lineNumber + 1
+        Timber.i("[$line] Export Progress: Show")
+        spinner.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        val line = Exception().stackTrace[0].lineNumber + 1
+        Timber.i("[$line] Export Progress: Hide")
+        spinner.visibility = View.INVISIBLE
     }
     //endregion
 

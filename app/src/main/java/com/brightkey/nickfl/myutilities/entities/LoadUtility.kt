@@ -3,6 +3,7 @@ package com.brightkey.nickfl.myutilities.entities
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.helpers.RealmHandled
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.helpers.RealmHelperLocal
 import java.io.FileInputStream
 
 class LoadUtility internal constructor(var utilityType: String, // Hydro_bill, Water_bill, Gas_bill, Bell_bill
@@ -15,8 +16,7 @@ class LoadUtility internal constructor(var utilityType: String, // Hydro_bill, W
                                        var amountType2: Double) : RealmHandled {
 
     override fun saveToRealm() {
-        val helper = RealmHelper.shared()
-        helper.addUtilityBill(convertToBillModel())
+        RealmHelperLocal().addUtilityBill(convertToBillModel())
     }
 
     private fun convertToBillModel(): UtilityBillModel {

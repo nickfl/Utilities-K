@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.helpers.Constants.REQUEST_READ_PERMISSIONS
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -23,8 +27,10 @@ import timber.log.Timber
 class ImportFragment : Fragment() {
 
     private lateinit var mTag: FragmentScreen
+
     private var selected = R.id.radioButtonDevice
     private var exitListener: ExitFragmentListener? = null
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,19 +73,32 @@ class ImportFragment : Fragment() {
                 return
             }
 
-            if (RealmStorageRecords.importRecords()) {
-                Toast.makeText(it, "Import Success!", Toast.LENGTH_LONG).show()
-                exitListener?.onFragmentExit()
-            } else {
-                Toast.makeText(it, "Import Failed...", Toast.LENGTH_LONG).show()
+            showProgress()
+            GlobalScope.launch {
+                val res = RealmStorageRecords.importRecords()
+                handler(res, "Import")
             }
         }
     }
 
     private fun importFromDefaults() {
-        RealmStorageRecords.loadDefaultAssets(requireContext())
-        Toast.makeText(activity, "Import Defaults Success!", Toast.LENGTH_LONG).show()
-        exitListener?.onFragmentExit()
+        showProgress()
+        GlobalScope.launch {
+            RealmStorageRecords.loadDefaultAssets(requireContext())
+            handler(true, "Import Defaults")
+        }
+    }
+
+    private fun handler(result: Boolean, action: String) {
+        activity?.runOnUiThread {
+            if (result) {
+                Toast.makeText(MyUtilitiesApplication.context, "$action Success!", Toast.LENGTH_LONG).show()
+                exitListener?.onFragmentExit()
+            } else {
+                Toast.makeText(MyUtilitiesApplication.context, "$action Failed...", Toast.LENGTH_LONG).show()
+            }
+            hideProgress()
+        }
     }
 
     //region start Helpers
@@ -95,6 +114,20 @@ class ImportFragment : Fragment() {
             }
         }
         group.setOnCheckedChangeListener { _, i -> selected = i }
+        spinner = view.findViewById(R.id.progressBar)
+        spinner.visibility = View.INVISIBLE
+    }
+
+    private fun showProgress() {
+        val line = Exception().stackTrace[0].lineNumber + 1
+        Timber.i("[$line] Import Progress: Show")
+        spinner.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        val line = Exception().stackTrace[0].lineNumber + 1
+        Timber.i("[$line] Import Progress: Hide")
+        spinner.visibility = View.INVISIBLE
     }
     //endregion
 }

@@ -2,7 +2,7 @@ package com.brightkey.nickfl.myutilities.entities
 
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import com.brightkey.nickfl.myutilities.helpers.RealmHandled
-import com.brightkey.nickfl.myutilities.helpers.RealmHelper
+import com.brightkey.nickfl.myutilities.helpers.RealmHelperLocal
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
@@ -99,8 +99,7 @@ open class UtilityBillModel(
 
     //RealmHandled protocol
     override fun saveToRealm() {
-        val helper = RealmHelper.shared()
-        helper.addUtilityBill(this)
+        RealmHelperLocal().addUtilityBill(this)
     }
 
 //    val paidDate: String

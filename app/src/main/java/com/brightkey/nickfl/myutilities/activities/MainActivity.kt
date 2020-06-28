@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.view.*
 import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
+import com.brightkey.nickfl.myutilities.MyUtilitiesApplication.Companion.context
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.fragments.*
@@ -34,6 +36,8 @@ import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 
@@ -61,11 +65,11 @@ class MainActivity : AppCompatActivity(),
     private var currentChartType: String = ""
 
     private var buttonsGap = 0.0f
-    private var fabMain: FloatingActionButton? = null
-    private var fabWater: FloatingActionButton? = null
-    private var fabHeat: FloatingActionButton? = null
-    private var fabHydro: FloatingActionButton? = null
-    private var fabPhone: FloatingActionButton? = null
+    private lateinit var fabMain: FloatingActionButton
+    private lateinit var fabWater: FloatingActionButton
+    private lateinit var fabHeat: FloatingActionButton
+    private lateinit var fabHydro: FloatingActionButton
+    private lateinit var fabPhone: FloatingActionButton
 
     // all buttons are the same
     private var originY = -1.0f
@@ -229,7 +233,7 @@ class MainActivity : AppCompatActivity(),
                 navigateTo(R.id.importFragment)
             }
             R.id.nav_clean -> {
-                RealmHelper.shared().cleanAllUtilityBills()
+                RealmHelperLocal().cleanAllUtilityBills()
                 // back to the dashboard
                 returnToDashboard()
             }
@@ -295,11 +299,11 @@ class MainActivity : AppCompatActivity(),
 
     private fun toggleFABs(hide: Boolean) {
         val alpha: Float = if (hide) 0.0f else 1.0f
-        fabMain?.alpha = alpha
-        fabWater?.alpha = alpha
-        fabHeat?.alpha = alpha
-        fabHydro?.alpha = alpha
-        fabPhone?.alpha = alpha
+        fabMain.alpha = alpha
+        fabWater.alpha = alpha
+        fabHeat.alpha = alpha
+        fabHydro.alpha = alpha
+        fabPhone.alpha = alpha
     }
 
     private fun returnToDashboard() {
@@ -366,40 +370,40 @@ class MainActivity : AppCompatActivity(),
 
     private fun setupFABs() {
         fabWater = findViewById<View>(R.id.fab_water) as FloatingActionButton
-        fabWater?.setOnClickListener {
+        fabWater.setOnClickListener {
             fabAction()
             val action = DashboardFragmentDirections.actionDashboardFragmentToWaterFragment(UtilityEditModel())
             navController.navigate(action)
         }
         fabHeat = findViewById<View>(R.id.fab_heat) as FloatingActionButton
-        fabHeat?.setOnClickListener {
+        fabHeat.setOnClickListener {
             fabAction()
             val action = DashboardFragmentDirections.actionDashboardFragmentToHeatFragment(UtilityEditModel())
             navController.navigate(action)
         }
         fabHydro = findViewById<View>(R.id.fab_hydro) as FloatingActionButton
-        fabHydro?.setOnClickListener {
+        fabHydro.setOnClickListener {
             fabAction()
             val action = DashboardFragmentDirections.actionDashboardFragmentToHydroFragment(UtilityEditModel())
             navController.navigate(action)
         }
         fabPhone = findViewById<View>(R.id.fab_phone) as FloatingActionButton
-        fabPhone?.setOnClickListener {
+        fabPhone.setOnClickListener {
             fabAction()
             val action = DashboardFragmentDirections.actionDashboardFragmentToPhoneFragment(UtilityEditModel())
             navController.navigate(action)
         }
 
         fabMain = findViewById<View>(R.id.fab) as FloatingActionButton
-        fabMain?.setOnClickListener {
+        fabMain.setOnClickListener {
             fabAction()
         }
     }
 
     private fun fabAction() {
         if (this.originY < 0.0f) {
-            this.originY = this.fabWater!!.y
-            val originHeight = this.fabWater!!.height.toFloat()
+            this.originY = this.fabWater.y
+            val originHeight = this.fabWater.height.toFloat()
             this.buttonsGap = 1.5f * originHeight
         }
         var phoneY = originY
@@ -413,13 +417,13 @@ class MainActivity : AppCompatActivity(),
             hydroY = originY - 4 * buttonsGap
         }
         buttonsVisible = !buttonsVisible
-        Geometry.moveButtonToY(fabWater!!, waterY, null)
-        Geometry.moveButtonToY(fabHeat!!, heatY, null)
-        Geometry.moveButtonToY(fabHydro!!, hydroY, null)
-        Geometry.moveButtonToY(fabPhone!!, phoneY, null)
+        Geometry.moveButtonToY(fabWater, waterY, null)
+        Geometry.moveButtonToY(fabHeat, heatY, null)
+        Geometry.moveButtonToY(fabHydro, hydroY, null)
+        Geometry.moveButtonToY(fabPhone, phoneY, null)
         val res = if (buttonsVisible) R.drawable.ic_minus
                         else R.drawable.ic_plus
-        fabMain?.setImageResource(res)
+        fabMain.setImageResource(res)
     }
 
     private fun showConfirmationDelete() {
@@ -513,15 +517,33 @@ class MainActivity : AppCompatActivity(),
             return
         }
         if (requestCode == Constants.REQUEST_READ_PERMISSIONS) {
-            RealmStorageRecords.importRecords()
-            onFragmentExit()
+//            showProgress()
+            GlobalScope.launch {
+                val res = RealmStorageRecords.importRecords()
+                handler(res, "Import")
+            }
             return
         }
         if (requestCode == Constants.REQUEST_WRITE_PERMISSIONS) {
-            RealmStorageRecords.exportRecords()
-            onFragmentExit()
+//            showProgress()
+            GlobalScope.launch {
+                val res = RealmStorageRecords.exportRecords()
+                handler(res, "Export")
+            }
             return
         }
     }
     // endregion
+
+    private fun handler(result: Boolean, action: String) {
+        runOnUiThread {
+            if (result) {
+                Toast.makeText(context, "$action Success!", Toast.LENGTH_LONG).show()
+                onFragmentExit()
+            } else {
+                Toast.makeText(context, "$action Failed...", Toast.LENGTH_LONG).show()
+            }
+//            hideProgress()
+        }
+    }
 }
