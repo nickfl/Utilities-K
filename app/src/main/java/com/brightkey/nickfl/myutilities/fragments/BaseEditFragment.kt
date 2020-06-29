@@ -155,9 +155,6 @@ abstract class BaseEditFragment(private var billType: String = ""
         return model.editableChanged(editable)
     }
 
-    val accountNumber: String?
-        get() = model.accountNumber.value
-
     open fun unit0(paid: Double): Double {
         return model.unit0(paid)
     }
