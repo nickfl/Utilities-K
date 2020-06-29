@@ -66,10 +66,8 @@ abstract class BaseEditFragment(private var billType: String = ""
     }
 
     private fun billForUtility() {
-        model.utilityType.let{
-            model.fetchBillForUtility(it)
-            fillInStatement()
-        }
+        model.fetchBill()
+        fillInStatement()
     }
 
     fun startUp(newUtilityInit: (()->Unit)? = null) {

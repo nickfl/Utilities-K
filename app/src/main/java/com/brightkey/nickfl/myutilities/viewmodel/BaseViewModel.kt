@@ -40,7 +40,7 @@ class BaseViewModel(billType: String): ViewModel() {
         RealmHelper.updateBill(utilityBillToEdit)
     }
 
-    fun fetchBillForUtility(utilityType: String) {
+    fun fetchBill() {
         val type = if (utilityType.isEmpty()) entity?.utilityIcon else utilityType
         type?.let {
             val utils = RealmHelper.utilitiesForType(it)
