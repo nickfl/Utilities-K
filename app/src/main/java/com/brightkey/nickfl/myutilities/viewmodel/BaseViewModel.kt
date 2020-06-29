@@ -59,22 +59,22 @@ class BaseViewModel(billType: String): ViewModel() {
             utilityBillToEdit.utilityType = value
         }
 
-    var billDate: String = ""
+    val billDate: String
         get() = utilityBillToEdit.getBillDate()
 
-    var dueDate: String = ""
+    val dueDate: String
         get() = utilityBillToEdit.getDueDate()
 
-    var amountDue: String = ""
+    val amountDue: String
         get() = utilityBillToEdit.getAmountDue()
 
-    var amountType0: String = ""
+    val amountType0: String
         get() = utilityBillToEdit.getAmountType0()
 
-    var amountType1: String = ""
+    val amountType1: String
         get() = utilityBillToEdit.getAmountType1()
 
-    var amountType2: String =""
+    val amountType2: String
         get() = utilityBillToEdit.getAmountType2()
 
     fun setAmountDue(payment: TextView) {

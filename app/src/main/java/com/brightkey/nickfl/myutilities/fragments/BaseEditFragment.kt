@@ -48,7 +48,7 @@ abstract class BaseEditFragment(private var billType: String = ""
     // this property used in fragments
     var exitListener: ExitFragmentListener? = null
 
-    var getBillType: String = "Utility"
+    val getBillType: String
         get() = model.getBillType()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,7 +167,7 @@ abstract class BaseEditFragment(private var billType: String = ""
         return model.editableChanged(editable)
     }
 
-    var accountNumber: String? = null
+    val accountNumber: String
         get() = model.accountNumber
 
     open fun unit0(paid: Double): Double {
