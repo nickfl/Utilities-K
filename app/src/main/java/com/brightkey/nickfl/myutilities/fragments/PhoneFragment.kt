@@ -29,7 +29,7 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
         bindings.model = model
         setupBindings(bindings)
         val view = bindings.root
-        setup()
+        setup(view)
         return view
     }
 
@@ -52,7 +52,8 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
     }
 
     //region start Helpers
-    private fun setup() {
+    private fun setup(view: View) {
+        setupMainStatement(view, this)
         addPayment.setOnClickListener(this)
     }
 
