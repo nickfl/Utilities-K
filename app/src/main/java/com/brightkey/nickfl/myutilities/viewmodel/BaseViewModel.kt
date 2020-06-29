@@ -3,6 +3,8 @@ package com.brightkey.nickfl.myutilities.viewmodel
 import android.text.Editable
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.entities.ConfigEntity
@@ -28,10 +30,6 @@ class BaseViewModel(billType: String): ViewModel() {
         unitPrice2 = entity?.unitPrice2
     }
 
-    fun getBillType(): String {
-        return entity?.utilityType ?: "Utility"
-    }
-
     fun setEditIndex(index: Int) {
         editIndex = index
     }
@@ -46,11 +44,9 @@ class BaseViewModel(billType: String): ViewModel() {
             val utils = RealmHelper.utilitiesForType(it)
             val utility = utils[editIndex]
             utilityBillToEdit = utility.copy()
+            updateValues()
         }
     }
-
-    val accountNumber: String
-        get() = entity?.accountNumber ?: ""
 
     var utilityType: String = ""
         get() = utilityBillToEdit.utilityType
@@ -59,23 +55,29 @@ class BaseViewModel(billType: String): ViewModel() {
             utilityBillToEdit.utilityType = value
         }
 
-    var billDate: String = ""
-        get() = utilityBillToEdit.getBillDate()
+    private val _brandBillType = MutableLiveData("Utility")
+    val brandBillType: LiveData<String> = _brandBillType
 
-    var dueDate: String = ""
-        get() = utilityBillToEdit.getDueDate()
+    private val _accountNumber = MutableLiveData("111 222 333")
+    val accountNumber: LiveData<String?> = _accountNumber
 
-    var amountDue: String = ""
-        get() = utilityBillToEdit.getAmountDue()
+    private val _billDate = MutableLiveData("Jan 01, 2020")
+    val billDate: LiveData<String> = _billDate
 
-    var amountType0: String = ""
-        get() = utilityBillToEdit.getAmountType0()
+    private val _dueDate = MutableLiveData("Jan 01, 2020")
+    val dueDate: LiveData<String> = _dueDate
 
-    var amountType1: String = ""
-        get() = utilityBillToEdit.getAmountType1()
+    private val _amountDue = MutableLiveData("0.0")
+    val amountDue: LiveData<String> = _amountDue
 
-    var amountType2: String =""
-        get() = utilityBillToEdit.getAmountType2()
+    private val _amountType0 = MutableLiveData("0.0")
+    val amountType0: LiveData<String> = _amountType0
+
+    private val _amountType1 = MutableLiveData("0.0")
+    val amountType1: LiveData<String> = _amountType1
+
+    private val _amountType2 = MutableLiveData("0.0")
+    val amountType2: LiveData<String> = _amountType2
 
     fun setAmountDue(payment: TextView) {
         utilityBillToEdit.amountDue = amountFrom(payment)
@@ -97,6 +99,17 @@ class BaseViewModel(billType: String): ViewModel() {
     }
     fun setUtilityBillDate(date: Date) {
         utilityBillToEdit.billDate = date
+    }
+
+    private fun updateValues() {
+        _accountNumber.value = entity?.accountNumber
+        _brandBillType.value = entity?.utilityType
+        _dueDate.value = utilityBillToEdit.getDueDate()
+        _billDate.value = utilityBillToEdit.getBillDate()
+        _amountDue.value = utilityBillToEdit.getAmountDue()
+        _amountType0.value = utilityBillToEdit.getAmountType0()
+        _amountType1.value = utilityBillToEdit.getAmountType1()
+        _amountType2.value = utilityBillToEdit.getAmountType2()
     }
 
     fun validateData(fields: MutableList<EditText>): Boolean {

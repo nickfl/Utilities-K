@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/textAmountViewName"
+    <data>
+        <variable
+            name="price" type="String" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:gravity="end"
-        android:text="@string/hydro_on_peak_pay"
-        android:textSize="18sp" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/textAmountViewAmount"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_weight="0"
-        android:layout_marginStart="10dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:maxLength="8"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textAmountViewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="@string/hydro_on_peak_pay"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textAmountViewPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:gravity="start"
-        android:layout_marginStart="10dp"
-        android:text="@string/utility_price"
-        android:textSize="18sp" />
+        <EditText
+            android:id="@+id/textAmountViewAmount"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="8"
+            android:text="@{price}"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textAmountViewPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="start"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</layout>

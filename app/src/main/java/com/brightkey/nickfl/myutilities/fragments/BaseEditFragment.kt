@@ -30,7 +30,8 @@ abstract class BaseEditFragment(private var billType: String = ""
 
     lateinit var mTag: FragmentScreen
 
-    private lateinit var model: BaseViewModel
+    lateinit var model: BaseViewModel
+        private set
     private var doEdit: Boolean = false
 
     private lateinit var addDueDay: Button
@@ -38,7 +39,7 @@ abstract class BaseEditFragment(private var billType: String = ""
     lateinit var addPayment: Button        // Add or Edit payment
     var addStatementDay: Button? = null
     var billDate: TextView? = null
-    private lateinit var paymentTotal: EditText   // total amount to pay for a utility
+    lateinit var paymentTotal: EditText   // total amount to pay for a utility
     var dueDate: TextView? = null
 
     lateinit var paidAmount0: EditText
@@ -48,8 +49,8 @@ abstract class BaseEditFragment(private var billType: String = ""
     // this property used in fragments
     var exitListener: ExitFragmentListener? = null
 
-    var getBillType: String = "Utility"
-        get() = model.getBillType()
+    val getBillType: String?
+        get() = model.brandBillType.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,9 +97,6 @@ abstract class BaseEditFragment(private var billType: String = ""
         dueDate = due.findViewById(R.id.textDateViewDate)
         val nameDue = due.findViewById<TextView>(R.id.textDateViewName)
         nameDue.setText(R.string.utility_due_date)
-
-        val price = layoutStatement.findViewById<View>(R.id.layoutPrice)
-        paymentTotal = price.findViewById(R.id.textPriceViewAmount)
     }
 
     fun removeBill(): Int {
@@ -117,10 +115,6 @@ abstract class BaseEditFragment(private var billType: String = ""
         val cal = GregorianCalendar()
         billDate?.text = DateFormatters.dateStringFromCalendar(cal)
         dueDate?.text = DateFormatters.dateStringFromCalendar(cal)
-        paymentTotal.setText("")
-        paidAmount0.setText("")
-        paidAmount1?.setText("")
-        paidAmount2?.setText("")
     }
 
     private fun changeDateVisibility(show: Boolean) {
@@ -132,12 +126,6 @@ abstract class BaseEditFragment(private var billType: String = ""
     private fun fillInStatement() {
         changeDateVisibility(false)
         addPayment.setText(R.string.hydro_update_payment)
-        billDate?.text = model.billDate
-        dueDate?.text = model.dueDate
-        paymentTotal.setText(model.amountDue)
-        paidAmount0.setText(model.amountType0)
-        paidAmount1?.setText(model.amountType1)
-        paidAmount2?.setText(model.amountType2)
     }
 
     fun saveFullBill(): Boolean {
@@ -167,8 +155,8 @@ abstract class BaseEditFragment(private var billType: String = ""
         return model.editableChanged(editable)
     }
 
-    var accountNumber: String? = null
-        get() = model.accountNumber
+    val accountNumber: String?
+        get() = model.accountNumber.value
 
     open fun unit0(paid: Double): Double {
         return model.unit0(paid)

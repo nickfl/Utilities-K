@@ -1,71 +1,85 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.HeatFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <data>
+        <variable
+            name="model"
+            type="com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel" />
+    </data>
+
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".fragments.HeatFragment">
 
-        <ImageView
-            android:id="@+id/imageHeatLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/ContentDescription"
-            android:src="@drawable/enbridge_logo" />
-
-        <TextView
-            android:id="@+id/textHeatAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageHeatLogo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/_12910920_11"
-            android:textSize="24sp" />
-
-        <include
-            android:id="@+id/includeStatementData"
-            layout="@layout/layout_statement"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textHeatAcc"
-            android:layout_marginTop="20dp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textViewDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/includeStatementData"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/ContentDescription"
-            android:text="@string/hydro_details"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imageHeatLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/ContentDescription"
+                android:src="@drawable/enbridge_logo" />
 
-        <include
-            android:id="@+id/includeOnPeak"
-            layout="@layout/layout_amount_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewDetails"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
+            <TextView
+                android:id="@+id/textHeatAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageHeatLogo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@{model.accountNumber}"
+                android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/buttonAddHeatPayment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/includeOnPeak"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:text="@string/hydro_add_payment" />
+            <include
+                android:id="@+id/includeStatementData"
+                layout="@layout/layout_statement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textHeatAcc"
+                android:layout_marginTop="20dp"
+                app:model="@{model}" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeStatementData"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/ContentDescription"
+                android:text="@string/hydro_details"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-</ScrollView>
+            <include
+                android:id="@+id/includeOnPeak"
+                layout="@layout/layout_amount_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewDetails"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:price="@{model.amountType0}" />
+
+            <Button
+                android:id="@+id/buttonAddHeatPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeOnPeak"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="@string/hydro_add_payment" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

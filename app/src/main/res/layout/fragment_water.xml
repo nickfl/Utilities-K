@@ -1,89 +1,105 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.WaterFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <data>
+        <variable
+            name="model"
+            type="com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel" />
+    </data>
+
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".fragments.WaterFragment">
 
-        <ImageView
-            android:id="@+id/imageWaterLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:contentDescription="@string/ContentDescription"
-            android:src="@drawable/region_of_peel_logo" />
-
-        <TextView
-            android:id="@+id/textWaterAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageWaterLogo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/_12910920_11"
-            android:textSize="24sp" />
-
-        <include
-            android:id="@+id/includeStatementData"
-            layout="@layout/layout_statement"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textWaterAcc"
-            android:layout_marginTop="20dp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textViewDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/includeStatementData"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/ContentDescription"
-            android:text="@string/hydro_details"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imageWaterLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:contentDescription="@string/ContentDescription"
+                android:src="@drawable/region_of_peel_logo" />
 
-        <include
-            android:id="@+id/includeOnPeak"
-            layout="@layout/layout_amount_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewDetails"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
+            <TextView
+                android:id="@+id/textWaterAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageWaterLogo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/_12910920_11"
+                android:textSize="24sp" />
 
-        <include
-            android:id="@+id/includeOnMid"
-            layout="@layout/layout_amount_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/includeOnPeak"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
+            <include
+                android:id="@+id/includeStatementData"
+                layout="@layout/layout_statement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textWaterAcc"
+                android:layout_marginTop="20dp"
+                app:model="@{model}" />
 
-        <include
-            android:id="@+id/includeOffPeak"
-            layout="@layout/layout_amount_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/includeOnMid"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
+            <TextView
+                android:id="@+id/textViewDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeStatementData"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/ContentDescription"
+                android:text="@string/hydro_details"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/buttonAddWaterPayment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/includeOffPeak"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:text="@string/hydro_add_payment" />
+            <include
+                android:id="@+id/includeOnPeak"
+                layout="@layout/layout_amount_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewDetails"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:price="@{model.amountType0}" />
 
-    </RelativeLayout>
+            <include
+                android:id="@+id/includeOnMid"
+                layout="@layout/layout_amount_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeOnPeak"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                app:price="@{model.amountType1}" />
 
-</ScrollView>
+            <include
+                android:id="@+id/includeOffPeak"
+                layout="@layout/layout_amount_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeOnMid"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                app:price="@{model.amountType2}" />
+
+            <Button
+                android:id="@+id/buttonAddWaterPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeOffPeak"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="@string/hydro_add_payment" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

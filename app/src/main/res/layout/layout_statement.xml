@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutStatement"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/layoutStatementDate"
-        layout="@layout/layout_date"
+    <data>
+        <variable
+            name="model"
+            type="com.brightkey.nickfl.myutilities.viewmodel.BaseViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layoutStatement"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <include
-        android:id="@+id/layoutPrice"
-        layout="@layout/layout_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        <include
+            android:id="@+id/layoutStatementDate"
+            layout="@layout/layout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:date = "@{model.billDate}"/>
 
-    <include
-        android:id="@+id/layoutDueDate"
-        layout="@layout/layout_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        <include
+            android:id="@+id/layoutPrice"
+            layout="@layout/layout_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:amountDue = "@{model.amountDue}"/>
 
-</LinearLayout>
+        <include
+            android:id="@+id/layoutDueDate"
+            layout="@layout/layout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:date = "@{model.dueDate}"/>
+
+    </LinearLayout>
+
+</layout>

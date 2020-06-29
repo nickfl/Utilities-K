@@ -46,8 +46,8 @@
     <string name="_12910920_11">12910920-11</string>
     <string name="_111">111</string>
     <string name="_1234_00">1234.00</string>
-    <string name="date">Jul 19, 2018</string>
-    <string name="date_month">July, 2018</string>
+    <string name="date">Jan 01, 2020</string>
+    <string name="date_month">Jan, 2020</string>
     <string name="add_date">date</string>
     <string name="dashboard">Dashboard</string>
     <string name="utilities">Utilities</string>
@@ -71,6 +71,7 @@
     <string name="water_waste_pay">Waste ($):</string>
     <string name="water_storm_pay">Storm ($):</string>
     <string name="water_zero_used">(m3) 0.00</string>
+    <string name="water_zero_days">(days) 0</string>
     <string name="heat_gas_pay">Gas ($):</string>
     <string name="bell_tv_pay">TV ($):</string>
     <string name="bell_internet_pay">Internet ($):</string>

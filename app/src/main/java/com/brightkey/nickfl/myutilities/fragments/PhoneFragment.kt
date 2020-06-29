@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.databinding.FragmentPhoneBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import timber.log.Timber
 
@@ -24,8 +24,12 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_phone, container, false)
-        setup(view)
+        val bindings = FragmentPhoneBinding.inflate(inflater, container, false)
+        bindings.lifecycleOwner = this
+        bindings.model = model
+        setupBindings(bindings)
+        val view = bindings.root
+        setup()
         return view
     }
 
@@ -48,37 +52,19 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
     }
 
     //region start Helpers
-    private fun setup(view: View) {
-        val acc = view.findViewById<View>(R.id.textPhoneAcc) as TextView
-        acc.text = accountNumber
-
-        addPayment = view.findViewById(R.id.buttonAddPhonePayment)
+    private fun setup() {
         addPayment.setOnClickListener(this)
+    }
 
-        // the same for all Utilities - Main Statement data
-        setupMainStatement(view, this)
-
-        // Details:
-        val onPeak = view.findViewById<View>(R.id.includeOnPeak)
-        val nameOnPeak = onPeak.findViewById<TextView>(R.id.textAmountViewName)
-        nameOnPeak.setText(R.string.bell_tv_pay)
-        paidAmount0 = onPeak.findViewById(R.id.textAmountViewAmount)
-        var used = onPeak.findViewById<TextView>(R.id.textAmountViewPrice)
-        used.text = ""
-
-        val onMid = view.findViewById<View>(R.id.includeOnMid)
-        val nameOnMid = onMid.findViewById<TextView>(R.id.textAmountViewName)
-        nameOnMid.setText(R.string.bell_internet_pay)
-        paidAmount1 = onMid.findViewById(R.id.textAmountViewAmount)
-        used = onMid.findViewById(R.id.textAmountViewPrice)
-        used.text = ""
-
-        val offPeak = view.findViewById<View>(R.id.includeOffPeak)
-        val nameOffPeak = offPeak.findViewById<TextView>(R.id.textAmountViewName)
-        nameOffPeak.setText(R.string.bell_line_pay)
-        paidAmount2 = offPeak.findViewById(R.id.textAmountViewAmount)
-        used = offPeak.findViewById(R.id.textAmountViewPrice)
-        used.text = ""
+    private fun setupBindings(bindings: FragmentPhoneBinding) {
+        paymentTotal = bindings.includeStatementData.layoutPrice.textPriceViewAmount
+        paidAmount0 = bindings.includeOnPeak.textAmountViewAmount
+        bindings.includeOnPeak.textAmountViewName.setText(R.string.bell_tv_pay)
+        paidAmount1 = bindings.includeOnMid.textAmountViewAmount
+        bindings.includeOnMid.textAmountViewName.setText(R.string.bell_internet_pay)
+        paidAmount2 = bindings.includeOffPeak.textAmountViewAmount
+        bindings.includeOffPeak.textAmountViewName.setText(R.string.bell_line_pay)
+        addPayment = bindings.buttonAddPhonePayment
     }
 
     override fun onClick(v: View) {

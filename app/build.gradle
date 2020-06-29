@@ -35,6 +35,10 @@ android {
         experimental = true
     }
     buildToolsVersion = '30.0.0'
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {

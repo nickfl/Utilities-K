@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.databinding.FragmentHydroBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import timber.log.Timber
 
@@ -20,9 +21,9 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
     internal val paidOnMidTag = 222
     internal val paidOffPeakTag = 333
 
-    private var usedOnPeak: TextView? = null
-    private var usedOnMid: TextView? = null
-    private var usedOffPeak: TextView? = null
+    private lateinit var usedOnPeak: TextView
+    private lateinit var usedOnMid: TextView
+    private lateinit var usedOffPeak: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,11 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_hydro, container, false)
+        val bindings = FragmentHydroBinding.inflate(inflater, container, false)
+        bindings.lifecycleOwner = this
+        bindings.model = model
+        setupBindings(bindings)
+        val view = bindings.root
         setup(view)
         return view
     }
@@ -54,48 +59,40 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
         Timber.w("[$line] onResume()")
         (activity as MainActivity).setCustomOptions(R.menu.fragment, getString(R.string.utility_hydro_details))
         startUp {
-            usedOnPeak?.setText(R.string.hydro_zero_used)
-            usedOnMid?.setText(R.string.hydro_zero_used)
-            usedOffPeak?.setText(R.string.hydro_zero_used)
+            usedOnPeak.text = getString(R.string.hydro_zero_used)
+            usedOnMid.text = getString(R.string.hydro_zero_used)
+            usedOffPeak.text = getString(R.string.hydro_zero_used)
         }
     }
 
     //region start Helpers
     private fun setup(view: View) {
-        val acc = view.findViewById<TextView>(R.id.textHydroAcc)
-        acc.text = accountNumber
-
-        //add payment button
-        addPayment = view.findViewById(R.id.buttonAddHydroPayment)
-        addPayment.setOnClickListener(this)
-
-        // the same for all Utilities - Main Statement data
         setupMainStatement(view, this)
 
+        //add payment button
+        addPayment.setOnClickListener(this)
+
         // Details:
-        val onPeak = view.findViewById<View>(R.id.includeOnPeak)
-        val nameOnPeak = onPeak.findViewById<TextView>(R.id.textAmountViewName)
-        nameOnPeak.setText(R.string.hydro_on_peak_pay)
-        paidAmount0 = onPeak.findViewById(R.id.textAmountViewAmount)
-        paidAmount0.addTextChangedListener(AmountTextWatcher(paidAmount0))
+        paidAmount0.let { it.addTextChangedListener(AmountTextWatcher(it)) }
+        paidAmount1?.let { it.addTextChangedListener(AmountTextWatcher(it)) }
+        paidAmount2?.let { it.addTextChangedListener(AmountTextWatcher(it)) }
+    }
+
+    private fun setupBindings(bindings: FragmentHydroBinding) {
+        paymentTotal = bindings.includeStatementData.layoutPrice.textPriceViewAmount
+        paidAmount0 = bindings.includeOnPeak.textAmountViewAmount
         paidAmount0.id = paidOnPeakTag
-        usedOnPeak = onPeak.findViewById(R.id.textAmountViewPrice)
-
-        val onMid = view.findViewById<View>(R.id.includeOnMid)
-        val nameOnMid = onMid.findViewById<TextView>(R.id.textAmountViewName)
-        nameOnMid.setText(R.string.hydro_on_mid_pay)
-        paidAmount1 = onMid.findViewById(R.id.textAmountViewAmount)
-        paidAmount1?.addTextChangedListener(AmountTextWatcher(paidAmount1!!))
+        bindings.includeOnPeak.textAmountViewName.setText(R.string.hydro_on_peak_pay)
+        usedOnPeak = bindings.includeOnPeak.textAmountViewPrice
+        paidAmount1 = bindings.includeOnMid.textAmountViewAmount
         paidAmount1?.id = paidOnMidTag
-        usedOnMid = onMid.findViewById(R.id.textAmountViewPrice)
-
-        val offPeak = view.findViewById<View>(R.id.includeOffPeak)
-        val nameOffPeak = offPeak.findViewById<TextView>(R.id.textAmountViewName)
-        nameOffPeak.setText(R.string.hydro_off_peak_pay)
-        paidAmount2 = offPeak.findViewById(R.id.textAmountViewAmount)
-        paidAmount2?.addTextChangedListener(AmountTextWatcher(paidAmount2!!))
+        bindings.includeOnMid.textAmountViewName.setText(R.string.hydro_on_mid_pay)
+        usedOnMid = bindings.includeOnMid.textAmountViewPrice
+        paidAmount2 = bindings.includeOffPeak.textAmountViewAmount
         paidAmount2?.id = paidOffPeakTag
-        usedOffPeak = offPeak.findViewById(R.id.textAmountViewPrice)
+        bindings.includeOffPeak.textAmountViewName.setText(R.string.hydro_off_peak_pay)
+        usedOffPeak = bindings.includeOffPeak.textAmountViewPrice
+        addPayment = bindings.buttonAddHydroPayment
     }
 
     override fun onClick(v: View) {
@@ -117,13 +114,13 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
             val paid = if (value.isEmpty()) 0.0 else java.lang.Double.parseDouble(value)
             when (view.id) {
                 paidOnPeakTag -> {
-                    usedOnPeak?.text = String.format("(kWh) %.3f",  unit0(paid))
+                    usedOnPeak.text = String.format("(kWh) %.3f",  unit0(paid))
                 }
                 paidOnMidTag -> {
-                    usedOnMid?.text = String.format("(kWh) %.3f",  unit1(paid))
+                    usedOnMid.text = String.format("(kWh) %.3f",  unit1(paid))
                 }
                 paidOffPeakTag -> {
-                    usedOffPeak?.text = String.format("(kWh) %.3f",  unit2(paid))
+                    usedOffPeak.text = String.format("(kWh) %.3f",  unit2(paid))
                 }
             }
         }
