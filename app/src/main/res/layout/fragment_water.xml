@@ -35,7 +35,7 @@
                 android:layout_below="@+id/imageWaterLogo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="@string/_12910920_11"
+                android:text="@{model.accountNumber}"
                 android:textSize="24sp" />
 
             <include
