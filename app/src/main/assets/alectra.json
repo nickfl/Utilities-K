@@ -258,5 +258,15 @@
         "amountType0": 11.20,
         "amountType1": 12.07,
         "amountType2": 38.42
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Jun 19, 2020",
+        "dueDate": "Jul 13, 2020",
+        "datePaid": "Jul 01, 2020",
+        "amountDue": 130.30,
+        "amountType0": 13.81,
+        "amountType1": 17.95,
+        "amountType2": 78.77
     }
 ]
