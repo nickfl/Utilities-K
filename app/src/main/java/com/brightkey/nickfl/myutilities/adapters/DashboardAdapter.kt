@@ -84,7 +84,6 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
         val accountNumber: TextView = itemView.findViewById<View>(R.id.textViewAccount) as TextView
         val totalUnits: TextView = itemView.findViewById<View>(R.id.textViewTotalUnits) as TextView
         val totalPaid: TextView = itemView.findViewById<View>(R.id.textViewTotalPaid) as TextView
-
     }
     //endregion
 
