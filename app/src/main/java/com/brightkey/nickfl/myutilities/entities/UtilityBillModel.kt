@@ -59,10 +59,7 @@ open class UtilityBillModel(
     }
 
     open fun getBillDate(): String {
-        billDate?.let {
-            return DateFormatters.dateStringFromDate(it)
-        }
-        return ""
+        return billDate?.let { DateFormatters.dateStringFromDate(it) } ?: ""
     }
 
     open fun setBillDate(billDateStr: String?) {
@@ -72,10 +69,7 @@ open class UtilityBillModel(
     }
 
     open fun getDueDate(): String {
-        dueDate?.let {
-            return DateFormatters.dateStringFromDate(it)
-        }
-        return ""
+        return dueDate?.let { DateFormatters.dateStringFromDate(it) } ?: ""
     }
 
     open fun setDueDate(dueDateStr: String?) {
@@ -85,10 +79,7 @@ open class UtilityBillModel(
     }
 
     open fun getDatePaid(): String {
-        datePaid?.let {
-            return DateFormatters.dateStringFromDate(it)
-        }
-        return ""
+        return datePaid?.let { DateFormatters.dateStringFromDate(it) } ?: ""
     }
 
     open fun setDatePaid(paidDateStr: String?) {
