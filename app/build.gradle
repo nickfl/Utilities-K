@@ -72,6 +72,9 @@ dependencies {
 //    testImplementation "org.mockito:mockito-core:1.10.19"
     androidTestImplementation "com.android.support.test:runner:$android_junit_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+
+    //memory leak checkup
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 }
 
 repositories {

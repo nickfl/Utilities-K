@@ -18,7 +18,6 @@ import timber.log.Timber
 class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface {
 
     private var mListener: OnDashboardInteractionListener? = null
-    private lateinit var adapter: DashboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +60,7 @@ class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(activity)
         rv.layoutManager = llm
-        adapter = DashboardAdapter(requireActivity(), models, this)
-        rv.adapter = adapter
+        rv.adapter = DashboardAdapter(requireActivity(), models, this)
     }
     //endregion
 
