@@ -288,5 +288,15 @@
         "amountType0": 58.45,
         "amountType1": 79.28,
         "amountType2": 28.96
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Jul 08, 2020",
+        "dueDate": "Jul 24, 2020",
+        "datePaid": "Jul 10, 2020",
+        "amountDue": 192.44,
+        "amountType0": 61.38,
+        "amountType1": 79.95,
+        "amountType2": 28.96
     }
 ]

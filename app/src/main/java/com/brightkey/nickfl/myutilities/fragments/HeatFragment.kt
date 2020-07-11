@@ -13,6 +13,7 @@ import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.databinding.FragmentHeatBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants
+import com.brightkey.nickfl.myutilities.helpers.DateFormatters
 import timber.log.Timber
 
 class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener {
@@ -80,7 +81,8 @@ class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener 
             return
         }
         currentDateView = if (v === addStatementDay) billDate else dueDate
-        DatePickerFragment(requireActivity()).showDatePicker()
+        val date = DateFormatters.dateFromString(currentDateView?.text.toString())
+        DatePickerFragment(requireActivity(), date).showDatePicker()
     }
 
     private inner class AmountTextWatcher : TextWatcher {

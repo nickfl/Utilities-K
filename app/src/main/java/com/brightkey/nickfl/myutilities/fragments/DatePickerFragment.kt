@@ -11,13 +11,15 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class DatePickerFragment(parent: FragmentActivity) : DialogFragment() {
+class DatePickerFragment(parent: FragmentActivity, date: Date) : DialogFragment() {
 
     private var parentActivity: FragmentActivity = parent
+    private var selectedDate: Date = date
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Use the current date as the default date in the picker
+        // Use selected date as the start date in the picker
         val c = Calendar.getInstance()
+        c.time = selectedDate
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
