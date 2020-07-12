@@ -2,10 +2,13 @@ package com.brightkey.nickfl.myutilities.fragments
 
 import android.os.Bundle
 import android.text.Editable
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
@@ -180,4 +183,9 @@ abstract class BaseEditFragment(private var billType: String = ""
         val alert = builder.create()
         alert.show()
     }
+}
+
+// Extension for ViewGroup
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }

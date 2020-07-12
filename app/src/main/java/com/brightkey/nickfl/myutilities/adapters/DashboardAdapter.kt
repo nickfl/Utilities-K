@@ -2,7 +2,6 @@ package com.brightkey.nickfl.myutilities.adapters
 
 import android.app.Activity
 import android.graphics.Color
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,6 +10,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.R
+import com.brightkey.nickfl.myutilities.fragments.inflate
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import timber.log.Timber
 
@@ -29,7 +29,7 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_dash_item, parent, false)
+        val view = parent.inflate(R.layout.list_dash_item)
         return DashboardsViewHolder(view)
     }
 

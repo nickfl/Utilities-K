@@ -34,7 +34,7 @@ android {
     androidExtensions {
         experimental = true
     }
-    buildToolsVersion = '30.0.0'
+    buildToolsVersion = '30.0.1'
 
     dataBinding {
         enabled true

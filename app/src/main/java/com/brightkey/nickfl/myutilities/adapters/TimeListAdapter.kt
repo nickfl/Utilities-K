@@ -6,7 +6,6 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
+import com.brightkey.nickfl.myutilities.fragments.inflate
 import com.brightkey.nickfl.myutilities.models.TimeListModel
 import timber.log.Timber
 
@@ -31,7 +31,7 @@ class TimeListAdapter(private val mActivity: Activity, private val paidList: Lis
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_list_color_item, parent, false)
+        val view = parent.inflate(R.layout.list_list_color_item)
         return TimeListViewHolder(view)
     }
 
