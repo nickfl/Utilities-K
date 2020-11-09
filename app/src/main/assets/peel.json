@@ -108,5 +108,15 @@
         "amountType0": 80.91,
         "amountType1": 52.66,
         "amountType2": 27.27
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "Nov 03, 2020",
+        "dueDate": "Nov 24, 2020",
+        "datePaid": "Nov 09, 2020",
+        "amountDue": 124.97,
+        "amountType0": 59.93,
+        "amountType1": 38.36,
+        "amountType2": 26.68
     }
 ]
