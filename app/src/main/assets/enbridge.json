@@ -308,5 +308,25 @@
         "amountType0": 2.48,
         "amountType1": 0.00,
         "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Oct 20, 2020",
+        "dueDate": "Nov 12, 2020",
+        "datePaid": "Sep 22, 2020", // *****
+        "amountDue": 89.95,
+        "amountType0": 7.18,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Nov 20, 2020",
+        "dueDate": "Dec 10, 2020",
+        "datePaid": "Nov 20, 2020",
+        "amountDue": 79.58,
+        "amountType0": 4.42,
+        "amountType1": 0.00,
+        "amountType2": 0.00
     }
 ]

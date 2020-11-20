@@ -15,10 +15,6 @@ interface RealmHandled {
 
 class RealmHelper private constructor() {
 
-
-
-
-
     fun saveJsonToRealm(fis: FileInputStream) {
         JsonUtility.loadUtilityFromFileToRealm(fis)
     }
@@ -90,7 +86,7 @@ class RealmHelper private constructor() {
             if (bill.id < 0) {
                 bill.id = realm.where<UtilityBillModel>().findAll().size.toLong()
             }
-            realm.executeTransaction { realm ->
+            realm.executeTransactionAsync { realm ->
                 realm.copyToRealmOrUpdate(bill)
             }
         }

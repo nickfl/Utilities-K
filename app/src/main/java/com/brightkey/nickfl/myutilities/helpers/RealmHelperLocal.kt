@@ -8,7 +8,7 @@ import timber.log.Timber
 
 class RealmHelperLocal {
 
-    private var realm: Realm
+    private val realm: Realm
 
     init {
         Realm.init(MyUtilitiesApplication.context)
@@ -17,14 +17,13 @@ class RealmHelperLocal {
 
     fun cleanAllUtilityBills() {
         try {
-            realm.executeTransaction { realm ->
+            realm.executeTransactionAsync { realm ->
                 realm.deleteAll()
             }
         } catch (e: IllegalStateException) {
             val line = Exception().stackTrace[0].lineNumber + 1
             Timber.e("Realm: [$line] deleteAll Failed!")
         }
-        realm.close()
     }
 
     fun addUtilityBill(bill: UtilityBillModel) {
@@ -40,7 +39,6 @@ class RealmHelperLocal {
             rBill.amountType1 = bill.amountType1
             rBill.amountType2 = bill.amountType2
         }
-        realm.close()
     }
 
     fun deleteUtilityBill(bill: UtilityBillModel): Int {
@@ -58,7 +56,6 @@ class RealmHelperLocal {
         val res = realm.where<UtilityBillModel>().findAll()
         val list: ArrayList<UtilityBillModel> = ArrayList()
         res.forEach { list.add(it.copy()) }
-        realm.close()
-        return  list
+        return list
     }
 }
