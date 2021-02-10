@@ -328,5 +328,35 @@
         "amountType0": 63.95,
         "amountType1": 79.95,
         "amountType2": 30.46
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Dec 08, 2020",
+        "dueDate": "Dec 24, 2020",
+        "datePaid": "Dec 10, 2020",
+        "amountDue": 197.03,
+        "amountType0": 63.95,
+        "amountType1": 79.95,
+        "amountType2": 30.46
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Jan 08, 2021",
+        "dueDate": "Jan 25, 2021",
+        "datePaid": "Jan 11, 2021",
+        "amountDue": 197.03,
+        "amountType0": 63.95,
+        "amountType1": 79.95,
+        "amountType2": 30.46
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Feb 08, 2021",
+        "dueDate": "Feb 24, 2021",
+        "datePaid": "Feb 10, 2021",
+        "amountDue": 196.99,
+        "amountType0": 63.95,
+        "amountType1": 79.95,
+        "amountType2": 30.44
     }
 ]
