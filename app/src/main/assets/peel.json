@@ -118,5 +118,15 @@
         "amountType0": 59.93,
         "amountType1": 38.36,
         "amountType2": 26.68
+    },
+    {
+        "utilityType": "water_bill",
+        "billDate": "Feb 04, 2021",
+        "dueDate": "Feb 25, 2021",
+        "datePaid": "Feb 11, 2021",
+        "amountDue": 102.26,
+        "amountType0": 45.54,
+        "amountType1": 29.15,
+        "amountType2": 27.57
     }
 ]
