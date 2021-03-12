@@ -358,5 +358,15 @@
         "amountType0": 63.95,
         "amountType1": 79.95,
         "amountType2": 30.44
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Mar 08, 2021",
+        "dueDate": "Mar 24, 2021",
+        "datePaid": "Mar 12, 2021",
+        "amountDue": 197.01,
+        "amountType0": 63.95,
+        "amountType1": 79.95,
+        "amountType2": 30.45
     }
 ]
