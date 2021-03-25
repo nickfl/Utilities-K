@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -15,6 +14,7 @@ import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.databinding.FragmentExportBinding
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
 import kotlinx.coroutines.GlobalScope
@@ -27,6 +27,9 @@ import timber.log.Timber
 class ExportFragment : Fragment() {
 
     lateinit var mTag: FragmentScreen
+
+    private var _binding: FragmentExportBinding? = null
+    private val binding get() = _binding!!
 
     private var selected = R.id.radioButtonDevice
     private var exitListener: ExitFragmentListener? = null
@@ -42,9 +45,9 @@ class ExportFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_export, container, false)
-        setup(view)
-        return view
+        _binding = FragmentExportBinding.inflate(inflater, container, false)
+        setup()
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -98,17 +101,16 @@ class ExportFragment : Fragment() {
         group.check(selected)
     }
 
-    private fun setup(view: View) {
-        val backup = view.findViewById<Button>(R.id.buttonBackup)
-        backup?.setOnClickListener {
+    private fun setup() {
+        binding.buttonBackup.setOnClickListener {
             when (selected) {
                 R.id.radioButtonDevice -> exportRecord()
                 else -> Toast.makeText(activity, "Not Available Yet", Toast.LENGTH_LONG).show()
             }
         }
-        group = view.findViewById(R.id.radioGroup)
+        group = binding.radioGroup
         group.setOnCheckedChangeListener { _, i -> selected = i }
-        spinner = view.findViewById(R.id.progressBar)
+        spinner = binding.progressBar
         spinner.visibility = View.INVISIBLE
     }
 
