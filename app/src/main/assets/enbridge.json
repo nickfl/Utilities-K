@@ -291,6 +291,16 @@
     },
     {
         "utilityType": "heat_bill",
+        "billDate": "Jul 22, 2020",
+        "dueDate": "Aug 11, 2020",
+        "datePaid": "Jul 24, 2020",
+        "amountDue": 77.36,
+        "amountType0": 3.96,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
         "billDate": "Aug 21, 2020",
         "dueDate": "Sep 10, 2020",
         "datePaid": "Aug 21, 2020",
@@ -356,6 +366,16 @@
         "datePaid": "Feb 21, 2021",
         "amountDue": 182.24,
         "amountType0": 41.00,
+        "amountType1": 0.00,
+        "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Mar 19, 2021",
+        "dueDate": "Apr 12, 2021",
+        "datePaid": "Mar 25, 2021",
+        "amountDue": 126.51,
+        "amountType0": 21.70,
         "amountType1": 0.00,
         "amountType2": 0.00
     }

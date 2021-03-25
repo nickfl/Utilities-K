@@ -271,6 +271,16 @@
     },
     {
         "utilityType": "phone_bill",
+        "billDate": "Apr 08, 2020",
+        "dueDate": "Apr 24, 2020",
+        "datePaid": "Apr 16, 2020",
+        "amountDue": 216.24,
+        "amountType0": 71.45,
+        "amountType1": 90.95,
+        "amountType2": 28.96
+    },
+    {
+        "utilityType": "phone_bill",
         "billDate": "May 08, 2020",
         "dueDate": "May 25, 2020",
         "datePaid": "May 12, 2020",
@@ -304,6 +314,16 @@
         "billDate": "Aug 08, 2020",
         "dueDate": "Aug 24, 2020",
         "datePaid": "Aug 10, 2020",
+        "amountDue": 191.38,
+        "amountType0": 60.45,
+        "amountType1": 79.95,
+        "amountType2": 28.96
+    },
+    {
+        "utilityType": "phone_bill",
+        "billDate": "Sep 08, 2020",
+        "dueDate": "Sep 24, 2020",
+        "datePaid": "Sep 10, 2020",
         "amountDue": 191.38,
         "amountType0": 60.45,
         "amountType1": 79.95,
