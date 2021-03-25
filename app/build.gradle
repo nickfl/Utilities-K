@@ -7,9 +7,11 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 30
+    buildToolsVersion = '30.0.3'
+
     defaultConfig {
         applicationId "com.brightkey.nickfl.myutilities"
-        minSdkVersion 21
+        minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -31,14 +33,13 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
-    androidExtensions {
-        experimental = true
-    }
-    buildToolsVersion = '30.0.2'
-
     buildFeatures{
         dataBinding = true
         viewBinding = true
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -47,14 +48,14 @@ dependencies {
 
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation "com.google.code.gson:gson:$gson_version"
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0-rc01'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -63,13 +64,13 @@ dependencies {
 
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    implementation "androidx.fragment:fragment-ktx:$androidx_fragment_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // livedata
     implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$life_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$life_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$life_version"
 
@@ -80,7 +81,7 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
 
     //memory leak checkup
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 }
 
 repositories {
