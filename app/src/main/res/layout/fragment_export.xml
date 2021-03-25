@@ -1,68 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/all_utilities"
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/export_bills"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.ExportFragment">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
-
-        <RadioButton
-            android:id="@+id/radioButtonGoogle"
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="@string/export_google"
-            android:textSize="24sp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp">
 
-        <RadioButton
-            android:id="@+id/radioButtonDrop"
+            <RadioButton
+                android:id="@+id/radioButtonGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="@string/export_google"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonDrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="@string/export_drop"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/export_device"
+                android:textSize="24sp" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonBackup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="@string/export_drop"
-            android:textSize="24sp" />
+            android:layout_below="@+id/radioGroup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/export_backup" />
 
-        <RadioButton
-            android:id="@+id/radioButtonDevice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/export_device"
-            android:textSize="24sp" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/buttonBackup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/export_backup" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/buttonBackup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:progressDrawable="@drawable/circular_progress_bar" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/buttonBackup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:progressDrawable="@drawable/circular_progress_bar" />
 
     </RelativeLayout>
 

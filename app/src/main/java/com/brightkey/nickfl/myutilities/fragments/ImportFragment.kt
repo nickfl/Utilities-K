@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.databinding.FragmentImportBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants.REQUEST_READ_PERMISSIONS
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
@@ -32,6 +31,9 @@ class ImportFragment : Fragment() {
     private var exitListener: ExitFragmentListener? = null
     private lateinit var spinner: ProgressBar
 
+    private var _binding: FragmentImportBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.IMPORT_FRAGMENT
@@ -41,9 +43,15 @@ class ImportFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_import, container, false)
-        setup(view)
-        return view
+        _binding = FragmentImportBinding.inflate(inflater, container, false)
+        setup()
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        _binding = null
     }
 
     override fun onAttach(context: Context) {
@@ -102,11 +110,10 @@ class ImportFragment : Fragment() {
     }
 
     //region start Helpers
-    private fun setup(view: View) {
-        val group = view.findViewById<RadioGroup>(R.id.radioGroup)
+    private fun setup() {
+        val group = binding.radioGroup
         group.check(R.id.radioButtonDevice)
-        val load = view.findViewById<Button>(R.id.buttonBackup)
-        load.setOnClickListener {
+        binding.buttonBackup.setOnClickListener {
             when (selected) {
                 R.id.radioButtonDevice -> importRecordsFromDevice()
                 R.id.radioButtonDefault -> importFromDefaults()
@@ -114,7 +121,7 @@ class ImportFragment : Fragment() {
             }
         }
         group.setOnCheckedChangeListener { _, i -> selected = i }
-        spinner = view.findViewById(R.id.progressBar)
+        spinner = binding.progressBar
         spinner.visibility = View.INVISIBLE
     }
 

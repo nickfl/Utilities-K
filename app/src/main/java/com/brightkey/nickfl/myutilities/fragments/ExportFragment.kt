@@ -50,6 +50,12 @@ class ExportFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        _binding = null
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is ExitFragmentListener) {

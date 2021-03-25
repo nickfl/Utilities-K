@@ -1,75 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_centerHorizontal="false"
-    app:layout_anchorGravity="center_horizontal"
-    tools:context=".fragments.ImportFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/import_bills"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchorGravity="center_horizontal"
+        tools:context=".fragments.ImportFragment">
 
-        <RadioButton
-            android:id="@+id/radioButtonGoogle"
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="@string/import_google"
-            android:textSize="24sp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp">
 
-        <RadioButton
-            android:id="@+id/radioButtonDrop"
+            <RadioButton
+                android:id="@+id/radioButtonGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="@string/import_google"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonDrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="@string/import_drop"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/import_device"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/import_default"
+                android:textSize="24sp" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonBackup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="@string/import_drop"
-            android:textSize="24sp" />
+            android:layout_below="@+id/radioGroup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/import_restore" />
 
-        <RadioButton
-            android:id="@+id/radioButtonDevice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/import_device"
-            android:textSize="24sp" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/buttonBackup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:progressDrawable="@drawable/circular_progress_bar" />
 
-        <RadioButton
-            android:id="@+id/radioButtonDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/import_default"
-            android:textSize="24sp" />
+    </RelativeLayout>
 
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/buttonBackup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/import_restore" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/buttonBackup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:progressDrawable="@drawable/circular_progress_bar" />
-
-</RelativeLayout>
+</layout>
