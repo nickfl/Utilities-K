@@ -15,6 +15,9 @@ import timber.log.Timber
 
 class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListener {
 
+    private var _binding: FragmentPhoneBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.PHONE_FRAGMENT
@@ -25,13 +28,19 @@ class PhoneFragment : BaseEditFragment(Constants.PhoneType), View.OnClickListene
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val bindings = FragmentPhoneBinding.inflate(inflater, container, false)
-        bindings.lifecycleOwner = this
-        bindings.model = model
-        setupBindings(bindings)
-        val view = bindings.root
+        _binding = FragmentPhoneBinding.inflate(inflater, container, false)
+        _binding?.lifecycleOwner = this
+        _binding?.model = model
+        setupBindings(binding)
+        val view = binding.root
         setup(view)
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        _binding = null
     }
 
     override fun onAttach(context: Context) {
