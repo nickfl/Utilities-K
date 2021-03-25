@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(),
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        periodItemSelection = resources.getColor(R.color.colorAccent)
+        periodItemSelection = getColor(R.color.colorAccent)
 
         setupFABs()
         setupNavigation()
@@ -137,8 +137,9 @@ class MainActivity : AppCompatActivity(),
     private fun checkedPeriod(menu: Menu, periods: Periods) {
         val item = when (periods) {
             Periods.Current -> { menu.getItem(0) }
-            Periods.Year2019 -> { menu.getItem(1) }
-            Periods.Year2018 -> { menu.getItem(2) }
+            Periods.Year2020 -> { menu.getItem(1) }
+            Periods.Year2019 -> { menu.getItem(2) }
+            Periods.Year2018 -> { menu.getItem(3) }
         }
         val s = SpannableString(item?.title)
         s.setSpan(ForegroundColorSpan(periodItemSelection), 0, s.length, 0)
@@ -158,6 +159,7 @@ class MainActivity : AppCompatActivity(),
         val action = DashboardFragmentDirections.actionDashboardFragmentSelf()
         navController.navigate(action)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         val inflater: MenuInflater = menuInflater
@@ -173,6 +175,11 @@ class MainActivity : AppCompatActivity(),
             R.id.action_period_current -> {
                 PeriodManager.shared.updatePeriodForToday()
                 updatePeriods(Periods.Current)
+                return true
+            }
+            R.id.action_period_2020 -> {
+                PeriodManager.shared.updatePeriodForYear(2020)
+                updatePeriods(Periods.Year2020)
                 return true
             }
             R.id.action_period_2019 -> {
@@ -283,6 +290,8 @@ class MainActivity : AppCompatActivity(),
             }
             val total = it.totalPaid
             val title: String = type + String.format(" ( $%.2f )", total)
+            val line = Exception().stackTrace[0].lineNumber + 1
+            Timber.w("[$line] chartTitle: $title")
             updateTitle(title)
         }
     }
@@ -331,6 +340,7 @@ class MainActivity : AppCompatActivity(),
                 val cal = GregorianCalendar()
                 date.text = DateFormatters.dateStringFromCalendar(cal)
             }
+            Periods.Year2020 -> { date.text = getString(R.string.Year2020) }
             Periods.Year2019 -> { date.text = getString(R.string.Year2019) }
             Periods.Year2018 -> { date.text = getString(R.string.Year2018) }
         }

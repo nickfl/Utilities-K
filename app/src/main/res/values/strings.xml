@@ -87,6 +87,7 @@
     <string name="EmptyM3">(m3) 0.0</string>
     <string name="Year2018">Year 2018</string>
     <string name="Year2019">Year 2019</string>
+    <string name="Year2020">Year 2020</string>
 
     <string name="chart_hydro">Hydro</string>
     <string name="chart_heat">Heat</string>

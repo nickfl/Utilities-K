@@ -7,6 +7,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_period_2020"
+        android:title="@string/Year2020"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_period_2019"
         android:title="@string/Year2019"
         android:orderInCategory="100"
