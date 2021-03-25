@@ -7,17 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.DashboardAdapter
+import com.brightkey.nickfl.myutilities.databinding.FragmentDashboardBinding
 import com.brightkey.nickfl.myutilities.models.DashboardModel
 import timber.log.Timber
 
 class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface {
 
     private var mListener: OnDashboardInteractionListener? = null
+    private var _binding: FragmentDashboardBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +29,16 @@ class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        setupRecycler(view)
-        return view
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        setupRecycler()
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        binding.recyclerDashboard.adapter = null
+        _binding = null
     }
 
     override fun onAttach(context: Context) {
@@ -54,13 +63,11 @@ class DashboardFragment : Fragment(), DashboardAdapter.AdapterDashboardInterface
     }
 
     //region Helpers
-    private fun setupRecycler(view: View) {
+    private fun setupRecycler() {
         val models = DashboardModel.convertToDash(MyUtilitiesApplication.config!!)
-        val rv = view.findViewById<View>(R.id.recyclerDashboard) as RecyclerView
-        rv.setHasFixedSize(true)
-        val llm = LinearLayoutManager(activity)
-        rv.layoutManager = llm
-        rv.adapter = DashboardAdapter(requireActivity(), models, this)
+        binding.recyclerDashboard.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerDashboard.setHasFixedSize(true)
+        binding.recyclerDashboard.adapter = DashboardAdapter(requireActivity(), models, this)
     }
     //endregion
 
