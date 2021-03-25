@@ -20,6 +20,9 @@ class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener 
 
     private lateinit var usedGas: TextView
 
+    private var _binding: FragmentHeatBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HEAT_FRAGMENT
@@ -30,13 +33,19 @@ class HeatFragment : BaseEditFragment(Constants.HeatType), View.OnClickListener 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val bindings = FragmentHeatBinding.inflate(inflater, container, false)
-        bindings.lifecycleOwner = this
-        bindings.model = model
-        setupBindings(bindings)
-        val view = bindings.root
+        _binding = FragmentHeatBinding.inflate(inflater, container, false)
+        _binding?.lifecycleOwner = this
+        _binding?.model = model
+        setupBindings(binding)
+        val view = binding.root
         setup(view)
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        _binding = null
     }
 
     override fun onAttach(context: Context) {

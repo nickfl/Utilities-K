@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.databinding.FragmentHeatBinding
 import com.brightkey.nickfl.myutilities.databinding.FragmentHydroBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.DateFormatters
@@ -26,6 +27,9 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
     private lateinit var usedOnMid: TextView
     private lateinit var usedOffPeak: TextView
 
+    private var _binding: FragmentHydroBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mTag = FragmentScreen.HYDRO_FRAGMENT
@@ -36,13 +40,19 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val bindings = FragmentHydroBinding.inflate(inflater, container, false)
-        bindings.lifecycleOwner = this
-        bindings.model = model
-        setupBindings(bindings)
-        val view = bindings.root
+        _binding = FragmentHydroBinding.inflate(inflater, container, false)
+        _binding?.lifecycleOwner = this
+        _binding?.model = model
+        setupBindings(binding)
+        val view = binding.root
         setup(view)
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        _binding = null
     }
 
     override fun onAttach(context: Context) {
@@ -80,7 +90,7 @@ class HydroFragment : BaseEditFragment(Constants.HydroType), View.OnClickListene
     }
 
     private fun setupBindings(bindings: FragmentHydroBinding) {
-        paymentTotal = bindings.includeStatementData.layoutPrice.textPriceViewAmount
+        paymentTotal = binding.includeStatementData.layoutPrice.textPriceViewAmount
         paidAmount0 = bindings.includeOnPeak.textAmountViewAmount
         paidAmount0.id = paidOnPeakTag
         bindings.includeOnPeak.textAmountViewName.setText(R.string.hydro_on_peak_pay)
