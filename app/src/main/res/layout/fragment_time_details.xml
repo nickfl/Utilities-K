@@ -1,13 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.TimeDetailsFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTimeDetails"
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/one_time_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray" />
+        tools:context=".fragments.TimeDetailsFragment">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTimeDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

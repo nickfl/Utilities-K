@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
 import com.brightkey.nickfl.myutilities.adapters.TimeListAdapter
+import com.brightkey.nickfl.myutilities.databinding.FragmentTimeDetailsBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants.HydroType
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.TimeListModel
@@ -23,6 +23,9 @@ class TimeDetailsFragment : Fragment() {
     private lateinit var title: String
     private lateinit var adapter: TimeListAdapter
 
+    private var _binding: FragmentTimeDetailsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         detailsType = arguments?.getString("billType") ?: HydroType
@@ -33,9 +36,16 @@ class TimeDetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_time_details, container, false)
-        setupRecycler(view)
-        return view
+        _binding = FragmentTimeDetailsBinding.inflate(inflater, container, false)
+        setupRecycler()
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        binding.recyclerTimeDetails.adapter = null
+        _binding = null
     }
 
     override fun onResume() {
@@ -68,15 +78,13 @@ class TimeDetailsFragment : Fragment() {
 //        adapter.notifyDataSetChanged()
 //    }
 
-    private fun setupRecycler(view: View) {
+    private fun setupRecycler() {
         val utils = RealmHelper.utilitiesForType(detailsType)
         val models = TimeListModel.convertToTimeList(utils, detailsType)
-        val rv = view.findViewById<View>(R.id.recyclerTimeDetails) as RecyclerView
-        rv.setHasFixedSize(true)
-        val llm = LinearLayoutManager(activity)
-        rv.layoutManager = llm
+        binding.recyclerTimeDetails.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerTimeDetails.setHasFixedSize(true)
         adapter = TimeListAdapter(requireActivity(), models)
-        rv.adapter = adapter
+        binding.recyclerTimeDetails.adapter = adapter
     }
     //endregion
 }

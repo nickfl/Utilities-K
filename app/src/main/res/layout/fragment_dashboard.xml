@@ -10,13 +10,13 @@
         android:layout_height="match_parent"
         tools:context=".fragments.DashboardFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDashboard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="1dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
