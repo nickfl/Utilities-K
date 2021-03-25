@@ -119,7 +119,7 @@ class ChartFragment : Fragment() {
         val utils = RealmHelper.utilitiesForType(chartType)
         chartValues = FloatArray(12)
         for (one in utils) {
-            val mnth = getMonthFor(one.datePaid)
+            val mnth = getMonthFor(one.billDate)
             val mnthIndex = allMonths.indexOf(mnth)
             val value = one.amountDue.toFloat() + chartValues[mnthIndex]
             chartValues[mnthIndex] = value

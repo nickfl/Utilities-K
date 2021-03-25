@@ -24,7 +24,7 @@ class RealmHelper private constructor() {
         val utils = realm.where<UtilityBillModel>()
                 .equalTo("utilityType", item.utilityIcon!!)
                 .findAll()
-                .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
+                .filter { PeriodManager.shared.isDateInPeriod(it.billDate) }
         var units = 0L
         var total = 0.0
         utils.forEach {
@@ -76,7 +76,7 @@ class RealmHelper private constructor() {
             val result = realm.where<UtilityBillModel>()
                     .equalTo("utilityType", type)
                     .findAll()
-                    .filter { PeriodManager.shared.isDateInPeriod(it.datePaid) }
+                    .filter { PeriodManager.shared.isDateInPeriod(it.billDate) }
             val utils: ArrayList<UtilityBillModel> = ArrayList()
             result.forEach { utils.add(it) }
             return utils
