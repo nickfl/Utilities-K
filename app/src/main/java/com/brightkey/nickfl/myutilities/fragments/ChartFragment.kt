@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.activities.MainActivity
+import com.brightkey.nickfl.myutilities.databinding.FragmentChartBinding
 import com.brightkey.nickfl.myutilities.helpers.Constants
 import com.brightkey.nickfl.myutilities.helpers.RealmHelper
 import com.brightkey.nickfl.myutilities.models.ChartModel
@@ -34,6 +35,9 @@ class ChartFragment : Fragment() {
     private var chartColor: Int = Color.GREEN// use this.utilityList[index].vendorColor
     private var chartType: String = Constants.HydroType
 
+    private var _binding: FragmentChartBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf")
@@ -51,11 +55,17 @@ class ChartFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_chart, container, false)
+        _binding = FragmentChartBinding.inflate(inflater, container, false)
         cleanup()
         loadData()
-        setup(view)
-        return view
+        setup()
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Fixing memory leak
+        _binding = null
     }
 
     override fun onResume() {
@@ -74,8 +84,8 @@ class ChartFragment : Fragment() {
     private fun cleanup() {
     }
 
-    private fun setup(view: View) {
-        chart = view.findViewById(R.id.chart)
+    private fun setup() {
+        chart = binding.chart
 
         // disable interaction
         chart?.setTouchEnabled(false)
