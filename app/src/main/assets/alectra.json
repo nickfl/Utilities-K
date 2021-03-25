@@ -298,5 +298,35 @@
         "amountType0": 20.56,
         "amountType1": 19.87,
         "amountType2": 95.51
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Oct 22, 2020",
+        "dueDate": "Nov 16, 2020",
+        "datePaid": "Oct 27, 2020",
+        "amountDue": 121.06,
+        "amountType0": 17.95,
+        "amountType1": 17.88,
+        "amountType2": 66.95
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Nov 20, 2020",
+        "dueDate": "Dec 14, 2020",
+        "datePaid": "Nov 27, 2020",
+        "amountDue": 114.96,
+        "amountType0": 23.47,
+        "amountType1": 19.77,
+        "amountType2": 54.60
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "Dec 21, 2020",
+        "dueDate": "Jan 14, 2021",
+        "datePaid": "Jan 06, 2021",
+        "amountDue": 104.19,
+        "amountType0": 87.07,
+        "amountType1": 0.00,
+        "amountType2": 0.00
     }
 ]
