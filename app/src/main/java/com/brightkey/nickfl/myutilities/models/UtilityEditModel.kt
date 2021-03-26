@@ -1,7 +1,7 @@
 package com.brightkey.nickfl.myutilities.models
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class UtilityEditModel(var index: Int = 0,

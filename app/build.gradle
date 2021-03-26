@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'realm-android'
@@ -38,9 +38,6 @@ android {
         viewBinding = true
     }
 
-    androidExtensions {
-        experimental = true
-    }
 }
 
 dependencies {
@@ -70,7 +67,6 @@ dependencies {
 
     // livedata
     implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$life_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$life_version"
 

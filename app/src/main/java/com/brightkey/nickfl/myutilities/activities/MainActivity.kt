@@ -24,6 +24,7 @@ import com.brightkey.nickfl.myutilities.MyUtilitiesApplication
 import com.brightkey.nickfl.myutilities.MyUtilitiesApplication.Companion.context
 import com.brightkey.nickfl.myutilities.R
 import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
+import com.brightkey.nickfl.myutilities.databinding.ActivityMainBinding
 import com.brightkey.nickfl.myutilities.fragments.*
 import com.brightkey.nickfl.myutilities.helpers.*
 import com.brightkey.nickfl.myutilities.helpers.Constants.HeatType
@@ -35,7 +36,6 @@ import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -79,12 +79,16 @@ class MainActivity : AppCompatActivity(),
     private var chartItemSelection = Color.BLUE
     private var periodItemSelection = Color.BLUE
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var toolbar: Toolbar
+
     //region Activity Overrides
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         periodItemSelection = getColor(R.color.colorAccent)
@@ -254,7 +258,7 @@ class MainActivity : AppCompatActivity(),
     // endregion
 
     //region Helpers
-    private fun topFragment(): BaseEditFragment? {
+    private fun topFragment(): BaseEditFragment {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseEditFragment
     }
@@ -438,13 +442,13 @@ class MainActivity : AppCompatActivity(),
 
     private fun showConfirmationDelete() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.myErrorDialog))
-        val message = getString(R.string.sure_delete_bill, topFragment()?.getBillType ?: "Utility")
+        val message = getString(R.string.sure_delete_bill, topFragment().getBillType ?: "Utility")
         builder.setMessage(message)
                 .setTitle(R.string.attention)
                 .setIcon(R.drawable.warning)
                 .setNegativeButton(R.string.Cancel, null)
                 .setPositiveButton(R.string.action_delete_bill) {_, _ ->
-                    val count = topFragment()?.removeBill() ?: 0
+                    val count = topFragment().removeBill()
                     if (count > 0) {
                         onBackPressed()
                     } else {
@@ -503,7 +507,7 @@ class MainActivity : AppCompatActivity(),
     // OnDateSetListener
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         val cal = GregorianCalendar(year, month, day)
-        topFragment()?.currentDateView?.text = DateFormatters.dateStringFromCalendar(cal)
+        topFragment().currentDateView?.text = DateFormatters.dateStringFromCalendar(cal)
     }
 
     // ExitFragmentListener
