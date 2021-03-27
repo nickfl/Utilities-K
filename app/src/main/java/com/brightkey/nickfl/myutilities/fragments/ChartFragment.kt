@@ -29,7 +29,8 @@ class ChartFragment : Fragment() {
     private val allMonths = arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
 
     private val maxBars = 12
-    private var chart: HorizontalBarChart? = null
+    private var _chart: HorizontalBarChart? = null
+    private val chart get() = _chart!!
 
     private var chartValues: FloatArray = FloatArray(12)
     private var chartColor: Int = Color.GREEN// use this.utilityList[index].vendorColor
@@ -65,6 +66,7 @@ class ChartFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         // Fixing memory leak
+        _chart = null
         _binding = null
     }
 
@@ -76,8 +78,8 @@ class ChartFragment : Fragment() {
         cleanup()
 
         setData(chartValues)
-        chart?.setFitBars(true)
-        chart?.invalidate()
+        _chart?.setFitBars(true)
+        _chart?.invalidate()
     }
 
     //region start Helpers
@@ -85,44 +87,44 @@ class ChartFragment : Fragment() {
     }
 
     private fun setup() {
-        chart = binding.chart
+        _chart = binding.chart
 
         // disable interaction
-        chart?.setTouchEnabled(false)
+        _chart?.setTouchEnabled(false)
 
-        chart?.setDrawBarShadow(false)
-        chart?.setDrawValueAboveBar(true)
-        chart?.description?.isEnabled = false
+        _chart?.setDrawBarShadow(false)
+        _chart?.setDrawValueAboveBar(true)
+        _chart?.description?.isEnabled = false
 
         // months
-        chart?.setMaxVisibleValueCount(maxBars + 1)
-        chart?.xAxis?.valueFormatter = YAxisFormatter()
+        _chart?.setMaxVisibleValueCount(maxBars + 1)
+        _chart?.xAxis?.valueFormatter = YAxisFormatter()
 
         // scaling can now only be done on x- and y-axis separately
-        chart?.setPinchZoom(false)
+        _chart?.setPinchZoom(false)
 
-        chart?.setDrawGridBackground(false)
+        _chart?.setDrawGridBackground(false)
 
-        val xl = chart?.xAxis
+        val xl = chart.xAxis
         xl?.position = XAxis.XAxisPosition.BOTTOM
 //        xl?.typeface = setTypeface(tfLight)
         xl?.setDrawAxisLine(true)
         xl?.setDrawGridLines(false)
 
-        val yl = chart?.axisLeft
+        val yl = chart.axisLeft
 //        yl?.typeface = tfLight
         yl?.setDrawAxisLine(true)
         yl?.setDrawGridLines(true)
         yl?.axisMinimum = 0f // this replaces setStartAtZero(true)
 
-        val yr = chart?.axisRight
+        val yr = chart.axisRight
 //        yr?.typeface = tfLight
         yr?.setDrawAxisLine(true)
         yr?.setDrawGridLines(false)
         yr?.axisMinimum = 0f // this replaces setStartAtZero(true)
 
-        chart?.setFitBars(true)
-        chart?.animateY(1500)
+        _chart?.setFitBars(true)
+        _chart?.animateY(1500)
     }
 
     private fun loadData() {
@@ -156,12 +158,12 @@ class ChartFragment : Fragment() {
 
         val set1: BarDataSet
 
-        val chartData = chart?.data
+        val chartData = chart.data
         if (chartData != null && chartData.dataSetCount > 0) {
             set1 = chartData.getDataSetByIndex(0) as BarDataSet
             set1.values = entries
             chartData.notifyDataChanged()
-            chart?.notifyDataSetChanged()
+            _chart?.notifyDataSetChanged()
         } else {
             set1 = BarDataSet(entries, chartType)
             set1.setDrawIcons(false)
@@ -174,8 +176,8 @@ class ChartFragment : Fragment() {
             data.setValueTextSize(10f)
 //            data.setValueTypeface(tfLight)
             data.barWidth = barWidth
-            chart?.data = data
-            chart?.legend?.isEnabled = false
+            _chart?.data = data
+            _chart?.legend?.isEnabled = false
         }
     }
     //endregion
