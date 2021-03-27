@@ -11,13 +11,12 @@ android {
 
     defaultConfig {
         applicationId "com.brightkey.nickfl.myutilities"
-        minSdkVersion 25
+        minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -37,7 +36,6 @@ android {
         dataBinding = true
         viewBinding = true
     }
-
 }
 
 dependencies {
