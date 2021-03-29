@@ -87,10 +87,12 @@ class RealmStorageRecords {
             return true
         }
 
+        // to make it work in manifest
+        // added 'requestLegacyExternalStorage="true"'
         private fun getPublicDownloadsStorageDir(folderName: String): File1? {
-            // Get the directory for the user's public Downloads directory.
-            val folder = File1(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS), folderName)
+            val folder = File1(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), folderName)
+            val line = Exception().stackTrace[0].lineNumber + 1
+            Timber.i("[$line] folder: ${folder.absolutePath}")
             return if (!folder.exists() && !folder.mkdirs()) {
                 null
             } else folder

@@ -546,6 +546,7 @@ class MainActivity : AppCompatActivity(),
             }
             return
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
     // endregion
 
