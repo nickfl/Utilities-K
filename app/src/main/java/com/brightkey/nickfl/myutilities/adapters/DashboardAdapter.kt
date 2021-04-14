@@ -24,9 +24,8 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
     }
 
     //region RecyclerView Methods
-    override fun getItemViewType(position: Int): Int {
-        return 0
-    }
+    override fun getItemCount(): Int = utilityList.size
+    override fun getItemViewType(position: Int): Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = parent.inflate(R.layout.list_dash_item)
@@ -68,10 +67,6 @@ class DashboardAdapter(private val mActivity: Activity, private val utilityList:
     }
 
     private fun bindClickListeners(itemViewHolder: DashboardsViewHolder, listItem: DashboardModel, position: Int) {}
-
-    override fun getItemCount(): Int {
-        return utilityList.size
-    }
     //endregion
 
     //region View Holders

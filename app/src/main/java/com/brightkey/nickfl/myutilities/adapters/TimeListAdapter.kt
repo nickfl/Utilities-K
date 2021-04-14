@@ -26,9 +26,8 @@ class TimeListAdapter(private val mActivity: Activity, private val paidList: Lis
     }
 
     //region RecyclerView Methods
-    override fun getItemViewType(position: Int): Int {
-        return 0
-    }
+    override fun getItemCount(): Int = paidList.size
+    override fun getItemViewType(position: Int): Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = parent.inflate(R.layout.list_list_color_item)
@@ -65,10 +64,6 @@ class TimeListAdapter(private val mActivity: Activity, private val paidList: Lis
     }
 
     private fun bindClickListeners(listViewHolder: TimeListViewHolder, userItem: TimeListModel, position: Int) {}
-
-    override fun getItemCount(): Int {
-        return paidList.size
-    }
     //endregion
 
     //region View Holders
