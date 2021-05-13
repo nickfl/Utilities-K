@@ -20,9 +20,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-/**
- * A simple [Fragment] subclass.
- */
 class ImportFragment : Fragment() {
 
     private lateinit var mTag: FragmentScreen

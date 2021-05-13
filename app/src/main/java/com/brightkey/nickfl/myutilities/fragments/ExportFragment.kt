@@ -21,9 +21,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-/**
- * A simple [Fragment] subclass.
- */
 class ExportFragment : Fragment() {
 
     lateinit var mTag: FragmentScreen
