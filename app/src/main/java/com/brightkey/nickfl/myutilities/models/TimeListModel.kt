@@ -21,7 +21,7 @@ class TimeListModel internal constructor(var utilityIcon: String    // hydro_bil
     }
 
     fun screenType(): FragmentScreen {
-        val iconStr = utilityIcon.toLowerCase(Locale.ROOT)
+        val iconStr = utilityIcon.lowercase()
         if (iconStr.contains(Constants.HydroType)) {
             return FragmentScreen.HYDRO_FRAGMENT
         }

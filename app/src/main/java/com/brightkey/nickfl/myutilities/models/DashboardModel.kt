@@ -24,7 +24,7 @@ class DashboardModel internal constructor(var utilityIcon: String         // hyd
     }
 
     fun iconResource(): Int {
-        val iconStr = utilityIcon.toLowerCase(Locale.ROOT)
+        val iconStr = utilityIcon.lowercase()
         if (iconStr.contains(Constants.HydroType)) {
             return R.drawable.hydro_bill
         }
