@@ -40,8 +40,10 @@ class ExportFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentExportBinding.inflate(inflater, container, false)
         setup()
@@ -67,7 +69,10 @@ class ExportFragment : Fragment() {
         super.onResume()
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.w("[$line] onResume()")
-        (activity as MainActivity).setCustomOptions(R.menu.timeline, getString(R.string.drawer_export))
+        (activity as MainActivity).setCustomOptions(
+            R.menu.timeline,
+            getString(R.string.drawer_export)
+        )
         cleanup()
     }
 
@@ -82,7 +87,7 @@ class ExportFragment : Fragment() {
         }
 
         showProgress()
-        CoroutineScope(Dispatchers.IO).launch{
+        CoroutineScope(Dispatchers.IO).launch {
             val res = RealmStorageRecords.exportRecords()
             handler(res, "Export")
         }
@@ -91,10 +96,18 @@ class ExportFragment : Fragment() {
     private fun handler(result: Boolean, action: String) {
         activity?.runOnUiThread {
             if (result) {
-                Toast.makeText(MyUtilitiesApplication.context, "$action Success!", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    MyUtilitiesApplication.context,
+                    "$action Success!",
+                    Toast.LENGTH_LONG
+                ).show()
                 exitListener?.onFragmentExit()
             } else {
-                Toast.makeText(MyUtilitiesApplication.context, "$action Failed...", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    MyUtilitiesApplication.context,
+                    "$action Failed...",
+                    Toast.LENGTH_LONG
+                ).show()
             }
             hideProgress()
         }
