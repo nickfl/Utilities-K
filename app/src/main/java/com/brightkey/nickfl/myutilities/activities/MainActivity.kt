@@ -36,18 +36,19 @@ import com.brightkey.nickfl.myutilities.models.DashboardModel
 import com.brightkey.nickfl.myutilities.models.UtilityEditModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 
 class MainActivity : AppCompatActivity(),
-        NavigationView.OnNavigationItemSelectedListener,
-        DrawerLayout.DrawerListener,
-        DashboardFragment.OnDashboardInteractionListener,
-        DatePickerDialog.OnDateSetListener,
-        ExitFragmentListener,
-        ActivityCompat.OnRequestPermissionsResultCallback {
+    NavigationView.OnNavigationItemSelectedListener,
+    DrawerLayout.DrawerListener,
+    DashboardFragment.OnDashboardInteractionListener,
+    DatePickerDialog.OnDateSetListener,
+    ExitFragmentListener,
+    ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
@@ -126,11 +127,21 @@ class MainActivity : AppCompatActivity(),
                 }
                 if (itemId0 == R.id.chart_choice_hydro) {
                     when (currentModelItem?.utilityIcon ?: HydroType) {
-                        HydroType -> { checkedItem(it.getItem(0)) }
-                        HeatType -> { checkedItem(it.getItem(1)) }
-                        WaterType -> { checkedItem(it.getItem(2)) }
-                        PhoneType -> { checkedItem(it.getItem(3)) }
-                        else -> { checkedItem(it.getItem(0)) }
+                        HydroType -> {
+                            checkedItem(it.getItem(0))
+                        }
+                        HeatType -> {
+                            checkedItem(it.getItem(1))
+                        }
+                        WaterType -> {
+                            checkedItem(it.getItem(2))
+                        }
+                        PhoneType -> {
+                            checkedItem(it.getItem(3))
+                        }
+                        else -> {
+                            checkedItem(it.getItem(0))
+                        }
                     }
                 }
             }
@@ -140,10 +151,18 @@ class MainActivity : AppCompatActivity(),
 
     private fun checkedPeriod(menu: Menu, periods: Periods) {
         val item = when (periods) {
-            Periods.Current -> { menu.getItem(0) }
-            Periods.Year2020 -> { menu.getItem(1) }
-            Periods.Year2019 -> { menu.getItem(2) }
-            Periods.Year2018 -> { menu.getItem(3) }
+            Periods.Current -> {
+                menu.getItem(0)
+            }
+            Periods.Year2020 -> {
+                menu.getItem(1)
+            }
+            Periods.Year2019 -> {
+                menu.getItem(2)
+            }
+            Periods.Year2018 -> {
+                menu.getItem(3)
+            }
         }
         val s = SpannableString(item?.title)
         s.setSpan(ForegroundColorSpan(periodItemSelection), 0, s.length, 0)
@@ -332,7 +351,8 @@ class MainActivity : AppCompatActivity(),
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
         drawer.addDrawerListener(this)
         toggle.syncState()
     }
@@ -344,9 +364,15 @@ class MainActivity : AppCompatActivity(),
                 val cal = GregorianCalendar()
                 date.text = DateFormatters.dateStringFromCalendar(cal)
             }
-            Periods.Year2020 -> { date.text = getString(R.string.Year2020) }
-            Periods.Year2019 -> { date.text = getString(R.string.Year2019) }
-            Periods.Year2018 -> { date.text = getString(R.string.Year2018) }
+            Periods.Year2020 -> {
+                date.text = getString(R.string.Year2020)
+            }
+            Periods.Year2019 -> {
+                date.text = getString(R.string.Year2019)
+            }
+            Periods.Year2018 -> {
+                date.text = getString(R.string.Year2018)
+            }
         }
     }
 
@@ -386,25 +412,29 @@ class MainActivity : AppCompatActivity(),
         fabWater = findViewById<View>(R.id.fab_water) as FloatingActionButton
         fabWater.setOnClickListener {
             fabAction()
-            val action = DashboardFragmentDirections.actionDashboardFragmentToWaterFragment(UtilityEditModel())
+            val action =
+                DashboardFragmentDirections.actionDashboardFragmentToWaterFragment(UtilityEditModel())
             navController.navigate(action)
         }
         fabHeat = findViewById<View>(R.id.fab_heat) as FloatingActionButton
         fabHeat.setOnClickListener {
             fabAction()
-            val action = DashboardFragmentDirections.actionDashboardFragmentToHeatFragment(UtilityEditModel())
+            val action =
+                DashboardFragmentDirections.actionDashboardFragmentToHeatFragment(UtilityEditModel())
             navController.navigate(action)
         }
         fabHydro = findViewById<View>(R.id.fab_hydro) as FloatingActionButton
         fabHydro.setOnClickListener {
             fabAction()
-            val action = DashboardFragmentDirections.actionDashboardFragmentToHydroFragment(UtilityEditModel())
+            val action =
+                DashboardFragmentDirections.actionDashboardFragmentToHydroFragment(UtilityEditModel())
             navController.navigate(action)
         }
         fabPhone = findViewById<View>(R.id.fab_phone) as FloatingActionButton
         fabPhone.setOnClickListener {
             fabAction()
-            val action = DashboardFragmentDirections.actionDashboardFragmentToPhoneFragment(UtilityEditModel())
+            val action =
+                DashboardFragmentDirections.actionDashboardFragmentToPhoneFragment(UtilityEditModel())
             navController.navigate(action)
         }
 
@@ -436,7 +466,7 @@ class MainActivity : AppCompatActivity(),
         Geometry.moveButtonToY(fabHydro, hydroY, null)
         Geometry.moveButtonToY(fabPhone, phoneY, null)
         val res = if (buttonsVisible) R.drawable.ic_minus
-                        else R.drawable.ic_plus
+        else R.drawable.ic_plus
         fabMain.setImageResource(res)
     }
 
@@ -444,17 +474,17 @@ class MainActivity : AppCompatActivity(),
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.myErrorDialog))
         val message = getString(R.string.sure_delete_bill, topFragment().getBillType ?: "Utility")
         builder.setMessage(message)
-                .setTitle(R.string.attention)
-                .setIcon(R.drawable.warning)
-                .setNegativeButton(R.string.Cancel, null)
-                .setPositiveButton(R.string.action_delete_bill) {_, _ ->
-                    val count = topFragment().removeBill()
-                    if (count > 0) {
-                        onBackPressed()
-                    } else {
-                        returnToDashboard()
-                    }
+            .setTitle(R.string.attention)
+            .setIcon(R.drawable.warning)
+            .setNegativeButton(R.string.Cancel, null)
+            .setPositiveButton(R.string.action_delete_bill) { _, _ ->
+                val count = topFragment().removeBill()
+                if (count > 0) {
+                    onBackPressed()
+                } else {
+                    returnToDashboard()
                 }
+            }
 
         val alert = builder.create()
         alert.show()
@@ -500,7 +530,8 @@ class MainActivity : AppCompatActivity(),
     override fun onDashboardInteraction(itemId: String) {
         val line = Exception().stackTrace[0].lineNumber + 1
         Timber.i("[$line] onDashboardInteraction.itemId: $itemId")
-        val action = DashboardFragmentDirections.actionDashboardFragmentToTimeDetailsFragment(itemId)
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToTimeDetailsFragment(itemId)
         navController.navigate(action)
     }
 
@@ -525,28 +556,33 @@ class MainActivity : AppCompatActivity(),
     override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
     override fun onDrawerStateChanged(newState: Int) {}
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         if (grantResults[0] != PERMISSION_GRANTED) {
             return
         }
-        if (requestCode == Constants.REQUEST_READ_PERMISSIONS) {
-//            showProgress()
-            GlobalScope.launch {
-                val res = RealmStorageRecords.importRecords()
-                handler(res, "Import")
+
+        when (requestCode) {
+            Constants.REQUEST_READ_PERMISSIONS -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val res = RealmStorageRecords.importRecords()
+                    handler(res, "Import")
+                }
+                return
             }
-            return
-        }
-        if (requestCode == Constants.REQUEST_WRITE_PERMISSIONS) {
-//            showProgress()
-            GlobalScope.launch {
-                val res = RealmStorageRecords.exportRecords()
-                handler(res, "Export")
+            Constants.REQUEST_WRITE_PERMISSIONS -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val res = RealmStorageRecords.exportRecords()
+                    handler(res, "Export")
+                }
+                return
             }
-            return
+            else -> {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
     // endregion
 
@@ -558,7 +594,6 @@ class MainActivity : AppCompatActivity(),
             } else {
                 Toast.makeText(context, "$action Failed...", Toast.LENGTH_LONG).show()
             }
-//            hideProgress()
         }
     }
 }

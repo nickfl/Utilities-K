@@ -17,7 +17,8 @@ import com.brightkey.nickfl.myutilities.adapters.ExitFragmentListener
 import com.brightkey.nickfl.myutilities.databinding.FragmentExportBinding
 import com.brightkey.nickfl.myutilities.helpers.PermissionHelper
 import com.brightkey.nickfl.myutilities.helpers.RealmStorageRecords
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -81,7 +82,7 @@ class ExportFragment : Fragment() {
         }
 
         showProgress()
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch{
             val res = RealmStorageRecords.exportRecords()
             handler(res, "Export")
         }
