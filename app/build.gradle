@@ -71,8 +71,3 @@ dependencies {
     //memory leak checkup
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 }
-
-repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
