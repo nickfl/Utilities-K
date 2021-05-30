@@ -96,15 +96,16 @@ class MainActivity : AppCompatActivity(),
 
         setupFABs()
         setupNavigation()
-        setupDrawer(toolbar)
+        setupDrawer()
         setupHeader()
+
         currentChartType = HydroType
         currentModelItem = findModelItem(currentChartType)
     }
 
     //device back button pressed
     override fun onBackPressed() {
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawer = binding.drawerLayout
         if (drawer.isDrawerOpen(Gravity.LEFT)) {
             drawer.closeDrawer(Gravity.LEFT)
             return
@@ -269,8 +270,7 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawer.closeDrawer(Gravity.LEFT)
+        binding.drawerLayout.closeDrawer(Gravity.LEFT)
         return true
     }
 
@@ -345,11 +345,11 @@ class MainActivity : AppCompatActivity(),
         setCustomOptions(R.menu.main, getString(R.string.title_myutility))
     }
 
-    private fun setupDrawer(toolbar: Toolbar) {
+    private fun setupDrawer() {
 //        NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout)
 //        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
 
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawer = binding.drawerLayout
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -383,7 +383,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun setupHeader() {
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navigationView = binding.navView
         navigationView.setNavigationItemSelectedListener(this)
 
 //        setupActionBarWithNavController(navController, appBarConfiguration)
@@ -395,8 +395,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun updateHeader() {
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        val header = navigationView.getHeaderView(0)
+        val header = binding.navView.getHeaderView(0)
         updateDate(header)
         updateTotal(header)
     }
