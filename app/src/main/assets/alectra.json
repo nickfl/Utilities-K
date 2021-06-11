@@ -368,5 +368,15 @@
         "amountType0": 91.10,
         "amountType1": 0.00,
         "amountType2": 0.00
+    },
+    {
+        "utilityType": "hydro_bill",
+        "billDate": "May 21, 2021",
+        "dueDate": "Jun 14, 2021",
+        "datePaid": "Jun 01, 2021",
+        "amountDue": 115.37,
+        "amountType0": 78.12,
+        "amountType1": 0.00,
+        "amountType2": 0.00
     }
 ]
