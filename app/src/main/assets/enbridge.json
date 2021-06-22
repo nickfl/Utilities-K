@@ -398,5 +398,15 @@
         "amountType0": 8.13,
         "amountType1": 0.00,
         "amountType2": 0.00
+    },
+    {
+        "utilityType": "heat_bill",
+        "billDate": "Jun 19, 2021",
+        "dueDate": "Jul 12, 2021",
+        "datePaid": "Jun 21, 2021",
+        "amountDue": 80.92,
+        "amountType0": 4.90,
+        "amountType1": 0.00,
+        "amountType2": 0.00
     }
 ]
